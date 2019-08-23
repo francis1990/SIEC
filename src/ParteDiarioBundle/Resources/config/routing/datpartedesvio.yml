@@ -1,0 +1,29 @@
+partedesvio_index:
+    path:     /
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:index" }
+    methods:  GET
+
+partedesvio_show:
+    path:     /{id}/show
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:show" }
+    methods:  GET
+
+partedesvio_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:new" }
+    methods:  [GET, POST]
+
+partedesvio_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:edit" }
+    methods:  [GET, POST]
+
+partedesvio_delete:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:delete" }
+    methods:  [GET, POST]
+
+partedesvio_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteDesvio:listar" }
+    methods:  [GET, POST]

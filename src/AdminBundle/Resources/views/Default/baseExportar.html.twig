@@ -1,0 +1,37 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th>
+                <img src="{{ app.request.getSchemeAndHttpHost() ~ asset('bundles/epia/img/Logo.png') }}" style="height: 70px; width: 160px;">
+            </th>
+            <th colspan="{{ (block('colspan') - 1) }}">
+                <div class="row text-center pi-price margin-top-10">
+                    <h4><b>{% if empresa is not null %}{{ empresa.nombEmpresa | trans }}{% endif %}</b></h4>
+                </div>
+                <div class="row text-center pi-price">
+                    <h4>{% if empresa is not null %}{{ empresa.direccEmpresa | trans }}{% endif %}</h4>
+                </div>
+            </th>
+        </tr>
+        <tr>
+            <th colspan="{% block colspan 2 %}">{% block title %}{% endblock %}</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+{% block content %}{% endblock %}
+
+<table border="1" width="100%">
+    <tbody>
+        <tr>
+            <td colspan="{{ block('colspan') }}">
+                <p><b>Impreso por:</b> {{ app.user.usuario }} </p>
+                <p><b>Fecha: </b> {{ "now"|date("d/m/Y h:i:s a") }} </p>
+            </td>
+        </tr>
+    </tbody>
+</table>

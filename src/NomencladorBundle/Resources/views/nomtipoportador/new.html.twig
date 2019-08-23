@@ -1,0 +1,20 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_insert.html.twig' %}
+{% block li_link %}
+{% endblock %}
+{% block li_actual %}
+{% endblock %}
+{% block link_actual %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('tipoportador_new') }}">  Tipo de Portador </a></li>
+{% endblock %}
+{% block cerrar_index %} {{ path('tipoportador_index') }} {% endblock %}
+{% block link_insert %}
+    data-ajax-url="{{ path('tipoportador_insert') }}" id="btn_addtipoportador"
+{% endblock %}
+{% block link_aplicar %}   {% endblock %}
+
+
+

@@ -1,0 +1,44 @@
+<?php
+
+namespace ParteDiarioBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * v
+ *
+ * @ORM\Table(name="dat_parte_portador_reloj")
+ * @ORM\Entity(repositoryClass="ParteDiarioBundle\Repository\DatPartePortadorRelojRepository")
+ */
+class DatPartePortadorReloj
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var
+     * @ORM\ManyToOne(targetEntity="ParteDiarioBundle\Entity\DatPartePortador", inversedBy="listReloj")
+     */
+    private $parte;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="reloj", type="string", length=100)
+     */
+    private $reloj;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="consumo", type="float")
+     */
+    private $consumo;
+
+}

@@ -1,0 +1,50 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+{% block titulo_cont %}
+    {% block bread %}
+
+    {% endblock %}
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+
+{% block tabletab %}
+        <table aria-describedby="example1_info" id="example1"
+               class="table table-bordered table-striped table-hover table-heading table-datatable" {% block listar %} {% endblock %}>
+            <thead>
+
+            </thead>
+            <tbody aria-relevant="all" aria-live="polite" role="alert">
+
+            </tbody>
+        </table>
+        <div class="col-md-12">
+            <div class="dataTables_info col-md-6" id="DataTables_Table_0_info">Mostrando  {{  cant }} de  {{  count }} </div>
+            <div class="box-footer clearfix col-md-6">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a id="pag_1" href="#">«</a></li>
+                    <li><a id="pag_2" href="#">»</a></li>
+                </ul>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+
+            jQuery('table').DataTable({
+                "bStateSave": true
+            });
+            jQuery('table').addClass('table-hover');
+            jQuery('table').addClass('table-condensed');
+            jQuery('td').css('cursor', 'pointer');
+            jQuery("td:not(.actions)").mousedown(function () {
+                location.href = $(this).parent().find('.fa-pencil-square-o').parent().attr('href');
+            });
+
+        </script>
+    {% endblock %}
+{% endblock %}

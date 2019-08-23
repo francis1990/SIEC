@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatParteAseguramiento</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idparte</th>
+                <td>{{ datParteAseguramiento.idparte }}</td>
+            </tr>
+            <tr>
+                <th>Existencia</th>
+                <td>{{ datParteAseguramiento.existencia }}</td>
+            </tr>
+            <tr>
+                <th>Demanda</th>
+                <td>{{ datParteAseguramiento.demanda }}</td>
+            </tr>
+            <tr>
+                <th>Reserva</th>
+                <td>{{ datParteAseguramiento.reserva }}</td>
+            </tr>
+            <tr>
+                <th>Cobertura</th>
+                <td>{{ datParteAseguramiento.cobertura }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parteaseguramiento_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('parteaseguramiento_edit', { 'id': datParteAseguramiento.idparte }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,25 @@
+services:
+#    parte_diario.example:
+#        class: ParteDiarioBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+
+    parte_diario.form.dat_consumo_aseguramiento:
+        class: ParteDiarioBundle\Form\DatConsumoAseguramientoType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type }
+
+    parte_diario.dat_consumo_aseguramiento:
+            class: ParteDiarioBundle\Services\DatParteConsumoAseguramientoService
+            arguments: [@doctrine.orm.entity_manager,@service_container]
+
+    parte_diario.comun_service:
+                class: ParteDiarioBundle\Services\ComunService
+                arguments: [@doctrine.orm.entity_manager,@service_container]
+
+    parte_diarionivel_actv:
+                class: ParteDiarioBundle\Services\DatParteNivelActvService
+                arguments: [@doctrine.orm.entity_manager,@service_container]
+    planes_partes:
+                class: ParteDiarioBundle\Services\ComunService
+                arguments: [@doctrine.orm.entity_manager]

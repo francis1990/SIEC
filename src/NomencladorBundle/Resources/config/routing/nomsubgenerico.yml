@@ -1,0 +1,48 @@
+subgenerico_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:index",remember:null }
+    methods:  GET
+subgenerico_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:listar" }
+    methods:  [GET, POST]
+
+subgenerico_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:show" }
+    methods:  GET
+
+subgenerico_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:new" }
+    methods:  [GET, POST]
+
+subgenerico_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:edit" }
+    methods:  [GET, POST]
+
+subgenerico_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:delete" }
+    methods:  DELETE
+
+subgenerico_eliminar:
+    path:      /subgenerico_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:subgenericoEliminar" }
+    methods:  [GET, POST]
+
+subgenerico_porgenerico:
+    path:     /porgenerico/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:findByIdGenerico" }
+    methods:  [GET, POST]
+
+subgenerico_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:SetActivo" }
+    methods:  [GET, POST]
+
+subgenerico_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomSubgenerico:exportar" }
+    methods:  [GET, POST]

@@ -1,0 +1,22 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+    {% block menu_lateral %}
+        <aside class="left-side">
+            {{ include('AdminBundle:Default:menu_lateral.html.twig') }}
+        </aside>
+    {% endblock %}
+{% block contenido %}
+    {% block tabletab %}
+    {% endblock %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('table').addClass('table-hover');
+            jQuery('table').addClass('table-condensed');
+            jQuery(".chosen-select").chosen();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,119 @@
+ALTER TABLE adm_usuario ADD idsession VARCHAR(255) DEFAULT NULL, ADD contbloqueo INT DEFAULT NULL, CHANGE logueado logueado TINYINT(1) DEFAULT NULL;
+
+ALTER TABLE dat_parte_cuentascobrar CHANGE factura factura VARCHAR(50) DEFAULT NULL;
+
+ALTER TABLE nom_aseguramiento ADD precio_cuc DOUBLE PRECISION DEFAULT NULL, ADD precio_cup DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE nom_cuentacontable ADD ctaxcobrar TINYINT(1) NOT NULL;
+
+ALTER TABLE dat_plan_acopio CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL, CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL,
+CHANGE abril abril DOUBLE PRECISION DEFAULT NULL, CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL,
+CHANGE junio junio DOUBLE PRECISION DEFAULT NULL, CHANGE julio julio DOUBLE PRECISION DEFAULT NULL,
+CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL, CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL, CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE dat_plan_acopio CHANGE cantidad cantidad DOUBLE PRECISION NOT NULL;
+
+ALTER TABLE dat_plan_acopiodestino CHANGE cantidad cantidad DOUBLE PRECISION NOT NULL,
+CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL, CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL,
+CHANGE abril abril DOUBLE PRECISION DEFAULT NULL, CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL,
+CHANGE junio junio DOUBLE PRECISION DEFAULT NULL, CHANGE julio julio DOUBLE PRECISION DEFAULT NULL,
+CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL, CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL, CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL, CHANGE excluir excluir VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE dat_plan_aseguramiento CHANGE cantidad cantidad DOUBLE PRECISION NOT NULL,
+CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL, CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL,
+CHANGE abril abril DOUBLE PRECISION DEFAULT NULL, CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL,
+CHANGE junio junio DOUBLE PRECISION DEFAULT NULL, CHANGE julio julio DOUBLE PRECISION DEFAULT NULL,
+CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL, CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL, CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE dat_plan_portador CHANGE cantidad cantidad DOUBLE PRECISION NOT NULL,
+CHANGE enero enero DOUBLE PRECISION DEFAULT NULL, CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL,
+CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL, CHANGE abril abril DOUBLE PRECISION DEFAULT NULL,
+CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL, CHANGE junio junio DOUBLE PRECISION DEFAULT NULL,
+CHANGE julio julio DOUBLE PRECISION DEFAULT NULL, CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL,
+CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL, CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL,
+CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL, CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE dat_plan_produccion CHANGE cantidad cantidad DOUBLE PRECISION NOT NULL,
+CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL, CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL,
+CHANGE abril abril DOUBLE PRECISION DEFAULT NULL, CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL,
+CHANGE junio junio DOUBLE PRECISION DEFAULT NULL, CHANGE julio julio DOUBLE PRECISION DEFAULT NULL,
+CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL, CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL, CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL,
+CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE dat_plan_venta CHANGE valor valor DOUBLE PRECISION NOT NULL, CHANGE febrero febrero DOUBLE PRECISION DEFAULT NULL,
+CHANGE marzo marzo DOUBLE PRECISION DEFAULT NULL, CHANGE abril abril DOUBLE PRECISION DEFAULT NULL,
+CHANGE mayo mayo DOUBLE PRECISION DEFAULT NULL, CHANGE junio junio DOUBLE PRECISION DEFAULT NULL,
+CHANGE julio julio DOUBLE PRECISION DEFAULT NULL, CHANGE agosto agosto DOUBLE PRECISION DEFAULT NULL,
+CHANGE septiembre septiembre DOUBLE PRECISION DEFAULT NULL, CHANGE octubre octubre DOUBLE PRECISION DEFAULT NULL,
+CHANGE noviembre noviembre DOUBLE PRECISION DEFAULT NULL, CHANGE diciembre diciembre DOUBLE PRECISION DEFAULT NULL;
+
+ALTER TABLE nom_dpa DROP FOREIGN KEY FK_17DFB285613CEC58;
+DROP INDEX IDX_17DFB285613CEC58 ON nom_dpa;
+ALTER TABLE nom_dpa CHANGE padre_id padre_id INT DEFAULT NULL;
+
+UPDATE nom_dpa set padre_id = idpadre WHERE idpadre <> 0;
+
+ALTER TABLE nom_dpa CHANGE padre_id padre_id INT DEFAULT NULL;
+ALTER TABLE nom_dpa ADD CONSTRAINT FK_17DFB285613CEC58 FOREIGN KEY (padre_id) REFERENCES nom_dpa (iddpa);
+CREATE INDEX IDX_17DFB285613CEC58 ON nom_dpa (padre_id);
+
+ALTER TABLE dat_alerta ADD fecha_eliminacion DATE DEFAULT NULL;
+
+ALTER TABLE dat_alerta ADD cliente INT DEFAULT NULL;
+ALTER TABLE dat_alerta ADD CONSTRAINT FK_38184F2FF41C9B25 FOREIGN KEY (cliente) REFERENCES nom_entidad (identidad);
+CREATE INDEX IDX_38184F2FF41C9B25 ON dat_alerta (cliente);
+ALTER TABLE dat_parte_venta ADD grupo INT DEFAULT NULL;
+ALTER TABLE dat_parte_venta ADD CONSTRAINT FK_613A17FB8C0E9BD3 FOREIGN KEY (grupo) REFERENCES nom_grupointeres (idgrupointeres);
+CREATE INDEX IDX_613A17FB8C0E9BD3 ON dat_parte_venta (grupo);
+
+ALTER TABLE nom_unidadmedida ADD cantdecimal INT DEFAULT NULL;
+
+UPDATE nom_unidadmedida SET cantdecimal = 1 WHERE alias LIKE '%toneladas%';
+UPDATE nom_unidadmedida SET cantdecimal = 3 WHERE alias NOT LIKE '%toneladas%';
+
+/*Esto es para la unicidad de la factura en Mercancia por vinculo*/
+ALTER TABLE dat_parte_mervinculo ADD anno_factura INT NOT NULL;
+
+/*Este campo lo adicione para la Alerta de Portadores, ya que el porciento en las demás Alertas se guardan en el campo "cantidad",
+y en Portadores están ambos campos (cantidad y porciento)*/
+ALTER TABLE dat_alerta ADD porciento DOUBLE PRECISION DEFAULT NULL;
+
+/*Alias de las Cuentas Contables*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for nom_cuentacontable
+-- ----------------------------
+DROP TABLE IF EXISTS `nom_cuentacontable`;
+CREATE TABLE `nom_cuentacontable` (
+  `idcuentacontable` int(11) NOT NULL AUTO_INCREMENT,
+  `numero` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `nombre` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `activo` tinyint(1) NOT NULL,
+  `alias` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ctaxcobrar` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idcuentacontable`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of nom_cuentacontable
+-- ----------------------------
+INSERT INTO `nom_cuentacontable` VALUES ('1', '101', 'Efectivo en Caja MN', '1', 'efectivoencajamn', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('2', '103', 'Efectivo en Caja CUC', '1', 'efectivoencajacuc', '1');
+INSERT INTO `nom_cuentacontable` VALUES ('3', '110', 'Efectivo en Banco MN', '1', 'efectivoenbancomn', '1');
+INSERT INTO `nom_cuentacontable` VALUES ('4', '112', 'Efectivo en Banco CUC', '1', 'efectivoenbancocuc', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('5', '130', 'Efectos por Cobrar a Corto Plazo MN', '1', 'efectosporcobraracortoplazomn', '1');
+INSERT INTO `nom_cuentacontable` VALUES ('6', '131', 'Efectos por Cobrar a Corto Plazo CUC', '1', 'efectosporcobraracortoplazocuc', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('7', '135', 'Cuentas Cobrar a Corto Plazo MN', '1', 'cuentascobraracortoplazomn', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('8', '136', 'Cuentas Cobrar a Corto Plazo CUC', '1', 'cuentascobraracortoplazocuc', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('9', '700', 'Producciones Principales en Proceso', '1', 'produccionesprincipalesenproceso', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('10', '900', 'Ventas de Producciones', '1', 'ventasdeproducciones', '0');
+INSERT INTO `nom_cuentacontable` VALUES ('11', '901', 'Ventas de Mercancías', '1', 'ventasdemercancías', '0');

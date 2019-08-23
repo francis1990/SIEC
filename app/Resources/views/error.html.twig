@@ -1,0 +1,13 @@
+{% extends '::frontend.html.twig' %}
+
+{% block contExcepciones %}
+<div class="container" style="padding-top: 100px;">
+    <div class="row col-xs-12">
+        {% block codigo_error %}{% endblock %}
+    </div>
+    <div class="row col-xs-12">
+        <h3>{% block icono_error %} {% endblock %} {% block mensaje_notif %} {% endblock %}</h3>
+        <h4> {% block mensaje_solucion %} {% endblock %} </h4>
+    </div>
+</div>
+{% endblock %}

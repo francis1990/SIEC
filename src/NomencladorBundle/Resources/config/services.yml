@@ -1,0 +1,43 @@
+services:
+#    nomenclador.example:
+#        class: NomencladorBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+  nomenclador.nomproducto:
+            class: NomencladorBundle\Services\ProductoService
+            arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.nomgrupointeres:
+            class: NomencladorBundle\Services\GrupoService
+            arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.nomaseguramiento:
+            class: NomencladorBundle\Services\AseguramientoService
+            arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.nomueb:
+            class: NomencladorBundle\Services\UebService
+            arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.nomprecio:
+              class: NomencladorBundle\Services\PrecioService
+              arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.nomportador:
+                class: NomencladorBundle\Services\PortadorService
+                arguments: [@doctrine.orm.entity_manager]
+  nomenclador.nomentidad:
+                  class: NomencladorBundle\Services\EntidadService
+                  arguments: [@doctrine.orm.entity_manager]
+  nomenclador.nomdpa:
+                    class: NomencladorBundle\Services\DpaService
+                    arguments: [@doctrine.orm.entity_manager]
+  nomencladores:
+               class: NomencladorBundle\Services\NomencladorService
+               arguments: [@doctrine.orm.entity_manager]
+  nomenclador.nomconversion:
+                      class: NomencladorBundle\Services\ConversionService
+                      arguments: [@doctrine.orm.entity_manager]
+
+  nomenclador.norma:
+                      class: NomencladorBundle\Services\NormaService
+                      arguments: [@doctrine.orm.entity_manager]

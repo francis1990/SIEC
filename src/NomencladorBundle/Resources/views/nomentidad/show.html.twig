@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>NomEntidad</h1>
+    <table>
+        <tbody>
+        <tr>
+            <th>Identidad</th>
+            <td>{{ nomEntidad.identidad }}</td>
+        </tr>
+        <tr>
+            <th>Código</th>
+            <td>{{ nomEntidad.codigo }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ nomEntidad.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Direccion</th>
+            <td>{{ nomEntidad.direccion }}</td>
+        </tr>
+        <tr>
+            <th>Servicio</th>
+            <td>{{ nomEntidad.servicio }}</td>
+        </tr>
+        <tr>
+            <th>Siglas</th>
+            <td>{{ nomEntidad.siglas }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul>
+        <li>
+            <a href="{{ path('entidad_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('entidad_edit', { 'id': nomEntidad.identidad }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

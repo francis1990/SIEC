@@ -1,0 +1,41 @@
+cuentacontable_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:index",remember:null }
+    methods:  GET
+cuentacontable_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:listar" }
+    methods:  [GET, POST]
+cuentacontable_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:show" }
+    methods:  GET
+
+cuentacontable_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:new" }
+    methods:  [GET, POST]
+
+cuentacontable_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:exportar" }
+    methods:  [GET, POST]
+cuentacontable_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:edit" }
+    methods:  [GET, POST]
+
+cuentacontable_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:delete" }
+    methods:  DELETE
+
+cuentacontable_eliminar:
+    path:      /cuentacontable_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:eliminar" }
+    methods:  [GET, POST]
+
+cuentacontable_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomCuentacontable:SetActivo" }
+    methods:  [GET, POST]

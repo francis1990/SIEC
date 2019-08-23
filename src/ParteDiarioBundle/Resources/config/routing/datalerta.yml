@@ -1,0 +1,47 @@
+parte_alerta_index:
+    path:     /lista/{suprimida}
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:index" ,suprimida: null}
+    methods:  GET
+
+parte_alerta_show:
+    path:     /{id}/show
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:show" }
+    methods:  GET
+
+parte_alerta_new:
+    path:     /new/{tipo}
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:newalert" }
+    methods:  [GET, POST]
+
+parte_alerta_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:edit" }
+    methods:  [GET, POST]
+
+parte_alerta_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:delete" }
+    methods:  DELETE
+
+alerta_eliminar:
+   path: /eliminar
+   defaults: { _controller: "ParteDiarioBundle:DatAlerta:alertaEliminar" }
+
+parte_alerta_listar:
+    path:     /ajaxlistar
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:listar" }
+    methods:  [GET, POST]
+
+parte_alertaaccion_listar:
+    path:     /accionlistar
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:listaraccion" }
+    methods:  [GET, POST]
+
+parte_alerta_suprimir:
+    path:     /suprimir/{id}
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:suprimir" }
+    methods:  [GET]
+parte_alerta_revisar:
+    path:     /revisar/{id}
+    defaults: { _controller: "ParteDiarioBundle:DatAlerta:revisar" }
+    methods:  [GET]

@@ -1,0 +1,27 @@
+<li class="dropdown alertas notifications-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+    <i class="ion-ios7-bell-outline"></i>
+    <span class="label label-success" data-count="{{ count }}">{{ count }}</span>
+    </a>
+       {%  for aler in alertas %}
+           {% if loop.first %}
+                <ul class="dropdown-menu alerta-info">
+            {% endif %}
+        <!-- Menu Body -->
+        <li class="">
+            <div class="col-xs-8 ">
+                <p><i style='color: {{ aler.color }}' class='fa fa-warning'></i>  {{ aler.texto }}</p>
+            </div>
+
+            <div class="col-xs-2 ">
+                <a onclick="window.suprimirAlertas(this)" href="#" data-url="{{ path('parte_alerta_suprimir',{'id': aler.id}) }}" class="text-red suprimir-alerta" ><span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+            <div class="col-xs-2 ">
+                <a onclick="window.revisarAlertas(this)" href="#" data-url="{{ path('parte_alerta_revisar',{'id': aler.id}) }}" class="text-green suprimir-alerta" ><span class="glyphicon glyphicon-ok"></span></a>
+            </div>
+        </li>
+            {% if loop.last %}
+                </ul>
+                {% endif %}
+        {% endfor %}
+</li>

@@ -1,0 +1,302 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_jquery.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a>Nomencladores</a></li>
+    <li><a href="{{ path('entidad_index') }}" id="entidad">Entidades</a></li>
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+{% block table_id %} id='entidades_id'{% endblock %}
+{% block class_letra %}entity-address {% endblock %}
+
+ {% block btn_estado %}
+     {% if is_granted('ROLE_ADICIONAR_ENTIDAD') %}
+         <a class="btn btn-xs m-r-5 m-b-10 btn-default text-green addpadre" title="Adicionar"
+            id="add_entidad" href='javascript:;' data-url='{{ path('entidad_new', { 'id': 0 }) }}'>
+             <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+     {% endif %}
+     {% if is_granted('ROLE_ELIMINAR_ENTIDAD') %}
+         <a data-ajax-url="{{ path('entidad_eliminar') }}" id="eliminar" title="Eliminar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+            href="#modal_eliminar" data-toggle="modal">
+             <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+     {% endif %}
+     <a data-ajax-url="{{ path('entidad_estado') }}" href="#" style="width: 80px;" id="btn_activar_ent" title="Activar"
+        data-accion="activar"
+        class="btn btn-xs btn-default  text-yellow m-r-5 m-b-10 disabled">
+         <i class="fa fa-lightbulb-o text-yellow"></i> Activar</a>
+     <a data-ajax-url="{{ path('entidad_estado') }}" href="#" style="width: 80px;" id="btn_desactivar_ent"
+        title="Desactivar"
+        data-accion="desactivar"
+        class="btn btn-xs btn-default m-r-5 m-b-10 disabled">
+         <i class="fa fa-lightbulb-o "></i> Desactivar</a>
+
+     <a data-url="{{ path('entidad_exportar') }}" id="btn_export_entidad"
+        class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+         <span class="glyphicon glyphicon-print "></span> Exportar</a>
+ {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    var padres = [];
+                    var padresExpand = [];
+                    {% for val in app.session.get('padres') %}
+                    padres.push( {{ val }});
+                    {% endfor %}
+                    {{ app.session.set('padres',[]) }}
+
+                    window.cargardatos = function (nivel) {
+                        nivel = nivel || 0;
+                        $('#entidades_id').ajaxTreeTable({
+                            ajaxurl: "{{ path('entidad_listar') }}",
+                            filterType: 'f',
+                            rootLevel: 0,
+                            idField: 'identidad',
+                            parentField: 'idpadre',
+                            dat: nivel,
+                            start: 0,
+                            {% if remember == "1" %}
+                            rememberStatus: true,
+                            {% endif %}
+                            onComplete: function () {
+
+                                if (window.controlTotal) {
+                                    setTimeout(function () {
+                                        if (padres.length > 1) {
+                                            for (var i = 0; i < padres.length; i++) {
+                                                $('#entidades_id .grid-item[data-id=' + padres[i] + ']').trigger('mousedown');
+                                                if (i == padres.length - 1) {
+                                                    $('#entidades_id .grid-item[data-id=' + padres[i] + ']').parent().addClass('at-selected-row');
+                                                    $('.check_nom[id=' + padres[i] + ']').attr('checked', 'checked');
+                                                }
+                                            }
+                                        } else if (padres.length == 1) {
+                                            $('#entidades_id .grid-item[data-id=' + padres[0] + ']').parent().addClass('at-selected-row');
+                                            $('.check_nom[id=' + padres[0] + ']').attr('checked', 'checked');
+                                        }
+
+                                    }, 100);
+                                }
+
+                                setTimeout(function () {
+                                    window.controlTotal = false;
+                                }, 5000);
+
+                                function checkEv() {
+                                    var el = $('.check_nom:checked');
+                                    var check = $('.check-all-rows:checked');
+                                    if (el.length == 0) {
+                                        $('#modif').addClass('disabled');
+                                        $('#eliminar').addClass('disabled');
+                                        $('#btn_activar_ent').addClass('disabled');
+                                        $('#btn_desactivar_ent').addClass('disabled');
+                                    } else {
+                                        $('#modif').addClass('disabled');
+                                        if (el.length == 1) {
+                                            $('#modif').removeClass('disabled');
+                                        }
+                                        $('#eliminar').removeClass('disabled');
+                                        $('#btn_activar_ent').removeClass('disabled');
+                                        $('#btn_desactivar_ent').removeClass('disabled');
+                                    }
+                                }
+
+                                $('.check_nom').change(checkEv);
+                                $('tr').click(checkEv);
+
+                                setTimeout(function () {
+                                    $('.check-all-rows').find('input').change(checkEv);
+                                }, 1000);
+
+
+                                window.setCheckEvents();
+                            },
+                            limit: 10,
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                            columnsDef: [
+                                {
+                                    noFilter: true,
+                                    style: "width: 50px",
+                                    field: 'identidad',
+                                    class: 'name',
+                                    header: '',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value, values) {
+                                        var icon = (values && values[12]) ? 'glyphicon-file leaf' : 'glyphicon-chevron-right';
+                                        return '<a href="#"><span class="glyphicon ' + icon + '"></span> </a> ';
+                                    }
+                                },
+                                {
+                                    noFilter: true,
+                                    style: "width: 20px; text-align: center",
+                                    class: 'check-all-rows name',
+                                    field: '',
+                                    header: '',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        return '<input type="checkbox" id="' + value[0] + '" class="check_nom" /> ';
+                                    }
+                                }, {
+                                    style: 'width:90px',
+                                    field: 'codigo',
+                                    header: 'REEUP',
+                                    class: 'texT',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    field: 'nombre',
+                                    style: 'width: 500px',
+                                    header: 'Nombre',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                }, {
+
+                                    style: 'width: 100px',
+                                    field: 'siglas',
+                                    header: 'Siglas',
+                                    class: 'text',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                }, {
+
+                                    style: 'width: 350px',
+                                    field: 'idpa',
+                                    header: 'DPA',
+                                    class: 'text',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                }, {
+                                    style: 'width: 350px',
+                                    field: 'idtipoentidad',
+                                    header: 'Tipo Entidad',
+                                    class: 'text',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                }, {
+                                    noFilter: true,
+                                    style: 'width: 80px; text-align: center',
+                                    field: 'vinculo',
+                                    header: 'Vínculo',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="glyphicon glyphicon-ok text-green "></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red "></span>';
+                                        }
+                                    }
+                                }, {
+                                    noFilter: true,
+                                    style: 'width:80px; text-align: center',
+                                    field: 'estatal',
+                                    header: 'Estatal',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="glyphicon glyphicon-ok text-green "></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red "></span>';
+                                        }
+                                    }
+                                }, {
+                                    noFilter: true,
+                                    style: 'width:80px; text-align: center',
+                                    field: 'acopio',
+                                    header: 'Acopio',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="glyphicon glyphicon-ok text-green "></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red "></span>';
+                                        }
+                                    }
+                                }, {
+                                    noFilter: true,
+                                    style: 'width: 80px; text-align: center',
+                                    field: 'receptor',
+                                    header: 'Receptor leche',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="glyphicon glyphicon-ok text-green "></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red "></span>';
+                                        }
+                                    }
+                                }, {
+                                    tipoFiltro: 'boolean',
+                                    style: 'width: 80px; text-align: center',
+                                    field: 'activo',
+                                    header: 'Activo',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="glyphicon glyphicon-ok text-green "></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red "></span>';
+                                        }
+                                    }
+                                }
+                                {% if is_granted('ROLE_MODIFICAR_ENTIDAD') or is_granted('ROLE_ELIMINAR_ENTIDAD') %}
+                                , {
+                                    noFilter: true,
+                                    style: 'text-align: center; width: 100px',
+                                    header: 'Acciones',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (row) {
+                                        var accionModif = "", accionElimi = "";
+                                        {% if is_granted('ROLE_MODIFICAR_ENTIDAD') %}
+                                        var ajaxurl_mod = '{{ path('entidad_edit', { 'id': 0 }) }}';
+                                        accionModif = ' <a  href="' + ajaxurl_mod.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                            'data-id="' + row[3] + '" title="Editar">' +
+                                            '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ELIMINAR_ENTIDAD') %}
+                                        var ajaxurl = '{{ path('entidad_deleteAll') }}';
+                                        accionElimi = '<a id="del-item-' + row[0] + '" title="Eliminar" class="link_del" ' +
+                                            'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurl + '"' +
+                                            'data-id="' + row[3] + '"><span class="glyphicon glyphicon-trash text-red"></span>';
+                                        {% endif %}
+
+                                        return accionModif + accionElimi;
+                                    }
+                                }
+                                {% endif %}
+                            ]
+                        });
+                    }
+                    cargardatos();
+                });
+            })(jQuery);
+        </script>
+    {% endblock %}
+{% endblock %}

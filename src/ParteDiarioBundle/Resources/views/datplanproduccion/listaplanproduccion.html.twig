@@ -1,0 +1,6 @@
+<select id="filtro-planproduccion" data-placeholder="Plan Producción" class="chosen-select" style="width: 100px;">
+    <option value="0">Plan</option>
+    {% for plan in plans %}
+        <option value="1">{{ plan }}</option>
+    {% endfor %}
+</select>

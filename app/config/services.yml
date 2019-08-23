@@ -1,0 +1,56 @@
+
+parameters:
+#    parameter_name: value
+
+services:
+#    service_name:
+#        class: AppBundle\Directory\ClassName
+#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+#  doctrine.event_listener.trazas:
+#    class: AdminBundle\Services\EntityEventListener
+#    arguments: [@service_container]
+#    tags:
+#      - { name: doctrine.event_listener, event: postPersist }
+#      - { name: doctrine.event_listener, event: postUpdate }
+#      - { name: doctrine.event_listener, event: postRemove }
+
+    admin.service.check.security:
+        class: AdminBundle\Services\SecurityService
+        arguments: []
+
+    admin.service.estado.trabajador:
+        class: AdminBundle\Services\EstadoTrabajadorService
+        arguments: [@doctrine.orm.entity_manager]
+
+    admin.generate.dompdf:
+        class: AdminBundle\Services\DomPdfWrapper
+        arguments: ['%kernel.root_dir%/../vendor/Slik/Slik/DompdfBundle/DomPDF/']
+
+
+
+    listener.traza:
+        class: AdminBundle\Services\EntityEventListener
+        arguments: ["@security.context"]
+        tags:
+              - { name: doctrine.event_listener, event: prePersist }
+              - { name: doctrine.event_listener, event: preRemove }
+              - { name: doctrine.event_listener, event: postPersist }
+              - { name: doctrine.event_listener, event: postUpdate }
+              - { name: doctrine.event_listener, event: postRemove }
+
+    login_listener:
+         class: AdminBundle\Services\LoginListener
+         arguments: ['@security.context', '@doctrine','@router']
+         tags:
+              - { name: kernel.event_listener, event: security.interactive_login, method: onSecurityInteractiveLogin }
+              - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
+
+    loggout_listener:
+             class: AdminBundle\Services\LogoutListener
+             arguments: ['@security.context', '@doctrine']
+
+#    subscriber.movimiento:
+#        class: ParteDiarioBundle\EventListener\MovimientoSubscriber
+#        tags:
+#            - { name: doctrine.event_subscriber, connection: default }

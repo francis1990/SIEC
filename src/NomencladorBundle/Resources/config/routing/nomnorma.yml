@@ -1,0 +1,44 @@
+norma_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomNorma:index" ,remember:null}
+    methods:  GET
+
+norma_new:
+    path:     /nuevo
+    defaults: { _controller: "NomencladorBundle:NomNorma:new" }
+    methods:  [GET,POST]
+
+norma_listar:
+    path:     /listar
+    defaults: { _controller: "NomencladorBundle:NomNorma:listar" }
+    methods:  [GET,POST]
+
+norma_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomNorma:edit" }
+    methods:  [GET,POST]
+
+norma_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomNorma:delete" }
+    methods:  DELETE
+
+norma_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "NomencladorBundle:NomNorma:eliminar" }
+    methods:  [GET,POST]
+
+norma_duplicar:
+    path:     /{id}/duplicar
+    defaults: { _controller: "NomencladorBundle:NomNorma:duplicar" }
+    methods:  [GET,POST]
+
+norma_exportar:
+    path:     /exportar
+    defaults: { _controller: "NomencladorBundle:NomNorma:exportar" }
+    methods:  [GET,POST]
+
+norma_aseg_bytiponc:
+    path:     /asegtiponc
+    defaults: { _controller: "NomencladorBundle:NomNorma:getAseguramientosByTipoNC" }
+    methods:  [GET,POST]

@@ -1,0 +1,279 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parteventa_index') }}">Partes diarios de ventas</a></li>
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+ {% block tabletab %}
+     <table aria-describedby="example1_info" id="parte-table" data-fecha="{{ fecha }}"
+            class="table table-bordered table-condensed table-striped dataTable">
+         <thead>
+         </thead>
+         <tbody aria-relevant="all" aria-live="polite" role="alert">
+         </tbody>
+     </table>
+ {% endblock %}
+{% block actionFiltro %} action="{{ path('parteventa_new') }}"{% endblock %}
+  {% block btn_estado %}
+      {{ parent() }}
+      {% if is_granted('ROLE_ADICIONAR_PARTEVENTA') %}
+          <button form="form-filtro" title="Adicionar"
+                  class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+              <span class="glyphicon glyphicon-plus "></span> Adicionar
+          </button>
+      {% endif %}
+          <a title="Cancelar" href="#modal_cancelar" data-toggle="modal"
+             data-ajax-url="{{ path('parteventa_cancelar') }}"
+             id="canfactura" class="btn btn-xs m-r-5 m-b-10 btn-default  disabled">
+              <span class="glyphicon glyphicon-ban-circle "></span> Cancelar</a>
+          {% if is_granted('ROLE_ELIMINAR_PARTEVENTA') %}
+              <a title="Eliminar" href="#modal_eliminar" data-toggle="modal" id="eliminar"
+                 class=" btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+                 data-ajax-url="{{ path('parteventa_eliminar') }}">
+                  <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+      {% endif %}
+  {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    {% if fecha !=0 %}
+                    $('#filtro-dia').val($('#parte-table').data('fecha'));
+                    {% endif %}
+                    {% if ueb !=0 %}
+                    $('#filtro-ueb').val({{ueb}}).trigger("chosen:updated");
+                    {% endif %}
+                    $('#filtro-parte').val(3).trigger("chosen:updated");
+                    window.cargardatos = function () {
+
+                        var ajaxurcan = '{{ path('parteventa_cancelar') }}';
+                        if (!dat) {
+                            var dat = [];
+                            dat.push($('#filtro-ueb').val());
+                            dat.push($('#filtro-dia').val());
+                        }
+
+                        $('#parte-table').ajaxTable({
+                            ajaxurl: "{{ path('parteventa_listar') }}",
+                            dat: dat,
+                            start: 0,
+                            limit: 10,
+                            {% if remember == "1" %}
+                            rememberStatus: true,
+                            {% endif %}
+                            onComplete: function () {
+                                function checkEv() {
+                                    var el = $('.check_nom:checked');
+                                    var check = $('.check-all-rows:checked');
+                                    if (el.length == 0) {
+                                        $('#eliminar').removeClass('disabled');
+                                        $('#canfactura').removeClass('disabled');
+                                    } else {
+                                        $('#eliminar').removeClass('disabled');
+                                        $('#canfactura').removeClass('disabled');
+                                    }
+                                }
+
+                                $('.check_nom').change(checkEv);
+                                $('tr').click(checkEv);
+                                setTimeout(function () {
+                                    $('.check-all-rows').find('input').change(checkEv);
+                                }, 1000);
+                                window.setCheckEvents();
+                            },
+                            columns: [0, 1, 2, 3, 4, 5],
+                            columnsDef: [
+                                {
+                                    noFilter: true,
+                                    style: 'width: 5px',
+                                    field: 'idparte',
+                                    header: '<span class="check-all-rows name"></span>',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                    }
+                                },
+                                {
+                                    noFilter: true,
+                                    style: 'width: 50px',
+                                    field: 'fecha',
+                                    header: 'Fecha',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    style: 'width: 80px',
+                                    field: 'ueb',
+                                    header: 'UEB',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    style: 'width: 300px',
+                                    field: 'cliente',
+                                    header: 'Cliente',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    style: 'width: 80px',
+                                    field: 'factura',
+                                    header: 'Factura',
+                                    class: 'tex',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                }
+
+                                {% if is_granted('ROLE_MODIFICAR_PARTEVENTA') or is_granted('ROLE_ELIMINAR_PARTEVENTA') %}
+                                , {
+                                    noFilter: true,
+                                    style: 'text-align: center; width: 50px',
+                                    header: 'Acciones',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (row) {
+                                        var f=dat[1].split('/');
+                                        var fe=0;
+                                        if(f.length>1){
+                                            fe=f[0]+'-'+f[1]+'-'+f[2]
+                                        }
+                                        var ue= dat[0]===''? 0:dat[0];
+                                        var accionModif = "", accionElimi = "", accionMostrar = "";
+                                        {% if is_granted('ROLE_MODIFICAR_PARTEVENTA') %}
+                                        var ajaxurlmod = '{{ path('parteventa_edit', { 'id': 0 }) }}';
+                                        accionModif = ' <a title="Editar" href="' + ajaxurlmod.replace('/editar/0', '/editar/' + row[0] + '/'+fe+'/'+ue) + '" class="btn_edit" data-id="' + row[0] + '">' +
+                                            '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;';
+
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ELIMINAR_PARTEVENTA') %}
+                                        var ajaxuredel = '{{ path('parteventa_eliminar') }}';
+                                        accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar"' +
+                                            ' onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" ' +
+                                            'data-ajax-url="' + ajaxuredel + '"' + 'data-id="' + row[0] + '">' +
+                                            '<span class="glyphicon glyphicon-trash text-red"></span></a>  &nbsp;&nbsp;&nbsp;&nbsp;';
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_LISTAR_PARTEVENTA') %}
+                                        var ajaxurlmos = '{{ path('detalleParte', { 'id': 0 }) }}';
+                                        accionMostrar = '<a title="Mostrar" id="ver_parte_acopio" href="' + ajaxurlmos.replace('/detalle/0', '/detalle/' + row[0] + '/'+fe+'/'+ue) + '">' +
+                                            '<span class="glyphicon glyphicon-eye-open "></span>';
+
+                                        {% endif %}
+
+                                        return accionModif + accionElimi + accionMostrar;
+                                    }
+                                }
+                                {% endif %}
+                            ]
+
+                        });
+                    };
+                    cargardatos();
+                    $('#cancelar_factura').click(function () {
+                        $('.confirmacion').addClass('hidden');
+                        $('#concepto').removeClass('hidden');
+                        $(this).addClass('hidden');
+                        $('#btn-ok').removeClass('hidden')
+                    });
+
+                    function mostrarConf() {
+                        $('.confirmacion').removeClass('hidden');
+                        $('#concepto').addClass('hidden');
+                        $('#cancelar_factura').removeClass('hidden');
+                        $('#btn-ok').addClass('hidden');
+                        $('#motivo').val('');
+                    }
+
+                    $('#btn-canc,.close').click(function () {
+                        mostrarConf();
+                    });
+
+                    $('#motivo').keyup(function () {
+                        if ($(this).val() != '')
+                            $('#btn-ok').removeClass('disabled');
+                        else
+                            $('#btn-ok').addClass('disabled');
+                    });
+                    $('#btn-ok').click(function (e) {
+                        e.preventDefault();
+                        var ruta = $('#canfactura').data('ajax-url');
+                        var filas = $(".box-body table tr input:checkbox");
+                        var concepto = $('#motivo').val();
+                        var ids = [];
+                        var id = window.cp_temp_stored_id;
+                        if (undefined != id) {
+                            ids.push(id)
+                        } else {
+                            if (filas.length > 0) {
+                                filas.each(function (i, elem) {
+                                    if (elem.id != '' && elem.checked)
+                                        ids.push(elem.id);
+                                });
+
+                            }
+                        }
+                        lock_screen();
+                        $.ajax({
+                            type: "POST",
+                            url: ruta,
+                            data: {'id': ids, concepto: concepto},
+                            success: function (response) {
+                                unlock_screen();
+                                if (response.respuesta == 'exito')
+                                    cargardatos();
+                            }
+                        });
+                        window.cp_temp_stored_id = undefined;
+                        unlock_screen();
+                        mostrarConf();
+
+                    });
+                });
+            })(jQuery);
+
+        </script>
+    {% endblock %}
+{% endblock %}
+{% block mensajes %}
+    {{ parent() }}
+    <div class="modal fade" id="modal_cancelar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3> Cancelar</h3>
+                </div>
+                <div class="modal-body ">
+                    <p class="confirmacion ">Está seguro que desea cancelar la Factura?</p>
+                    <div class="form-group hidden" id="concepto">
+                        <label class=" control-label">Motivo de cancelación:</label>
+                        <div class="">
+                            <textarea id="motivo" name="description" class="form-control"
+                                      rows="5" placeholder="Description" cols="50"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a id="btn-canc" href="#" class="btn btn-default" title="Cancelar" data-dismiss="modal">Cancelar</a>
+                    <a id="cancelar_factura" href="#" class="btn btn-primary " title="Aceptar"
+                       data-dismiss=""> Aceptar</a>
+                    <a id="btn-ok" href="#" class="btn btn-primary hidden disabled" title="Aceptar"
+                       data-dismiss="modal"> Aceptar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

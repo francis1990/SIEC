@@ -1,0 +1,38 @@
+planacopiodestino_index:
+    path:     /list/{ejercicio}/{tipoPlan}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:index",ejercicio:0,tipoPlan:0,ueb:0,remember:null}
+    methods:  GET
+
+planacopiodestino_listarplan:
+    path:     /listarplan
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:listarPlanP" }
+    methods:  GET
+
+planacopiodestino_generar:
+    path:      /{data}/generar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:generar" }
+    methods:  [GET, POST]
+
+planacopiodestino_new:
+    path:     /new/{ejercicio}/{tipoPlan}/{ueb}/{padre}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:new",ejercicio:0,tipoPlan:0,ueb:0,padre:null}
+
+planacopiodestino_edit:
+    path:     /editar/{id}/{ejercicio}/{tipoPlan}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:edit" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
+
+planacopiodestino_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:delete" }
+    methods:  DELETE
+
+planacopiodestino_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:eliminar" }
+    methods:  [GET, POST]
+
+detalle_planacopiodestino:
+    path:      /detalle/{id}/{ejercicio}/{tipoPlan}/{ueb}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAcopioDestino:detallePlan" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]

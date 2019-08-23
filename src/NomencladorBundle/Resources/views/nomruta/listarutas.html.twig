@@ -1,0 +1,6 @@
+<select id="filtro-ruta" data-placeholder="Rutas"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for p in rutas %}
+        <option value="{{ p.idruta  }}">{{ p.nombre }}</option>
+    {% endfor %}
+</select>

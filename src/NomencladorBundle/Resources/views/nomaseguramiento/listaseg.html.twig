@@ -1,0 +1,6 @@
+<select id="surtido" data-placeholder="Unidad medida" class="form-control" name="surtido" >
+    <option value="0">Seleccione</option>
+    {% for a in asegs %}
+        <option value="{{ a.idaseguramiento  }}">{{ a.nombre }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,135 @@
+nomenclador_aseguramiento:
+    resource: "@NomencladorBundle/Resources/config/routing/nomaseguramiento.yml"
+    prefix:   /aseguramiento
+nomenclador_tipoplan:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtipoplan.yml"
+    prefix:   /tipoplan
+
+nomenclador_ejercicio:
+    resource: "@NomencladorBundle/Resources/config/routing/nomejercicio.yml"
+    prefix:   /ejercicio
+
+nomenclador_clasifincidencia:
+    resource: "@NomencladorBundle/Resources/config/routing/nomclasificacionincidencia.yml"
+    prefix:   /clasifincidencia
+
+nomenclador_cuentacontable:
+    resource: "@NomencladorBundle/Resources/config/routing/nomcuentacontable.yml"
+    prefix:   /cuentacontable
+
+nomenclador_entidad:
+    resource: "@NomencladorBundle/Resources/config/routing/nomentidad.yml"
+    prefix:   /entidad
+
+nomenclador_especifico:
+    resource: "@NomencladorBundle/Resources/config/routing/nomespecifico.yml"
+    prefix:   /especifico
+
+nomenclador_formato:
+    resource: "@NomencladorBundle/Resources/config/routing/nomformato.yml"
+    prefix:   /formato
+
+nomenclador_generico:
+    resource: "@NomencladorBundle/Resources/config/routing/nomgenerico.yml"
+    prefix:   /generico
+
+nomenclador_moneda:
+    resource: "@NomencladorBundle/Resources/config/routing/nommonedadestino.yml"
+    prefix:   /moneda
+
+
+nomenclador_detalle:
+    resource: "@NomencladorBundle/Resources/config/routing/nomdetalle.yml"
+    prefix:   /detalle
+
+nomenclador_portador:
+    resource: "@NomencladorBundle/Resources/config/routing/nomportador.yml"
+    prefix:   /portador
+
+nomenclador_producto:
+    resource: "@NomencladorBundle/Resources/config/routing/nomproducto.yml"
+    prefix:   /producto
+
+nomenclador_ruta:
+    resource: "@NomencladorBundle/Resources/config/routing/nomruta.yml"
+    prefix:   /ruta
+
+nomenclador_sabor:
+    resource: "@NomencladorBundle/Resources/config/routing/nomsabor.yml"
+    prefix:   /sabor
+
+nomenclador_subgenerico:
+    resource: "@NomencladorBundle/Resources/config/routing/nomsubgenerico.yml"
+    prefix:   /subgenerico
+
+
+nomenclador_tipoespecifico:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtipoespecifico.yml"
+    prefix:   /tipoespecifico
+
+nomenclador_tipoincidencia:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtipoincidencia.yml"
+    prefix:   /tipoincidencia
+
+nomenclador_dpa:
+    resource: "@NomencladorBundle/Resources/config/routing/nomdpa.yml"
+    prefix:   /dpa
+
+nomenclador_tipotransporte:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtipotransporte.yml"
+    prefix:   /tipotransporte
+
+nomenclador_ueb:
+    resource: "@NomencladorBundle/Resources/config/routing/nomueb.yml"
+    prefix:   /ueb
+
+nomenclador_unidadmedida:
+    resource: "@NomencladorBundle/Resources/config/routing/nomunidadmedida.yml"
+    prefix:   /unidadmedida
+
+nomenclador_conversion:
+    resource: "@NomencladorBundle/Resources/config/routing/nomconversion.yml"
+    prefix:   /conversion
+
+nomenclador_grupointeres:
+    resource: "@NomencladorBundle/Resources/config/routing/nomgrupointeres.yml"
+    prefix:   /grupointeres
+
+nomenclador_norma:
+    resource: "@NomencladorBundle/Resources/config/routing/nomnorma.yml"
+    prefix:   /norma
+
+nomenclador_almacen:
+    resource: "@NomencladorBundle/Resources/config/routing/nomalmacen.yml"
+    prefix:   /almacen
+
+delete_all:
+    path:     /all/
+    defaults: { _controller: "NomencladorBundle:DefaultController:delete_all" }
+    methods:  [GET, POST]
+
+nomencladores_index:
+    path:     /
+    defaults: { _controller: NomencladorBundle:Default:nomencladores_index }
+
+nomenclador_precio:
+    resource: "@NomencladorBundle/Resources/config/routing/nomprecio.yml"
+    prefix:   /precio
+
+nomenclador_tipoentidad:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtipoentidad.yml"
+    prefix:   /tipoentidad
+
+nomenclador_concepto:
+    resource: "@NomencladorBundle/Resources/config/routing/nomconcepto.yml"
+    prefix:   /concepto
+
+nomenclador_medidor:
+    resource: "@NomencladorBundle/Resources/config/routing/nommedidor.yml"
+    prefix:   /medidor
+
+nomenclador_tiponorma:
+    resource: "@NomencladorBundle/Resources/config/routing/nomtiponorma.yml"
+    prefix:   /tiponorma
+
+

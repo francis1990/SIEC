@@ -1,0 +1,30 @@
+{% extends 'AdminBundle:Default:baseExportar.html.twig' %}
+
+{% block colspan 6 %}
+
+{% block title %}LISTADO DE TRABAJADORES{% endblock %}
+
+{% block content %}
+    <table border="1" width="100%">
+        <thead>
+        <tr>
+            <th>Nombres</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+            <th>Entidad</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for trab in elementos %}
+            <tr>
+                <td>{{ trab.nombCompleto }}</td>
+                <td>{{ trab.apellUno }}</td>
+                <td>{{ trab.apellDos }}</td>
+                <td>{{ trab.entidad }}</td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

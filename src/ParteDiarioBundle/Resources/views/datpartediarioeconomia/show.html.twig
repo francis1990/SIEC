@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPartediarioEconomia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Saldo</th>
+                <td>{{ datPartediarioEconomium.saldo }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{{ datPartediarioEconomium.fecha }}</td>
+            </tr>
+            <tr>
+                <th>Entermino</th>
+                <td>{% if datPartediarioEconomium.entermino %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parteeconomia_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('parteeconomia_edit', { 'id': datPartediarioEconomium.idcuentacontable }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPlanAseguramiento</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Plan Aseguramiento</th>
+                <td>{{ datPlanAseguramiento.idaseguramiento }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ datPlanAseguramiento.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ datPlanAseguramiento.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ datPlanAseguramiento.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ datPlanAseguramiento.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ datPlanAseguramiento.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ datPlanAseguramiento.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ datPlanAseguramiento.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ datPlanAseguramiento.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ datPlanAseguramiento.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ datPlanAseguramiento.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ datPlanAseguramiento.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ datPlanAseguramiento.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ datPlanAseguramiento.diciembre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planaseguramiento_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planaseguramiento_edit', { 'id': datPlanAseguramiento.idplanaseguramiento }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

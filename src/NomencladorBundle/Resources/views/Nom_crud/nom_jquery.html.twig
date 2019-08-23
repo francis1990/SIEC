@@ -1,0 +1,34 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+{% endblock %}
+{% block listtitle %}
+    <h5> Listado de Tipo de Aseguramiento </h5>
+{% endblock %}
+
+{% block tabletab %}
+    {% block campos %}
+    {% endblock %}
+    <div class="row">
+        <div class="pull-right">
+
+        {% block btn_estado %}
+
+        {% endblock %}
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+            <table aria-describedby="example1_info" {% block table_id %} id="entidades-table" {% endblock %}
+                   class="table table-bordered table-striped table-hover table-heading" {% block listar %} {% endblock %}>
+                <thead>
+                </thead>
+                <tbody aria-relevant="all" aria-live="polite" role="alert">
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

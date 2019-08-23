@@ -1,0 +1,52 @@
+portador_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomPortador:index",remember:null }
+    methods:  GET
+portador_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomPortador:listar" }
+    methods:  [GET, POST]
+portador_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomPortador:show" }
+    methods:  GET
+
+portador_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomPortador:new" }
+    methods:  [GET, POST]
+
+portador_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomPortador:exportar" }
+    methods:  [GET, POST]
+
+portador_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomPortador:edit" }
+    methods:  [GET, POST]
+
+portador_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomPortador:delete" }
+    methods:  DELETE
+
+portador_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomPortador:eliminar" }
+    methods:  [GET, POST]
+
+portador_deleteAll:
+    path:      /portador_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomPortador:deleteSelect" }
+    methods:  [GET, POST]
+
+portador_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomPortador:listado" }
+    methods:  GET
+
+portador_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomPortador:SetActivo" }
+    methods:  [GET, POST]

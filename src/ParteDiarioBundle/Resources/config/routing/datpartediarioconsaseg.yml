@@ -1,0 +1,51 @@
+parte_consaseg_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:index",fecha:0,ueb:0 ,remember:null}
+    methods:  GET
+
+parte_consaseg_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:new" }
+    methods:  [GET, POST]
+
+parte_consaseg_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:guardar",fecha:0,ueb:0}
+
+parte_consaseg_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:editar",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+parte_consaseg_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:delete" }
+    methods:  DELETE
+
+parte_consaseg_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:eliminar" }
+    methods:  [GET, POST]
+
+parte_consaseg_listar:
+    path:     /listar
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:listar" }
+    methods:  [GET, POST]
+
+parte_consaseg_mostraraseg:
+    path:     /normas/
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:findNormaByPro" }
+    methods:  [GET, POST]
+
+parte_consaseg_nivelact:
+    path:     /nivelact/
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:obtenerNivelActividad" }
+    methods:  [GET, POST]
+
+parte_consaseg_detalle:
+    path:     /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsAseg:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+
+

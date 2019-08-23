@@ -1,0 +1,225 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+ {% block css %}
+     {{ parent() }}
+     <link href="{{ asset('bundles/tercero/js/plugins/chosen/chosen.css') }}" rel="stylesheet" type="text/css"/>
+     <link rel="stylesheet" href="{{ asset('bundles/tercero/css/auxiliar.css') }}"/>
+ {% endblock %}
+{% block menu_lateral %}
+
+{% endblock %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+{% block titulo_cont %}
+    Plan Nivel de actividad
+{% endblock %}
+{% block bread %}
+    <li>
+        <select id="selectError2" data-placeholder="Unidad productiva" class="chosen-select" style="width: 200px;">
+            <option></option>
+            <option>Chenal</option>
+            <option>Beatriz</option>
+            <option>Coppelia</option>
+            <option>Acopio</option>
+        </select>
+    </li>
+    <li>
+        <select id="selectError32" data-placeholder="Plan por categorías" class="chosen-select" style="width: 200px;">
+            <option value=""></option>
+            <optgroup label="Nivel de Actividad">
+                <option>Nivel de actividad</option>
+            </optgroup>
+            <optgroup label="Ventas">
+                <option>Valor vínculo</option>
+                <option>Valor propio</option>
+                <option> Físico vínculo</option>
+                <option>Físico propio</option>
+            </optgroup>
+            <optgroup label="Portadores Energéticos">
+                <option>Portadores energéticos</option>
+            </optgroup>
+            <optgroup label="Acopio">
+                <option>Acopio</option>
+            </optgroup>
+            <optgroup label="Validaciones">
+                <option>Nivel de actividad</option>
+                <option>Acopio</option>
+                <option>Ventas</option>
+                <option>Portadores energéticos</option>
+            </optgroup>
+        </select>
+
+    </li>
+
+
+{% endblock %}
+{% block listtitle %}
+    <h5> Listado de Planes </h5>
+{% endblock %}
+{% block menu_botones %}
+    <a class="btn btn-sm btn-default pull-right text-blue m-r-5 m-b-10 fila"><span
+                class="glyphicon glyphicon-plus" style="color: blue"></span> Adicionar </a>
+    <a class="btn btn-sm btn-default pull-right text-green m-r-5 m-b-10"><span
+                class="glyphicon glyphicon-plus"></span> Guardar </a>
+    <a class="btn btn-sm btn-default pull-right text-red m-r-5 m-b-10"><span
+                class="glyphicon glyphicon-plus" style="color: red"></span> Eliminar </a>
+{% endblock %}
+{% block tabletab %}
+    {% if nomResults is not empty %}
+        <table id="example1" class="table table-bordered beauty-table table-hover table-heading table-datatable">
+            <thead>
+            <tr role="row">
+                <th style="width: 250px;">Producto</th>
+                <th>Año</th>
+                <th>Ene</th>
+                <th>Feb</th>
+                <th>Mar</th>
+                <th>Abr</th>
+                <th>May</th>
+                <th>Jun</th>
+                <th>Jul</th>
+                <th>Ago</th>
+                <th>Sep</th>
+                <th>Oct</th>
+                <th>Nov</th>
+                <th>Dic</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody aria-relevant="all" aria-live="polite" role="alert"
+                   clas="table table-bordered table-striped table-hover table-heading">
+            <tr id="plan-id-99"class="plan" style="background: #15bdb3">
+                <td class="">Yogurt</td>
+                <td class=""><input type="text" value='2018'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text"
+                                    value= '23659'></td>
+            </tr>
+            {% for nom_var in nomResults %}
+                <tr id="plan-id-{{ nom_var.idplan }}"class="plan">
+                    <td class="">Leche</td>
+                    <td class=""><input type="text" value={{ nom_var.idejercicio }}></td>
+                    <td class=""><input type="text" value={{ nom_var.enero }}></td>
+                    <td class=""><input type="text" value={{ nom_var.febrero }}></td>
+                    <td class=""><input type="text" value={{ nom_var.marzo }}></td>
+                    <td class=""><input type="text" value={{ nom_var.abril }}></td>
+                    <td class=""><input type="text" value={{ nom_var.mayo }}></td>
+                    <td class=""><input type="text" value={{ nom_var.junio }}></td>
+                    <td class=""><input type="text" value={{ nom_var.julio }}></td>
+                    <td class=""><input type="text" value={{ nom_var.agosto }}></td>
+                    <td class=""><input type="text" value={{ nom_var.septiembre }}></td>
+                    <td class=""><input type="text" value={{ nom_var.octubre }}></td>
+                    <td class=""><input type="text" value={{ nom_var.noviembre }}></td>
+                    <td class=""><input type="text" value={{ nom_var.diciembre }}></td>
+                    <td class=""><input type="text"
+                                        value= {{ nom_var.enero + nom_var.febrero + nom_var.marzo + nom_var.abril +
+                        nom_var.mayo  + nom_var.junio + nom_var.julio + nom_var.agosto + nom_var.septiembre
+                        + nom_var.octubre + nom_var.noviembre + nom_var.diciembre }}></td>
+                </tr>
+            {% endfor %}
+            <tr id="plan-id-99"class="plan" style="background: #15bdb3">
+                <td class="">LEP</td>
+                <td class=""><input type="text" value='2018'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text"
+                                    value= '23659'></td>
+            </tr>
+            <tr id="plan-id-99"class="plan">
+                <td class="">Leche entera</td>
+                <td class=""><input type="text" value='2018'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text" value='23659'></td>
+                <td class=""><input type="text"
+                                    value= '23659'></td>
+            </tr>
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info alert-dismissable">
+            <i class="fa fa-info"></i>
+            <b>Información!</b> No existen {% block exist_nula %}planes registrados{% endblock %}.
+        </div>
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tercero/js/plugins/chosen/chosen.jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/tercero/js/js_plan/fn_plan.js') }}"></script>
+    <script>
+        jQuery(".chosen-select").chosen();
+    </script>
+    {% block otherscript %}
+        <script type="text/javascript">
+
+            (function($){
+
+
+
+            {#$(document).ready( function(){#}
+            {#var ajaxurl = '{{ path('plan_new') }}';#}
+            {#$('#planes-table').ajaxTable({#}
+            {#ajaxurl: "{{ path('plan_new') }}",#}
+            {#start: 0,#}
+            {#limit: 10,#}
+            {#columns: [0, 1, 2, 3],#}
+            {#columnsDef: [#}
+            {#{ noFilter:true, style: 'width: 30px', header: '<input type="checkbox" class="check-all-rows">', type: '', callback: function(){}, render: function(){#}
+            {#return '<input type="checkbox" />';#}
+            {#} },#}
+            {#{ style: 'width: 80px', field: 'codigo', header: 'Código',className:'text-center', type: '', callback: function(){} },#}
+            {#{ field: 'nombre', header: 'Nombre', type: '', callback: function(){} },#}
+            {#{ field: 'nivel', header: 'Nivel', type: '', callback: function(){} },#}
+            {#{ style: 'width: 80px; text-align: center',field: 'activo', header: 'Activo', type: '', callback: function(){}, render: function( value ){#}
+            {#if ( value ) {#}
+            {#return '<span class="fa fa-check text-green"></span>';#}
+            {#} else {#}
+            {#return '<span class="glyphicon glyphicon-unchecked"></span>';#}
+            {#}#}
+            {#} },#}
+            {#{ noFilter:true,style: 'text-align: center; width: 100px', header: 'Acciones', type: '', callback: function(){}, render: function( row ){#}
+            {#return  '<span class="glyphicon glyphicon-pencil text-blue" style="margin-right: 10px;"></span></a>'+#}
+            {#'<a class="btn_delete" href="#modal_eliminar" data-toggle="modal" data-ajax-url="'+ajaxurl+'"'+#}
+            {#'data-id="'+row[4]+'">'+#}
+            {#'<span class="glyphicon glyphicon-trash text-red"></span>';#}
+            {#} }#}
+            {#]#}
+
+            {#});#}
+
+            {#} );#}
+
+            {#})(jQuery);#}
+
+        </script>
+    {% endblock %}
+{% endblock %}

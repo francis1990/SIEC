@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPlanPortador</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idplanportador</th>
+                <td>{{ datPlanPortador.idplanportador }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ datPlanPortador.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ datPlanPortador.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ datPlanPortador.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ datPlanPortador.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ datPlanPortador.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ datPlanPortador.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ datPlanPortador.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ datPlanPortador.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ datPlanPortador.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ datPlanPortador.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ datPlanPortador.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ datPlanPortador.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ datPlanPortador.diciembre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('planportador_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('planportador_edit', { 'id': datPlanPortador.idplanportador }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

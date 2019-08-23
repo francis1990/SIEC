@@ -1,0 +1,38 @@
+partemercanciavinculo_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:index",fecha:0,ueb:0 ,remember:null}
+    methods:  GET
+
+partemercanciavinculo_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:new" }
+    methods:  [GET, POST]
+
+partemercanciavinculo_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:guardar",fecha:0,ueb:0}
+
+partemercanciavinculo_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+partemercanciavinculo_delete:
+    path:     /delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:delete" }
+    methods:  POST
+
+partemercanciavinculo_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:listar" }
+    methods:  [GET, POST]
+
+partemercanciavinculo_tree:
+    path:      /tree2/
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:getTree" }
+    methods:  [GET, POST]
+
+partemercanciavinculo_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMercanciaVinculo:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]

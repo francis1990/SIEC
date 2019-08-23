@@ -1,0 +1,8 @@
+services:
+#    reporte.example:
+#        class: ReporteBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+
+      reporte.services:
+              class: ReporteBundle\Services\ReporteService
+              arguments: [@doctrine.orm.entity_manager,@service_container]

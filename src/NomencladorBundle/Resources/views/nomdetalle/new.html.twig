@@ -1,0 +1,18 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_insert.html.twig' %}
+{% block bread %}
+{% endblock %}
+ {% block titulo_cont %}
+     <li><a href="{{ path('portada') }}">Inicio</a></li><li><a >Nomencladores</a></li>
+     <li><a href="{{ path('detalle_index') }}">Tipo de aseguramiento</a></li>
+     <li><a class="active">{{ accion }}</a></li>
+ {% endblock %}
+
+{% block cerrar_index %} {{ path('detalle_index') }} {% endblock %}
+{% block link_insert %}
+    data-ajax-url="{{ path('detalle_insert') }}" id="btn_adddetalle" data-listar="{{ path('detalle_index') }}"
+{% endblock %}
+
+{% block link_agregar %}  data-ajax-url="{{ path('detalle_insert') }}" id="btn_agredetalle" {% endblock %}
+
+
+

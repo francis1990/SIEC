@@ -1,0 +1,6 @@
+<select id="filtro-ejercicio" name="filtro-ejercicio" data-placeholder="Ejercicio" class="chosen-select" style="width: 100px;">
+    <option value="0">Ejercicio</option>
+    {% for ejer in ejers %}
+        <option value="{{ ejer.idejercicio  }}">{{ ejer.nombre }}</option>
+    {% endfor %}
+</select>

@@ -1,0 +1,63 @@
+aseguramiento_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:index",remember:null }
+    methods:  GET
+
+aseguramiento_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:listar" }
+    methods:  [GET, POST]
+
+aseguramiento_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:show" }
+    methods:  GET
+
+aseguramiento_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:new" }
+    methods:  [GET, POST]
+
+aseguramiento_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:exportar" }
+    methods:  [GET, POST]
+
+aseguramiento_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:edit" }
+    methods:  [GET, POST]
+
+aseguramiento_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:delete" }
+    methods:  DELETE
+
+aseguramiento_eliminar:
+    path:      /aseguramiento_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:eliminar" }
+    methods:  [GET, POST]
+
+aseguramiento_deleteAll:
+    path:      /aseguramiento_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:deleteSelect" }
+    methods:  [GET, POST]
+
+aseguramiento_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:listado" }
+    methods:  GET
+
+aseguramiento_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:SetActivo" }
+    methods:  [GET, POST]
+aseguramiento_tree:
+    path:      /tree/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:getTree" }
+    methods:  [GET, POST]
+
+aseguramiento_tree_sinmpb:
+    path:      /treesinmpb/
+    defaults: { _controller: "NomencladorBundle:NomAseguramiento:getTreeSinAsegMPB" }
+    methods:  [GET, POST]

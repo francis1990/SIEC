@@ -1,0 +1,43 @@
+tipotransporte_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:index",remember:null }
+    methods:  GET
+tipotrasnporte_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:listar" }
+    methods:  [GET, POST]
+
+tipotransporte_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:show" }
+    methods:  GET
+
+tipotransporte_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:new" }
+    methods:  [GET, POST]
+
+tipotransporte_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:edit" }
+    methods:  [GET, POST]
+
+tipotransporte_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:delete" }
+    methods:  DELETE
+
+tipotransporte_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:eliminar" }
+    methods:  [GET, POST]
+
+tipotransporte_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:SetActivo" }
+    methods:  [GET, POST]
+
+tipotransporte_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomTipotransporte:exportar" }
+    methods:  [GET, POST]

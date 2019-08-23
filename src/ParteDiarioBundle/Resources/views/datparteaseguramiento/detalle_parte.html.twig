@@ -1,0 +1,105 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parteaseguramiento_index',{'fecha':fecha, 'ueb':ueb}) }}">Partes diarios de aseguramiento</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+ {% block tabletab %}
+     <div class="row">
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Entrada: </label>
+             <div class="col-sm-8">
+                 {% if parte.entrada != null %}
+                     {{ parte.entrada }}
+                 {% else %}
+                     0
+                 {% endif %}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Reserva: </label>
+             <div class="col-sm-8">
+                 {% if parte.reserva != null %}
+                     {{ parte.reserva }}
+                 {% else %}
+                     0
+                 {% endif %}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Aseguramiento: </label>
+             <div class="col-sm-8">
+                 {{ parte.materiaprima }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Cobertura: </label>
+             <div class="col-sm-8">
+                 {% if parte.cobertura != null %}
+                     {{ parte.cobertura }}
+                 {% else %}
+                     0
+                 {% endif %}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Unidad de Medida: </label>
+             <div class="col-sm-8">
+                 {{ parte.um }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Demanda: </label>
+             <div class="col-sm-8">
+                 {% if parte.demanda != null %}
+                     {{ parte.demanda }}
+                 {% else %}
+                     0
+                 {% endif %}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Existencia: </label>
+             <div class="col-sm-8">
+                 {% if parte.existencia != null %}
+                     {{ parte.existencia }}
+                 {% else %}
+                     0
+                 {% endif %}
+             </div>
+         </div>
+
+     </div>
+
+     <button title="Regresar" id="regresar_detalle" data-url="{{ path('parteaseguramiento_index',{'fecha':fecha, 'ueb':ueb}) }}"
+             class="btn btn-primary col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+

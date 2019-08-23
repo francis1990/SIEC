@@ -1,0 +1,38 @@
+<fieldset>
+    <div class="">
+        <div class="{%- if not form.incidencias.vars.valid %} has-error{% endif %}">
+
+            <div class="caption">{{ form_label(form.incidencias) }}</div>
+            <div class=" pull-right">
+                <button type="button" class="btn btn-default text-green btn-xs add-form-embedded"
+                        data-container="#incidencias-tbody">
+                    <i class="fa fa-plus"></i>
+                    Adicionar
+                </button>
+            </div>
+        </div>
+        <div class="cont-table-blanco col-xs-12">
+            {{ form_errors(form.incidencias) }}
+
+            <table class="table table-striped table-hover table-condensed" id="incidencias-table">
+                <thead>
+                <tr>
+                    <th width="700">Texto a mostrar</th>
+                    <th >Clasificación</th>
+                    <th >Tipo</th>
+                    <th width="20"></th>
+                </tr>
+                </thead>
+                <tbody id="incidencias-tbody"
+                       data-prototype="{{ form_widget(form.incidencias.vars.prototype)|e }}"
+                       data-index="{{ form.incidencias|length }}">
+                {% for incidencia in form.incidencias %}
+                    {{ form_widget(incidencia) }}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ form_widget(form.incidencias) }}{# Para que no se muestre nuevamente el texto components #}
+        </div>
+    </div>
+</fieldset>

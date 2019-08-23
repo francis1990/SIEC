@@ -1,0 +1,310 @@
+{% extends 'ParteDiarioBundle:comunplan:comunplan.html.twig' %}
+
+ {% block css %}
+     {{ parent() }}
+     <style type="text/css">
+         .dataTables_wrapper {
+             margin-top: -40px;
+             overflow: hidden;
+         }
+     </style>
+
+ {% endblock %}
+{% block actionFiltro %} action="{{ path('planportador_new') }}"{% endblock %}
+ {% block botones %}
+     {% if is_granted('ROLE_ADICIONAR_PLANPORTADORES') %}
+         <a href="{{ path('planportador_new') }}" form="form-filtro" id="btn_adicionar_plan" title="Adicionar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+             <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+     {% endif %}
+
+     {% if is_granted('ROLE_ELIMINAR_PLANPORTADORES') %}
+         <a data-ajax-url="{{ path('planportador_eliminar') }}" id="eliminar" title="Eliminar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+            href="#modal_eliminar" data-toggle="modal">
+             <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+     {% endif %}
+ {% endblock %}
+ {% block titulo_plan %}
+     <li><a href="{{ path('planportador_index') }}">Planes de portadores energéticos</a></li>
+ {% endblock %}
+{% block tabletab %}
+
+    <table id="plan-portador"
+           class="table table-bordered table-condensed table-striped dataTable  table-hover table-stripped"
+           style="font-size:small">
+        <thead>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="alert"
+               class="table table-bordered table-striped table-hover table-heading">
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_plan.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_tree.js') }}"></script>
+        <script type="text/javascript">
+            {% set mesActual = "now"|date("m") %}
+            {% set mesAnterior = "now"|date_modify('-1 month') | date("m") %}
+            {% set mesSiguiente = "now"|date_modify('+1 month') | date("m") %}
+            $('#filtro-ueb').val({{ ueb }})
+            $('#filtro-tipoplans').val({{ tipoPlan }})
+            $('#filtro-ejercicio').val({{ ejercicio }})
+            $('#categoria_plan').val(4)
+
+            var padres = [];
+            var padresExpand = [];
+            {% for val in app.session.get('padres') %}
+            padres.push( {{ val }});
+            {% endfor %}
+            {{ app.session.set('padres',[]) }}
+
+            window.cargardatos = function (dat) {
+                /* removeField();*/
+                if (!dat) {
+                    var dat = [];
+                    dat.push($('#filtro-ueb').val());
+                    dat.push($('#filtro-tipoplans').val());
+                    dat.push($('#filtro-ejercicio').val());
+                    dat.push(4);//categoria portador
+                }
+                lock_screen();
+                var idport = 0;
+                window.tabla_plan = $('#plan-portador').ajaxTreeTable({
+                    ajaxurl: "{{ path('planportador_listarplan') }}",
+                    filterType: 'f',
+                    rootLevel: 0,
+                    idField: 'idplanportador',
+                    parentField: 'idplanportador',
+                    dat: dat,
+                    {% if remember == "1" %}
+                    rememberStatus: true,
+                    {% endif %}
+                    start: 0,
+                    limit: 10,
+                    showClearButton: false,
+                    onComplete: function () {
+
+                        /*if (padres.length > 0) {
+                            setTimeout(function () {
+                                if (padres.length == 1) {
+                                    $('#plan-portador .grid-item[data-id=' + padres[0] + ']').parent().addClass('at-selected-row');
+                                    $('.check_nom[id=' + padres[0] + ']').attr('checked', 'checked');
+                                }
+                            }, 10);
+                        }*/
+
+                        unlock_screen();
+
+                        function checkEv() {
+                            var el = $('.check_nom:checked');
+                            if (el.length == 0) {
+                                $('#eliminar').addClass('disabled');
+                            } else {
+                                $('#eliminar').removeClass('disabled');
+                            }
+                        }
+
+                        $('.check_nom').change(checkEv);
+                        $('tr').click(checkEv);
+                        setTimeout(function () {
+                            $('.check-all-rows').find('input').change(checkEv);
+                        }, 3000);
+                        window.setCheckEvents();
+                    },
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9/*, 10, 11, 12, 13, 14, 15, 16, 17, 18*/],
+                    columnsDef: [
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'name',
+                            field: 'idplanportador',
+                            header: ' ',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value, values) {
+                                var icon = (values && values[9]) ? 'glyphicon-file leaf' : 'glyphicon-chevron-right';
+
+                                return '<a href="#"><span class="glyphicon ' + icon + '"></span> </a> ';
+                            }
+                        },
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'check-all-rows name',
+                            field: 'idplanportador',
+                            header: '',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                return '<input type="checkbox" id="' + value + '" class="check_nom" /> ';
+
+                            }
+                        }, {
+                            style: "width:400px",
+                            noFilter: true,
+                            field: 'nombre',
+                            class: 'text name',
+                            header: 'Portador',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'idunidadmedida',
+                            class: 'text name',
+                            header: 'UM',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'cantidad',
+                            class: 'text name',
+                            header: 'Total',
+                            type: '',
+                            callback: function () {
+                            }
+                        },
+                        {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: "{{ meses[mesAnterior] | lower }}",
+                            header: "{{ meses[mesAnterior] }}",
+                            class: 'text name',
+                            type: 'i',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: "{{ meses[mesActual] | lower }}",
+                            header: "{{ meses[mesActual] }}",
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: "{{ meses[mesSiguiente] | lower }}",
+                            header: "{{ meses[mesSiguiente] }}",
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }
+                        , {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'diferencia',
+                            header: 'Diferencia',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }
+                        {% if is_granted('ROLE_MODIFICAR_PLANPORTADORES') or is_granted('ROLE_ELIMINAR_PLANPORTADORES') or is_granted('ROLE_LISTAR_PLANPORTADORES') %}
+                        , {
+                            noFilter: true,
+                            style: 'text-align: center; width: 100px',
+                            header: 'Acciones',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (row) {
+                                ueb = ($('#filtro-ueb').val());
+                                tipo = ($('#filtro-tipoplans').val());
+                                ejer = ($('#filtro-ejercicio').val());
+
+                                var accionModif = "", accionElimi = "", accionMostrar = "";
+                                {% if is_granted('ROLE_MODIFICAR_PLANPORTADORES') %}
+                                var ajaxurl_mod = '{{ path('planportador_edit', { 'id': 0 }) }}';
+                                accionModif = ' <a title="Editar" href="' + ajaxurl_mod.replace('editar/0', 'editar/' + row[0] + '/' + ejer + '/' + tipo + '/' + ueb) + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                    'data-id="' + row[0] + '"> <span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ELIMINAR_PLANPORTADORES') %}
+                                var ajaxuredel = '{{ path('planportador_eliminar') }}';
+                                accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar" onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" data-ajax-url="' + ajaxuredel + '"' +
+                                    'data-id="' + row[0] + '"><span class="glyphicon glyphicon-trash text-red"></span></a> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_LISTAR_PLANPORTADORES') %}
+                                var ajaxurlmos = '{{ path('detalle_planportador', { 'id': 0 }) }}';
+                                accionMostrar = '<a title="Mostrar" id="ver_plan_portador" data-id="' + row[5] + '" href="' + ajaxurlmos.replace('/detalle/0/0/0/0/', '/detalle/' + row[0] + '/' + ejer + '/' + tipo + '/' + ueb) + '">' +
+                                    '<span class="glyphicon glyphicon-eye-open "></span>';
+                                {% endif %}
+
+                                return accionModif + accionElimi + accionMostrar;
+                            }
+                        }
+                        {% endif %}
+                    ]
+                });
+            }
+            cargardatos();
+
+            $('#filtro-ueb').change(function () {
+                var dat = [];
+                dat.push($(this).val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                dat.push(1);
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('.input-month').keyup(function (evt) {
+                valFloat($(this), evt, '#error-elem');
+            });
+            $('#filtro-ejercicio').change(function () {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($(this).val());
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('#filtro-tipoplans').change(function () {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($(this).val());
+                dat.push($('#filtro-ejercicio').val());
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('#categoria_plan').change(function (evt) {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                dat.push(4);
+                url = $(this).find('option:selected').data('url').replace('0', dat);
+                window.location.href = url;
+            });
+            $('#btn_adicionar_plan').click(function (event) {
+                event.preventDefault();
+                var add = $('#btn_adicionar_plan').attr('href');
+                var url = add;
+                var ueb = $('#filtro-ueb').val();
+                var plan = $('#filtro-tipoplans').val();
+                var ejer = $('#filtro-ejercicio').val();
+                url = add.replace('/new', '/new/' + ejer + '/' + plan + '/' + ueb);
+                window.location = url;
+            })
+        </script>
+    {% endblock %}
+{% endblock %}

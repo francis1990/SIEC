@@ -1,0 +1,5 @@
+<select id="filtro-grupointeres" data-placeholder="Grupo" class="form-control" >
+    {% for grupo in grupos %}
+    <option value="{{ grupo.idgrupointeres  }}">{{ grupo.nombre }}</option>
+    {% endfor %}
+</select>

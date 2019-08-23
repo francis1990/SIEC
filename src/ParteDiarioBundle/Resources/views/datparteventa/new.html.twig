@@ -1,0 +1,211 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+ {% block asiderigth %}"right-side strech"{% endblock %}
+ {% block menu_lateral %}{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="{{ path('parteventa_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de venta</a></li>
+      <li><a class="active">{{ action }}</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content" id="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ action }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-pventa','class':'form-edit', 'novalidate':'novalidate' } }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">Datos generales</a></li>
+                                    <li><a href="#tab_3" data-toggle="tab">Incidencias</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <fieldset>
+                                            <div class="form-group col-xs-6  ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.fecha) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.fecha) }}
+                                                    {{ form_errors(form.fecha) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6  ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.grupo) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.grupo) }}
+                                                    {{ form_errors(form.grupo) }}
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="clearfix"></div>
+                                            <div class="form-group col-xs-6">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.ueb) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.ueb) }}
+                                                    {{ form_errors(form.ueb) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6  " id="div-cliente"
+                                                 data-url="{{ path('parteventa_precio') }}">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.cliente) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.cliente) }}
+                                                    {{ form_errors(form.cliente) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6  ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.factura) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.factura) }}
+                                                    {{ form_errors(form.factura) }}
+                                                </div>
+
+                                            </div>
+
+
+
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="">
+                                                <div class="{%- if not form.productos.vars.valid %} has-error{% endif %} ">
+                                                    {#  <div class="caption">{{ form_label(form.productos) }}</div>#}
+                                                    <div class="pull-right">
+                                                        <button type="button"
+                                                                class="btn btn-default text-green btn-xs  add-form-embedded"
+                                                                data-container="#productos-tbody">
+                                                            <i class="fa fa-plus"></i>
+                                                            Adicionar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="cont-table-blanco col-xs-12">
+                                                    {{ form_errors(form.productos) }}
+                                                    <table class="table table-striped table-hover table-condensed"
+                                                           id="venta-pro">
+                                                        <thead>
+                                                        <tr>
+                                                            <th >Producto</th>
+                                                            <th >Almacén</th>
+                                                            <th >del Vínculo</th>
+                                                            {#<th width="100">UM</th>#}
+                                                            <th width="95">Cantidad</th>
+                                                            <th width="95">PCUP</th>
+                                                            <th width="95">ICUP</th>
+                                                            <th width="95">PCUC</th>
+                                                            <th width="95">ICUC</th>
+                                                            <th width="95">Imp.</th>
+                                                            <th></th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody id="productos-tbody"
+                                                               data-prototype="{{ form_widget(form.productos.vars.prototype)|e }}"
+                                                               data-index="{{ form.productos|length }}">
+                                                        {% for producto in form.productos %}
+                                                            {{ form_widget(producto) }}
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                    {{ form_widget(form.productos) }}{# Para que no se muestre nuevamente el texto components #}
+                                                </div>
+
+                                                <div class="form-group col-xs-12">
+                                                    <label for="codigo"
+                                                           class=" col-xs-offset-2 col-xs-3 control-label"> {{ form_label(form.importefinalmn) }}</label>
+                                                    <div class="col-xs-4">
+                                                        {{ form_widget(form.importefinalmn) }}
+                                                        {{ form_errors(form.importefinalmn) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-xs-12  ">
+                                                    <label for="codigo"
+                                                           class="col-xs-offset-2 col-xs-3 control-label"> {{ form_label(form.importefinalcuc) }}</label>
+                                                    <div class="col-xs-4">
+                                                        {{ form_widget(form.importefinalcuc) }}
+                                                        {{ form_errors(form.importefinalcuc) }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="tab-pane" id="tab_3">
+                                        {% include 'ParteDiarioBundle:Default:add_incidencias.html.twig' %}
+
+                                    </div><!-- /.tab-pane -->
+                                </div><!-- /.tab-content -->
+                            </div><!-- nav-tabs-custom -->
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-4 col-xs-offset-8 col-sm-offset-8">
+
+                                        {% if action == 'Adicionar' %}
+                                            {{ form_widget(form.guardar) }}
+                                        {% endif %}
+                                        {{ form_widget(form.aceptar) }}
+                                        <a href="{{ path('parteventa_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                           data-url="{{ path('parteventa_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                           id="btn_cerrar" title="Cancelar"
+                                           class="btn btn-default  {% if action != 'Adicionar' %} editcerrar {% endif %}">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+
+
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/plugins/bootbox/bootbox.min.js') }}"></script>
+   <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parte_venta.js') }}"></script>
+   <script type="text/javascript" >
+       var $grupo = $('#dat_parte_venta_grupo');
+       $grupo.change(function() {
+           var $form = $(this).closest('form');
+           var data = {};
+           data[$grupo.attr('name')] = $grupo.val();
+           if($grupo.val()!='')
+               lock_screen();
+           $.ajax({
+               url : $form.attr('action'),
+               type: $form.attr('method'),
+               data : data,
+               success: function(html) {
+                   unlock_screen();
+                   $('#dat_parte_venta_cliente').replaceWith(
+                       $(html).find('#dat_parte_venta_cliente')
+                   );
+                   $('#dat_parte_venta_cliente_chosen').remove()
+                   $('#dat_parte_venta_cliente').chosen()
+
+               }
+           });
+       });
+   </script>
+
+{% endblock %}
+
+

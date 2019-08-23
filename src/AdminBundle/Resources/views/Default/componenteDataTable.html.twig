@@ -1,0 +1,59 @@
+{#Creado por Yanisleidy Torres Puga#}
+{#
+id: es el identificador de la tabla
+check: es para definir si la tabla va a tener checkbox
+encabezado: un array con el nombre de las columnas que desea mostrar
+datos: los datos a mostrar en la tabla
+mostrar: un arreglo con los campos que se quieren mostrar de los datos
+url_show: la url que muestra los detalles
+url_edit: la url que permite editar el elemento
+#}
+{% macro mostrar(id, check, encabezado, datos, mostrar,url_show,url_edit) %}
+    <div class="portlet-body">
+        <div class="table-responsive">
+            <table id="{{ id }}" class="table table-condensed table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th class="hidden">id</th>
+                    {% if check %}
+                        <th><input id="checkAll" type="checkbox"></th>
+                    {% endif %}
+                    {% for enc in encabezado %}
+                        <th>{{ enc }}</th>
+                    {% endfor %}
+                    {% if url_edit is not empty %}
+                        <th><i class="fa fa-edit"></i></th>
+                    {% endif %}
+                </tr>
+                </thead>
+                <tbody>
+                {% for elemento in datos %}
+                    <tr>
+                        {% set id = null %}
+                        {% for campo in mostrar %}
+                            {% if loop.first %}
+                                <td class="hidden"><input value="{{ attribute(elemento, campo) }}"></td>
+                                {% set id = attribute(elemento, campo) %}
+                            {% elseif loop.index==2 %}
+                                {% if check  %}
+                                    <td><input class="select" type="checkbox" ></td>
+                                {% endif  %}
+                                {% if url_show is not empty %}
+                                    <td><a href="{{ path(url_show, { 'id': id }) }}">{{ attribute(elemento, campo) }}</a></td>
+                                {% else %}
+                                    <td>{{ attribute(elemento, campo) }}</td>
+                                {% endif %}
+                            {% else %}
+                                <td>{{ attribute(elemento, campo) }}</td>
+                            {% endif %}
+                        {% endfor %}
+                        {% if url_edit is not empty %}
+                            <td><a href="{{ path(url_edit, { 'id': id }) }}"><i class="fa fa-edit"></i></a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endmacro %}

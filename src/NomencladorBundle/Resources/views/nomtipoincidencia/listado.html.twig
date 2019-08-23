@@ -1,0 +1,6 @@
+<select id="filtro-tipoinc" data-placeholder="Tipo de I"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for p in inci %}
+        <option value="{{ p.id  }}">{{ p.nombre }}</option>
+    {% endfor %}
+</select>

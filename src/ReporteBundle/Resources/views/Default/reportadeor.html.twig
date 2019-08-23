@@ -1,0 +1,37 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+    {% block menu_lateral %}
+        <aside class="left-side">
+            <section class="sidebar">
+                <div class="user-panel">
+                    <div class="pull-left info">
+                        <p>Reporteador</p>
+                    </div>
+                </div>
+                <ul class="sidebar-menu">
+                        <li><a href="{{ path('datperiodos_index') }}"><i class="fa fa-angle-double-right"></i>Periodos</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Tipos de Reportes</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Reportes</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Encabezados</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Títulos de Filas</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Filas resumen</a></li>
+                        <li><a href="{{ path('admin_traza_index') }}"><i class="fa fa-angle-double-right"></i>Columnas</a></li>
+                </ul>
+            </section>
+        </aside>
+    {% endblock %}
+{% block contenido %}
+    {% block tabletab %}
+    {% endblock %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            jQuery('table').addClass('table-hover');
+            jQuery('table').addClass('table-condensed');
+            jQuery(".chosen-select").chosen();
+        });
+    </script>
+{% endblock %}

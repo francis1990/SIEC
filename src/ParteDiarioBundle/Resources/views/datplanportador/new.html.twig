@@ -1,0 +1,195 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+ {% block asiderigth %}"right-side strech"{% endblock %}
+
+{% block hide_menu %}
+{% endblock %}
+{% block bread %}
+
+{% endblock %}
+
+{% block menu_bot %}
+
+{% endblock %}
+ {% block titulo_cont %}
+     <li><a href="{{ path('portada') }}">Inicio</a></li>
+     <li><a href="{{ path('planportador_index',{'ejercicio': ejercicio,'tipoPlan': tipoPlan,'ueb':ueb}) }}">Plan de portador energético</a></li>
+     <li><a class="active">{{ title }}</a></li>
+ {% endblock %}
+
+
+{% block menu_lateral %}
+
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ title }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{'class':'form-edit'}}) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group col-sm-6">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> {{ form_label(form.idejercicio) }}</label>
+
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.idejercicio) }}
+                                        {{ form_errors(form.idejercicio) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> {{ form_label(form.idportador) }}</label>
+
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.idportador) }}
+                                        {{ form_errors(form.idportador) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> {{ form_label(form.idueb) }}</label>
+
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.idueb) }}
+                                        {{ form_errors(form.idueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> {{ form_label(form.idunidadmedida) }}</label>
+
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.idunidadmedida) }}
+                                        {{ form_errors(form.idunidadmedida) }}
+                                    </div>
+                                </div>
+                                <div class="form-group  col-sm-6">
+                                    <label for="codigo"
+                                           class="col-sm-4 control-label"> {{ form_label(form.idtipoplan) }}</label>
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.idtipoplan) }}
+                                        {{ form_errors(form.idtipoplan) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> {{ form_label(form.cantidad) }}</label>
+                                    <div class="col-sm-8">
+                                        {{ form_widget(form.cantidad) }}
+                                        {{ form_errors(form.cantidad) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6 hidden" id="div-sumatoria">
+                                    <label for="ueb"
+                                           class="col-sm-4 control-label"> Sumatoria meses:</label>
+                                    <div class="col-sm-8 ">
+                                        <p class="sumatoria"></p>
+                                    </div>
+                                </div>
+                                <table id="new_acopio"
+                                       class="table table-bordered beauty-table table-hover table-heading table-datatable tabla-meses"
+                                       style="width: 100%">
+                                    <thead>
+                                    <tr role="row">
+                                        <th>Ene</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Abr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Ago</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dic</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody aria-relevant="all" aria-live="polite" role="alert"
+                                           class="table table-bordered table-striped table-hover table-heading">
+                                    <tr>
+                                        <td class="" width="50px"> {{ form_widget(form.enero) }}</td>
+                                        <td class="" width="50px">{{ form_widget(form.febrero) }}</td>
+                                        <td class="" width="50px">{{ form_widget(form.marzo) }}</td>
+                                        <td class="" width="50px">{{ form_widget(form.abril) }}</td>
+                                        <td class="may" width="50px">{{ form_widget(form.mayo) }}</td>
+                                        <td class="jun" width="50px">{{ form_widget(form.junio) }}</td>
+                                        <td class="jul" width="50px">{{ form_widget(form.julio) }}</td>
+                                        <td class="ago" width="50px">{{ form_widget(form.agosto) }}</td>
+                                        <td class="sep" width="50px">{{ form_widget(form.septiembre) }}</td>
+                                        <td class="oct" width="50px">{{ form_widget(form.octubre) }}</td>
+                                        <td class="nov" width="50px">{{ form_widget(form.noviembre) }}</td>
+                                        <td class="dic" width="50px">{{ form_widget(form.diciembre) }}</td>
+                                    </tr>
+
+                                </table>
+
+
+                            </fieldset>
+                            <fieldset>
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-6  col-sm-offset-6">
+                                        {% if title =='Adicionar' %}
+                                            {{ form_widget(form.agregar) }}
+                                        {% endif %}
+                                        {{ form_widget(form.aceptar) }}
+                                        <a title="Cancelar" href="{{ path('planportador_index',{'ejercicio': ejercicio,'tipoPlan': tipoPlan,'ueb':ueb}) }}"
+                                           data-url="{{ path('planportador_index',{'ejercicio': ejercicio,'tipoPlan': tipoPlan,'ueb':ueb}) }}"
+                                           class="btn btn-default   {% if title !='Adicionar' %} editcerrar {% endif %}"
+                                           id="cancelar_acopio_mod" data-dismiss="modal">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $('form[name=dat_plan_portador]').on('keyup change', null, function () {
+            if ($('form[name=dat_plan_portador]').valid() &&
+                $('#dat_plan_portador_idtipoplan').val() !== '' &&
+                $('#dat_plan_portador_idportador').val() !== '' &&
+                $('#dat_plan_portador_idunidadmedida').val() !== ''
+                && $('#dat_plan_portador_idejercicio').val() !== '')
+                $('#btn_aceptar,#btn_agregar').removeClass('disabled');
+            else
+                $('#btn_aceptar,#btn_agregar').addClass('disabled')
+        });
+
+        $('#dat_plan_portador_idportador').change(function () {
+            var um = $('#dat_plan_portador_idportador option:selected').data('um');
+            $('#dat_plan_portador_idunidadmedida').val(um);
+            $('#dat_plan_portador_idunidadmedida').trigger("chosen:updated");
+        });
+
+        $('form[name=dat_plan_portador]').submit(function () {
+            lock_screen();
+            $(".chosen-select").removeAttr('disabled');
+        });
+
+    </script>
+    {#
+       <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_alerta.js') }}"></script>
+    #}
+{% endblock %}
+
+
+

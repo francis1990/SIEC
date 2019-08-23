@@ -1,0 +1,85 @@
+
+parte_diario_incidencia:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datincidencia.yml"
+  prefix:   /incidencia
+
+parte_diario_planproduccion:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanproduccion.yml"
+  prefix:   /planproduccion
+
+parte_diario_planaseguramiento:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanaseguramiento.yml"
+  prefix:   /planaseguramiento
+
+parte_diario_planportador:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanportador.yml"
+  prefix:   /planportador
+
+parte_diario_planacopio:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanacopio.yml"
+  prefix:   /planacopio
+
+parte_diario_planacopiodestino:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanacopiodestino.yml"
+  prefix:   /planacopiodestino
+
+parte_diario_planventa:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datplanventa.yml"
+  prefix:   /planventa
+
+
+parte_diario_parte_alerta:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datalerta.yml"
+  prefix:   /alerta
+
+parte_diario_parte_economia:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartediarioeconomia.yml"
+  prefix:   /parteconomia
+
+parte_diario_parte_produccion:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartediarioproduccion.yml"
+  prefix:   /parteproduccion
+
+parte_diario_venta:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datparteventa.yml"
+  prefix:   /venta
+
+parte_diario_transporte:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartetransporte.yml"
+  prefix:   /transporte
+
+parte_diario_portador:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datparteportador.yml"
+  prefix:   /portador
+
+parte_diario_aseguramiento:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datparteaseguramiento.yml"
+  prefix:   /aseguramiento
+
+parte_diario_parteacopio:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datparteacopio.yml"
+  prefix:   /parteacopio
+
+#parte_diario_partedesvio:
+#  resource: "@ParteDiarioBundle/Resources/config/routing/datpartedesvio.yml"
+#  prefix:   /partedesvio
+
+parte_diario_movimiento:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartemovimiento.yml"
+  prefix:   /movimiento
+
+parte_diario_cuentascobrar:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartecuentascobrar.yml"
+  prefix:   /cuentascobrar
+
+parte_diario_mercanciavinculo:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartemercanciavinculo.yml"
+  prefix:   /partemercanciavinculo
+
+parte_diario_consumomatprima:
+  resource: "@ParteDiarioBundle/Resources/config/routing/datpartediarioconsaseg.yml"
+  prefix:   /parteconsumomatprima
+
+parte_diario_homepage:
+    path:     /
+    defaults: { _controller: ParteDiarioBundle:Default:index }

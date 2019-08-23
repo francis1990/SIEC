@@ -1,0 +1,33 @@
+nommedidor_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomMedidor:index" ,remember:null}
+    methods:  GET
+
+nommedidor_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomMedidor:listar" }
+    methods:  [GET, POST]
+
+nommedidor_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:NomMedidor:new" }
+    methods:  [GET, POST]
+
+nommedidor_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomMedidor:edit" }
+    methods:  [GET, POST]
+
+nommedidor_delete:
+    path:     /delete
+    defaults: { _controller: "NomencladorBundle:NomMedidor:delete" }
+    methods:  [GET, POST]
+nommedidor_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomMedidor:exportar" }
+    methods:  [GET, POST]
+
+nommedidor_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomMedidor:SetActivo" }
+    methods:  [GET, POST]

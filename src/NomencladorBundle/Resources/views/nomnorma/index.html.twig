@@ -1,0 +1,151 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_jquery.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('norma_index') }}">Normas de consumo</a></li>
+{% endblock %}
+{% block bread %}
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+{% block table_id %} id="normas-table" {% endblock %}
+
+{% block btn_estado %}
+    {% if is_granted('ROLE_ADICIONAR_NORMACONSUMO') %}
+        <a href="{{ path('norma_new') }}" id="btn_adicionar_norma"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-green"
+           title="Adicionar">
+            <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+    {% endif %}
+    {% if is_granted('ROLE_ELIMINAR_NORMACONSUMO') %}
+        <a data-ajax-url="{{ path('norma_eliminar') }}" id="eliminar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled" title="Eliminar"
+           href="#modal_eliminar" data-toggle="modal">
+            <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+    {% endif %}
+    <a data-url="{{ path('norma_exportar') }}" id="btn_export_normas" class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar"
+       title="Exportar">
+        <span class="glyphicon glyphicon-print"></span> Exportar</a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    window.cargardatos = function () {
+                        $('#normas-table').ajaxTable({
+                            ajaxurl: "{{ path('norma_listar') }}",
+                            start: 0,
+                            {% if remember == "1" %}
+                            rememberStatus: true,
+                            {% endif %}
+                            onComplete: function () {
+                                function checkEv() {
+                                    var el = $('.check_nom:checked');
+                                    var check = $('.check-all-rows:checked');
+                                    if (el.length == 0) {
+                                        $('#eliminar').removeClass('disabled');
+                                        $('#modif').removeClass('disabled');
+
+                                        $('#eliminar').addClass('disabled');
+                                        $('#modif').addClass('disabled');
+                                    } else {
+                                        if (el.length != 1) {
+                                            $('#modif').removeClass('disabled');
+                                            $('#modif').addClass('disabled');
+                                        } else if (el.length == 1) {
+                                            $('#modif').removeClass('disabled');
+                                        }
+                                        $('#eliminar').removeClass('disabled');
+
+                                    }
+                                }
+
+                                $('.check_nom').change(checkEv);
+                                $('tr').click(checkEv);
+                                window.lock_screen();
+
+                                setTimeout(function () {
+                                    $('.check-all-rows').find('input').change(checkEv);
+                                    window.unlock_screen();
+                                }, 1000);
+
+                                window.setCheckEvents();
+                            },
+                            limit: 10,
+                            columns: [0, 1, 2, 3,4],
+                            columnsDef: [
+                                {
+                                    noFilter: true,
+                                    style: 'width: 30px',
+                                    field: 'idnorma',
+                                    header: '<span class="check-all-rows name"></span>',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                    }
+                                },
+                                {
+                                    field: 'producto', header: 'Producto', type: '', callback: function () {
+                                    }
+                                }, {
+                                    field: 'tiponorma', header: 'Tipo NC', type: '', callback: function () {
+                                    }
+                                }, {
+                                    field: 'valornorma', header: 'Cada', type: '', callback: function () {
+                                    }
+                                }, {
+                                    field: 'umnorma', header: 'UM Norma', type: '', callback: function () {
+                                    }
+                                }
+                                {% if is_granted('ROLE_ADICIONAR_NORMACONSUMO') or is_granted('ROLE_MODIFICAR_NORMACONSUMO')
+                                    or is_granted('ROLE_ELIMINAR_NORMACONSUMO') %}
+                                , {
+                                    noFilter: true,
+                                    style: 'text-align: center; width: 100px',
+                                    header: 'Acciones',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (row) {
+                                        var accionModif = "", accionElimi = "", accionDuplicar = "";
+                                        {% if is_granted('ROLE_MODIFICAR_NORMACONSUMO') %}
+                                        var ajaxurl_mod = '{{ path('norma_edit', { 'id': 0 }) }}';
+                                        accionModif = ' <a  href="' + ajaxurl_mod.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                            'data-id="' + row[3] + '" title="Editar">' +
+                                            '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;';
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ELIMINAR_NORMACONSUMO') %}
+                                        var ajaxurl = '{{ path('norma_eliminar') }}';
+                                        accionElimi = '<a id="del-item-' + row[0] + '" title="Eliminar" class="link_del" ' +
+                                            'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurl + '"' +
+                                            'data-id="' + row[3] + '"><span class="glyphicon glyphicon-trash text-red"></span> &nbsp;&nbsp;';
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ADICIONAR_NORMACONSUMO') %}
+                                        var ajaxurldupl = '{{ path('norma_duplicar', { 'id': 0 }) }}';
+                                        accionDuplicar = ' <a title="Duplicar" href="' + ajaxurldupl.replace('/0/duplicar', '/' + row[0] + '/duplicar') + '" class="btn_dupl"  data-ajax-url="' + ajaxurldupl + '"' +
+                                            'data-id="' + row[0] + '"><span class="fa fa-copy text-blue"></span>';
+                                        {% endif %}
+
+                                        return accionModif + accionElimi + accionDuplicar;
+                                    }
+                                }
+                                {% endif %}
+                            ]
+
+                        });
+                    };
+                    cargardatos();
+                });
+
+            })(jQuery);
+
+        </script>
+    {% endblock %}
+{% endblock %}

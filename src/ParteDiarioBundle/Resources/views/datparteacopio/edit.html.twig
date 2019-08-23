@@ -1,0 +1,125 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="#">Parte Diario</a></li>
+      <li><a href="{{ path('parteacopio_index') }}">Acopio</a></li>
+      <li><a class="active">Editar</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-body">
+                        {{ form_start(edit_form,{'attr':{ 'id':'formacopio','class':'form-edit' } }) }}
+                        <div class=" bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group col-sm-4 col-xs-10">
+                                    <label for="codigo"
+                                           class=" control-label"> {{ form_label(edit_form.ruta) }}</label>
+                                    <div class="">
+                                        {{ form_widget(edit_form.ruta) }}
+                                        {{ form_errors(edit_form.ruta) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-3 col-xs-10">
+                                    <label for="codigo"
+                                           class=" control-label"> {{ form_label(edit_form.ueb) }}</label>
+                                    <div class="">
+                                        {{ form_widget(edit_form.ueb) }}
+                                        {{ form_errors(edit_form.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 col-xs-10">
+                                    <label for="codigo"
+                                           class=" control-label"> {{ form_label(edit_form.fecha) }}</label>
+                                    <div class="">
+                                        {{ form_widget(edit_form.fecha) }}
+                                        {{ form_errors(edit_form.fecha) }}
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </fieldset>
+                            <fieldset id="ent-acopio" data-remove="">
+                                <div  class="col-xs-12">
+                                    <div class="form-group col-sm-12 col-xs-12 cont-table-blanco">
+                                        <table id="sumin-table"
+                                               class=" consumos_mp table table-bordered table-striped table-condensed">
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Suministrador</th>
+                                                <th>Producto</th>
+                                                <th style="width: 150px">UM</th>
+                                                <th style="width: 150px">Cantidad</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for sum in suminis %}
+                                                <tr class="fila-valida" id="idrow{{loop.index}}" data-val="{{sum.entidad.identidad~'-'~sum.producto.idproducto~'-'~sum.id}}"
+                                                    data-real="{{sum.cantidad}}" data-um="{{sum.um.idunidadmedida}}">
+                                                    <td class="center">{{ sum.entidad }}</td>
+                                                    <td class="center">{{ sum.producto }}</td>
+                                                    <td class="center"><select class="form-control um-pro" onchange="return umReal(this)"></select></td>
+                                                    <td class="center"><input type="text" value="{{sum.cantidad}}" class="cant-real form-control"  onkeyup="return cantReal(this)"/></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class=" hidden ">
+                                    {{ render(controller('NomencladorBundle:NomUnidadmedida:listadoUMTipoVolumen')) }}
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <a data-ajax-url="{{ path('parteacopio_edit', { 'id': datParteAcopio.idparte }) }}"
+                                           class="btn btn-primary disabled" id="btn_edit_acopio" data-accion="aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </a>
+                                        <a href="{{ path('parteacopio_index') }}"  id="btn_cerrar"
+                                           data-url="{{ path('parteacopio_index') }}"
+                                           class="btn btn-default editcerrar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {{ form_end(edit_form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                $("#dat_parte_acopio_ruta").attr('disabled', 'disabled');
+                $("#dat_parte_acopio_ruta").prop('disabled', true);
+                $('.chosen-select').trigger("chosen:updated");
+                var options=document.getElementById('um_consumo');
+                var row = $('.consumos_mp tbody tr');
+                row.each(function (i) {
+                    var idrow=$(this).attr('id');
+                    var um = $(this).data('um');
+                    var sel=$('#'+idrow +' select.um-pro');
+                    sel.append(options.innerHTML);
+                    sel.val(um);
+                });
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteacopio.js') }}"></script>
+{% endblock %}

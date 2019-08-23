@@ -1,0 +1,23 @@
+{% block menu_lateral %}
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left info">
+                <p>{% block menu_titulo %}Planes {% endblock %}</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ path('planacopio_index') }}"><i
+                            class="fa fa-angle-double-right"></i>Acopio</a></li>
+            <li><a href="{{ path('planaseguramiento_index') }}"><i
+                            class="fa fa-angle-double-right"></i>Aseguramiento</a></li>
+            <li><a href="{{ path('planacopiodestino_index') }}"><i class="fa fa-angle-double-right"></i>Desvíos</a>
+            </li>
+            <li><a href="{{ path('planportador_index') }}"><i class="fa fa-angle-double-right"></i>Portadores
+                    energéticos</a></li>
+            <li><a href="{{ path('planproduccion_index') }}"><i
+                            class="fa fa-angle-double-right"></i>Nivel de actividad</a></li>
+            <li><a href="{{ path('planventa_index') }}"><i
+                            class="fa fa-angle-double-right"></i>Ventas</a></li>
+        </ul>
+    </section>
+{% endblock %}

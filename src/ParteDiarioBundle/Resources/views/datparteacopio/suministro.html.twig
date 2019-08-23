@@ -1,0 +1,34 @@
+<table id="sumin-table" data-sumin="{{ path('parteacopio_sumin') }}"
+       class=" consumos_mp table table-bordered table-striped table-condensed">
+    <thead>
+    <tr role="row">
+        <th>Suministrador</th>
+        <th>Producto</th>
+        <th>UM</th>
+        <th>Cantidad</th>
+        <th>Acidez (%)</th>
+    </tr>
+    </thead>
+    <tbody id="suministro-tbody"
+           data-prototype="{{ form_widget(form.acopio.vars.prototype)|e }}"
+           data-index="{{ form.acopio|length }}">
+    {% for acop in form.acopio %}
+        <tr data-ident= {{ acop.entidad.vars.data.identidad }}>
+            <td>{{ form_widget(acop.entidad) }}{{ form_errors(acop.entidad) }}{{ acop.entidad.vars.data.nombre }}</td>
+            <td>{{ form_widget(acop.producto) }}{{ form_errors(acop.producto) }}   {{ acop.producto.vars.data.nombre }}</td>
+            <td class="form-group">
+                {{ form_widget(acop.um) }} {{ form_errors(acop.um) }} {{ acop.producto.vars.data.umOperativa.nombre }}
+            </td>
+            <td class="form-group">
+                {{ form_widget(acop.cantidad) }}
+                {{ form_errors(acop.cantidad) }}
+            </td>
+            <td class="form-group">
+                {{ form_widget(acop.acidez) }}
+                {{ form_errors(acop.acidez) }}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{{ form_widget(form.acopio) }}{# Para que no se muestre nuevamente el texto consumos #}

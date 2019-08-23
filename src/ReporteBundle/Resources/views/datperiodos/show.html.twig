@@ -1,0 +1,107 @@
+{% extends 'ReporteBundle:Default:reportadeor.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="#">Reporteador</a></li>
+    <li><a href="{{ path('datperiodos_index') }}">Periodos</a></li>
+    <li><a class="active">Detalle</a></li>
+{% endblock %}
+
+{% block contenido %}
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-primary ">
+            <div class="box-body">
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Nombre:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.ident }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Descripción:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.descripcion }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Día inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.diai }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor día inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.diaiv }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Mes inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.mesi }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor mes inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.mesiv }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Año inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.anoi }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor año inicial:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.anoiv }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Día final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.diaf }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor día final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.diafv }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Mes final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.mesf }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor mes final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.mesfv }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Año final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.anof }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label">Valor año final:</label>
+            <div class="col-sm-8">
+                {{ datPeriodo.anofv }}
+            </div>
+        </div>
+    <br>
+    <button title="Regresar" id="regresar_detalle" data-url="{{ path('datperiodos_index') }}"
+            class="btn btn-primary   col-xs-offset-10"><i class="glyphicon glyphicon-arrow-left icon-white"></i>
+        Regresar
+    </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

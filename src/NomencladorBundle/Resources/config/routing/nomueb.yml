@@ -1,0 +1,53 @@
+ueb_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomUeb:index" ,remember:null}
+    methods:  GET
+
+ueb_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomUeb:show" }
+    methods:  GET
+ueb_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomUeb:listar" }
+    methods:  [GET, POST]
+ueb_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomUeb:new" }
+    methods:  [GET, POST]
+
+
+ueb_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomUeb:edit" }
+    methods:  [GET, POST]
+
+ueb_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomUeb:delete" }
+    methods:  DELETE
+ueb_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomUeb:eliminar" }
+    methods:  [GET, POST]
+
+ueb_deleteAll:
+    path:      /ueb_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomUeb:deleteSelect" }
+    methods:  [GET, POST]
+
+ueb_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomUeb:listado" }
+    methods:  GET
+
+ueb_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomUeb:SetActivo" }
+    methods:  [GET, POST]
+
+
+ueb_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomUeb:exportar" }
+    methods:  [GET, POST]

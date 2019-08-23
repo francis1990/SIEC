@@ -1,0 +1,34 @@
+almacen_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:index",remember:null }
+    methods:  GET
+almacen_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:listar" }
+    methods:  [GET, POST]
+
+almacen_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:new" }
+    methods:  [GET, POST]
+
+almacen_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:edit" }
+    methods:  [GET, POST]
+
+almacen_delete:
+    path:     /delete/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:delete" }
+    methods:  POST
+
+
+almacen_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:setActivo" }
+    methods:  [GET, POST]
+
+almacen_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomAlmacen:exportar" }
+    methods:  [GET, POST]

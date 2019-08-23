@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPartePortador</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idparte</th>
+                <td>{{ datPartePortador.idparte }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if datPartePortador.fecha %}{{ datPartePortador.fecha|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Consumo</th>
+                <td>{{ datPartePortador.consumo }}</td>
+            </tr>
+            <tr>
+                <th>Pico</th>
+                <td>{{ datPartePortador.pico }}</td>
+            </tr>
+            <tr>
+                <th>Madrugada</th>
+                <td>{{ datPartePortador.madrugada }}</td>
+            </tr>
+            <tr>
+                <th>Lectura</th>
+                <td>{{ datPartePortador.lectura }}</td>
+            </tr>
+            <tr>
+                <th>Alcance</th>
+                <td>{{ datPartePortador.alcance }}</td>
+            </tr>
+            <tr>
+                <th>Inventario</th>
+                <td>{{ datPartePortador.inventario }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parteportador_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('parteportador_edit', { 'id': datPartePortador.idparte }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,283 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+{% block css %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/tercero/css/auxiliar.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/tercero/js/jstree/dist/themes/default/style.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/tercero/js/jquery-easyui-1.5.2/themes/default/easyui.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('bundles/tercero/js/jquery-easyui-1.5.2/themes/icon.css') }}"/>
+    <style rel="stylesheet">
+        label {
+            font-size: 13px !important;
+        }
+    </style>
+{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('reporte_index') }}">Reportes</a></li>
+{% endblock %}
+{% block menu_lateral %}
+
+{% endblock %}
+{% block asiderigth %}
+    "right-side strech"
+{% endblock %}
+
+{% block contenido %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary" style="height:640px;">
+                <div class="box-body">
+                    {{ form_start(form,{'attr':{ 'id':'form-reporte' }}) }}
+                    <div class="form-group col-xs-4 ">
+                        <label for=""
+                               class=" control-label "><span class="text-red">*</span> Reporte</label>
+                        <div class="">
+                            <select id="namereporte" data-placeholder="Reportes" class="form-control chosen-select"
+                                    style="width: 500px;display:inline">
+
+                                <option value="0">Seleccione...</option>
+                                <optgroup label="Reportes de Aseguramientos">
+                                    <option value="18" data-url="{{ path('reporte_existencia_diaria_ueb') }}"
+                                            data-name="Existencia diaria de Aseguramientos por UEB">Existencia diaria de
+                                        Aseguramientos por UEB
+                                    </option>
+
+                                    <option value="20" data-url="{{ path('materiaprima_balance') }}"
+                                            data-name="Consumo de Materias Primas del Balance">Consumo de Materias
+                                        Primas
+                                        del Balance
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Reportes de Calidad">
+                                    <option value="19" data-url="{{ path('reporte_aseguramiento') }}"
+                                            data-name="Cumplimiento de las normas de consumo por aseguramientos">
+                                        Cumplimiento de las normas de consumo por aseguramientos.
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Reportes de Portadores energéticos">
+                                    <option data-url="{{ path('reporte_portador') }}" value="13"
+                                            data-name="Reportes de Portadores energéticos"> Portadores energéticos
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Reportes de Producción y Acopio">
+                                    <option value="12" data-url="{{ path('reporte_acopio_dias') }}"
+                                            data-name=" Cumplimiento diario de los planes de producción">
+                                        Cumplimiento diario de los Planes de Producción.
+                                    </option>
+                                    <option value="14" data-url="{{ path('reporte_acopio_mes') }}"
+                                            data-name="Cumplimiento de los Planes de Producción por mes y acumulado">
+                                        Cumplimiento de los Planes de Producción por mes y acumulado
+                                    </option>
+                                    <option value="17" data-url="{{ path('reporte_produccion_destinos') }}"
+                                            data-name="Cumplimiento de los Planes de Producción por Destinos">
+                                        Cumplimiento de los Planes de Producción por Destinos
+                                    </option>
+                                    <option value="15" data-url="{{ path('reporte_produccion_grupos') }}"
+                                            data-name="Cumplimiento de los Planes de Producción diario y acumulado">
+                                        Cumplimiento de los Planes de Producción diario y acumulado
+                                    </option>
+                                    <option value="16" data-url="{{ path('reporte_produccion_ueb') }}"
+                                            data-name="Cumplimiento de los Planes de Producción por UEB">
+                                        Cumplimiento de los Planes de Producción por UEB
+                                    </option>
+                                    <option value="21" data-url="{{ path('reporte_produccion_formato') }}"
+                                            data-name="Punto de Control de la Producción Diaria y Acumulado">
+                                        Punto de Control de la Producción Diaria y Acumulado
+                                    </option>
+                                </optgroup>
+                                <optgroup label="Reportes de Ventas">
+                                    <option value="1" data-url="{{ path('reporte_venta_producto') }}"
+                                            data-name="Cumplimiento de las Ventas por Productos/Destinos">
+                                        Cumplimiento de las Ventas por Productos/Destinos
+                                    </option>
+                                    <option value="2" data-url="{{ path('reporte_venta') }}"
+                                            data-name="Cumplimiento de las ventas por Destino">Cumplimiento de las
+                                        ventas por Destino
+                                    </option>
+                                    <option value="11" data-url="{{ path('reporte_canasta_familiar') }}"
+                                            data-name="Cumplimiento con la Canasta Familiar Normada">
+                                        Cumplimiento con la Canasta Familiar Normada
+                                    </option>
+                                    <option value="7" data-url="{{ path('reporte_vinculo') }}"
+                                            data-name="Cumplimiento de vínculos">
+                                        Cumplimiento de vínculos
+                                    </option>
+                                    <option value="9" data-url="{{ path('reporte_ventas_monedanacional') }}"
+                                            data-name="Cumplimiento de las Ventas por Destino">Cumplimiento de
+                                        las Ventas por Destino Totalizado
+                                    </option>
+                                    <option value="6" data-url="{{ path('reporte_cuc_mincin') }}"
+                                            data-name="Parte Diario de Ventas por Destino">Parte Diario de Ventas por
+                                        Destino
+                                    </option>
+                                    <option value="8" data-url="{{ path('reporte_ventas_productogrupo') }}"
+                                            data-name="Ventas por Producto y Grupos de Interés">Ventas por
+                                        Producto y Grupos de Interés
+                                    </option>
+                                    <option value="3" data-url="{{ path('resumen_venta') }}"
+                                            data-name="Resumen de las Ventas por Destino">
+                                        Resumen de las Ventas por Destino
+                                    </option>
+                                    <option value="4" data-url="{{ path('resumen_venta_mes') }}"
+                                            data-name="Resumen de las Ventas en el Mes">
+                                        Resumen de las Ventas en el Mes
+                                    </option>
+                                    <option value="10" data-url="{{ path('reporte_parte_monedanacional') }}"
+                                            data-name="Resumen del Parte Diario de Ventas por Destino">
+                                        Resumen del Parte Diario de Ventas por Destino
+                                    </option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-2">
+                        <label for=""
+                               class=" control-label "> {{ form_label(form.fecha) }}</label>
+                        <div class="">
+                            {{ form_widget(form.fecha) }}
+                            {{ form_errors(form.fecha) }}
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-2">
+                        <span class="text-red">*</span> <label for=""
+                                                               class=" control-label "> {{ form_label(form.moneda) }}</label>
+                        <div class="">
+                            {{ form_widget(form.moneda) }}
+                            {{ form_errors(form.moneda) }}
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-2">
+                        <span class="text-red">*</span> <label for=""
+                                                               class=" control-label "> {{ form_label(form.tipoplan) }}</label>
+                        <div class="">
+                            {{ form_widget(form.tipoplan) }}
+                            {{ form_errors(form.tipoplan) }}
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-6 col-sm-6 col-md-2">
+                        <span class="text-red">*</span> <label for=""
+                                                               class=" control-label "> {{ form_label(form.ufvalor) }}</label>
+                        <div class="">
+                            {{ form_widget(form.ufvalor) }}
+                            {{ form_errors(form.ufvalor) }}
+                        </div>
+                    </div>
+
+                    <div class="form-group col-xs-6 col-sm-6 col-md-2">
+                        <label for=""
+                               class=" control-label "> {{ form_label(form.ueb) }}</label>
+                        <div class="">
+                            {{ form_widget(form.ueb) }}
+                            {{ form_errors(form.ueb) }}
+                        </div>
+                    </div>
+                    <div class="form-group col-xs-3 ">
+
+                        <div class="" style="margin-left: 40px;">
+                            {{ form_label(form.ceros) }}
+                            {{ form_widget(form.ceros) }}
+                            {{ form_errors(form.ceros) }}
+                        </div>
+
+                        <div class="" style="margin-left: 40px;">
+                            {{ form_label(form.show_hijos) }}
+                            {{ form_widget(form.show_hijos) }}
+                            {{ form_errors(form.show_hijos) }}
+                        </div>
+                    </div>
+
+                    <button data-ajax-url="" id="btnGenerarReporte"
+                            class="btn btn-sm btn-default text-blue disabled" style="margin-top: 15px"
+                            href="javascript:">
+                        <span class="fa fa-file-text"></span> Generar
+                    </button>
+                    {{ form_end(form) }}
+                </div>
+                <div class="easyui-layout row " style="width:100%;height:78%; ">
+                    <div data-options="region:'east',split:true" title="UEB" style="width: 50%">
+                        <div class="panel-body layout-body" style="height: 100%">
+                            <div class="portlet-body">
+                                <div class="tree-toolbar ">
+
+                                </div>
+                                <input type="hidden" id="entidadSelected">
+                                <div class="col-xs-12">
+                                    <div id="div_entidades_tree" class="hidden col-xs-3"></div>
+                                    <div id="div_vinculos_tree" class="hidden col-xs-3"></div>
+                                    <div id="div_ueb_tree" class=" col-xs-3"></div>
+                                    <div id="div_aseg_tree1" class="hidden col-xs-3"></div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div data-options="region:'center',title:'Productos'" style="width: 50%">
+                        <div class="panel-body layout-body" style="height: 100%">
+                            <div class="portlet-body">
+                                <div class="tree-toolbar">
+
+                                </div>
+                                <input type="hidden" id="productoSelected">
+                                <div class="col-xs-12">
+                                    <div id="div_productos_tree" class="col-xs-3"></div>
+                                    <div id="div_aseg_tree" class="hidden col-xs-3"></div>
+                                    <div id="div_port_tree" class="hidden col-xs-3"></div>
+                                    <div id="div_productos_tree1" class=" hidden col-xs-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+   {% block javascripts %}
+       {{ parent() }}
+       {#<script type="text/javascript" src="{{ asset('bundles/tercero/js/js_reporte/fn_reporte.jss') }}"></script>#}
+       {% block otherscript %}
+           <script type="text/javascript">
+               var data_tree_prodcutos = "{{ path('producto_tree') }}";
+               var data_tree = "{{ path('grupointeres_tree') }}";
+               var data_tree_vinculos = JSON.parse("{{ vinculos }}".replace(/\&quot\;/g, "\""));
+               var data_tree_portador = JSON.parse("{{ portador }}".replace(/\&quot\;/g, "\""));
+               var data_tree_ueb = JSON.parse("{{ ueb }}".replace(/\&quot\;/g, "\""));
+               var data_tree_aseg = "{{ path('aseguramiento_tree') }}";
+               var data_tree_aseg_sinmpb = "{{ path('aseguramiento_tree_sinmpb') }}";
+               var nivelp ={{ nivelproducto }};
+               var nivelg ={{ nivelgrupo }};
+               var nivaseg ={{ nivelaseg }};
+               var optpro = '';
+               var optgru = '';
+               var optaseg = '';
+               for (var i = 0; i <= nivelp || i <= nivelg || i <= nivaseg; i++) {
+                   (i <= nivelp) ? optpro += '<option  data-select=""  value="' + i + '">' + (i + 1) + '</option>' : optpro += '';
+                   (i <= nivelg) ? optgru += '<option data-select="" value="' + i + '">' + (i + 1) + '</option>' : optgru += '';
+                   (i <= nivaseg) ? optaseg += '<option data-select="" value="' + i + '">' + (i + 1) + '</option>' : optaseg += '';
+               }
+
+               jQuery(document).ready(function () {
+
+                   $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+                   $('.js-datepicker').datepicker({
+                       onSelect: function (date) {
+                           alert(date)
+                       },
+                       todayHighlight: true,
+                       pickTime: false,
+                       autoclose: true,
+                       language: 'es'
+                   });
+               });
+           </script>
+       {% endblock %}
+       <script type="text/javascript"
+               src="{{ asset('bundles/tercero/js/jquery-easyui-1.5.2/jquery.easyui.min.js') }}"></script>
+       <script type="text/javascript"
+               src="{{ asset('bundles/tercero/js/quicksearch-master/jquery.quicksearch.js') }}"></script>
+       <script type="text/javascript" src="{{ asset('bundles/tercero/js/jstree/dist/jstree.js') }}"></script>
+       <script src="{{ asset('bundles/tercero/js/js_reporte/fn_reportes_new.js') }}"></script>
+   {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomDpa</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Iddpa</th>
+                <td>{{ nomDpa.iddpa }}</td>
+            </tr>
+            <tr>
+                <th>Nivel</th>
+                <td>{{ nomDpa.nivel }}</td>
+            </tr>
+            <tr>
+                <th>Idpadre</th>
+                <td>{{ nomDpa.idpadre }}</td>
+            </tr>
+            <tr>
+                <th>Activo</th>
+                <td>{% if nomDpa.activo %}Yes{% else %}No{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('dpa_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('dpa_edit', { 'id': nomDpa.iddpa }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

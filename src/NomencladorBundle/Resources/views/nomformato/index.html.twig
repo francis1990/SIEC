@@ -1,0 +1,174 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_jquery.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('formato_index') }}">Formatos</a></li>
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+{% block table_id %} id="formatos-table" {% endblock %}
+
+{% block btn_estado %}
+    {% if is_granted('ROLE_ADICIONAR_FORMATO') %}
+        <a href="{{ path('formato_new') }}" id="btn_adicionar" class="btn btn-xs m-r-5 m-b-10 btn-default text-green"
+           title="Adicionar">
+            <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+    {% endif %}
+    {% if is_granted('ROLE_ELIMINAR_FORMATO') %}
+        <a data-ajax-url="{{ path('formato_eliminar') }}" id="eliminar" title="Eliminar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+           href="#modal_eliminar" data-toggle="modal">
+            <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+    {% endif %}
+    <a data-ajax-url="{{ path('formato_activar') }}" id="btn_activar"
+       class="text-yellow btn btn-xs m-r-5 m-b-10 btn-default disabled " {#data-toggle="tooltip"#} title="Activar">
+        <span class="fa fa-lightbulb-o "></span> Activar</a>
+    <a data-ajax-url="{{ path('formato_activar') }}" id="btn_desactivar"
+       class="btn btn-xs m-r-5 m-b-10 btn-default disabled" {#data-toggle="tooltip"#} title="Desactivar">
+        <span class="fa fa-lightbulb-o "></span> Desactivar</a>
+    <a data-url="{{ path('formato_exportar') }}" id="btn_export_formato"
+       class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+        <span class="glyphicon glyphicon-print "></span> Exportar</a>
+{% endblock %}
+        {% block javascripts %}
+            {{ parent() }}
+            {% block otherscript %}
+                <script type="text/javascript">
+                    (function ($) {
+                        $(document).ready(function () {
+                            window.cargardatos = function () {
+                                $('#formatos-table').ajaxTable({
+                                    ajaxurl: "{{ path('formato_listar') }}",
+                                    start: 0,
+                                    {% if remember == "1" %}
+                                    rememberStatus: true,
+                                    {% endif %}
+                                    onComplete: function () {
+                                        function checkEv() {
+                                            var el = $('.check_nom:checked');
+                                            var check = $('.check-all-rows:checked');
+                                            if (el.length == 0) {
+                                                $('#eliminar').removeClass('disabled');
+                                                $('#btn_activar').removeClass('disabled');
+                                                $('#btn_desactivar').removeClass('disabled');
+
+                                                $('#eliminar').addClass('disabled');
+                                                $('#btn_activar').addClass('disabled');
+                                                $('#btn_desactivar').addClass('disabled');
+                                                $('#btn_export').addClass('disabled');
+                                            } else {
+                                                if (el.length != 1) {
+                                                    $('#modif').removeClass('disabled');
+                                                    $('#modif').addClass('disabled');
+                                                } else if (el.length == 1) {
+                                                    $('#modif').removeClass('disabled');
+                                                }
+                                                $('#eliminar').removeClass('disabled');
+                                                $('#btn_activar').removeClass('disabled');
+                                                $('#btn_desactivar').removeClass('disabled');
+
+                                            }
+                                        }
+
+                                        $('.check_nom').change(checkEv);
+                                        $('tr').click(checkEv);
+
+                                        setTimeout(function () {
+                                            $('.check-all-rows').find('input').change(checkEv);
+                                        }, 1000);
+
+
+                                        window.setCheckEvents();
+                                    },
+                                    limit: 10,
+                                    columns: [0, 1, 2, 3, 4, 5],
+                                    columnsDef: [
+                                        {
+                                            noFilter: true,
+                                            style: 'width: 30px',
+                                            field: 'idformato',
+                                            header: '<span  class="check-all-rows name"></span>',
+                                            type: '',
+                                            callback: function () {
+                                            },
+                                            render: function (value) {
+                                                return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                            }
+                                        },
+                                        {
+                                            style: 'width: 80px',
+                                            field: 'codigo',
+                                            header: 'Código',
+                                            class: 'tex',
+                                            type: '',
+                                            callback: function () {
+                                            }
+                                        },
+                                        {
+                                            field: 'nombre', header: 'Nombre', type: '', callback: function () {
+                                            }
+                                        }, {
+                                            field: 'peso', header: 'Valor', type: '', callback: function () {
+                                            }
+                                        }, {
+                                            field: 'um', header: 'UM', type: '', callback: function () {
+                                            }
+                                        },
+                                        {
+                                            style: 'width: 80px; text-align: center',
+                                            field: 'activo',
+                                            tipoFiltro: 'boolean',
+                                            header: 'Activo',
+                                            type: '',
+                                            callback: function () {
+                                            },
+                                            render: function (value) {
+                                                if (value) {
+                                                    return '<span class="fa fa-check text-green"></span>';
+                                                } else {
+                                                    return '<span class="glyphicon glyphicon-remove text-red"></span>';
+                                                }
+                                            }
+                                        }
+                                        {% if is_granted('ROLE_MODIFICAR_FORMATO') or is_granted('ROLE_ELIMINAR_FORMATO') %}
+                                        , {
+                                            noFilter: true,
+                                            style: 'text-align: center; width: 100px',
+                                            header: 'Acciones',
+                                            type: '',
+                                            callback: function () {
+                                            },
+                                            render: function (row) {
+                                                var accionModif = "", accionElimi = "";
+                                                {% if is_granted('ROLE_MODIFICAR_FORMATO') %}
+                                                var ajaxurl_mod = '{{ path('formato_edit', { 'id': 0 }) }}';
+                                                accionModif = ' <a  href="' + ajaxurl_mod.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                                    'data-id="' + row[3] + '" title="Editar">' +
+                                                    '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                                {% endif %}
+
+                                                {% if is_granted('ROLE_ELIMINAR_FORMATO') %}
+                                                var ajaxurl = '{{ path('formato_eliminar') }}';
+                                                accionElimi = '<a id="del-item-' + row[0] + '" title="Eliminar" class="link_del" ' +
+                                                    'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurl + '"' +
+                                                    'data-id="' + row[3] + '"><span class="glyphicon glyphicon-trash text-red"></span>';
+                                                {% endif %}
+
+                                                return accionModif + accionElimi;
+                                            }
+                                        }
+                                        {% endif %}
+                                    ]
+
+                                });
+                            }
+                            cargardatos();
+                        });
+
+                    })(jQuery);
+
+                </script>
+            {% endblock %}
+        {% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+{% block body %}
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active " id={% block menu_id1 %}"Generico"{% endblock %}>
+            <div class="row" style="padding:  15px">
+                {% block menu_botones %}
+                    <button title="Adicionar" type="button"
+                            class="btn btn-sm btn-primary pull-right m-r-5 m-b-10">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </button>
+                    &nbsp;
+                    <button title="Eliminar" type="button"
+                            class="btn btn-sm btn-danger pull-right m-r-5 m-b-10"
+                            style="margin:0 20px"><i class="fa fa-trash-o"></i>
+                        Eliminar
+                    </button>
+                {% endblock %}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                        {% block menu_tr %}
+                        <tr>
+                            {% block menu_tha %}
+                                <th></th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Uso</th>
+                                <th>Acciones</th>
+                            {% endblock %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="10px"><input type="checkbox"/></td>
+                            <td style="width: 120px">{{ nomGenerico.codigo }}</td>
+                            <td>{{ nomGenerico.nombre }}</td>
+                            <td width="15px"></td>
+                            <td width="70px">
+                                <a href="{{ path('generico_edit', { 'id': nomGenerico.idgenerico }) }}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
+
+                                &nbsp; <i class="fa fa-trash-o"></i></td>
+                        </tr>
+                        {% endblock %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <h1>NomGenerico</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>Idgenerico</th>
+            <td>{{ nomGenerico.idgenerico }}</td>
+        </tr>
+        <tr>
+            <th>Código</th>
+            <td></td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('generico_index') }}">Back to the list</a>
+        </li>
+        <li>
+
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+
+
+{% endblock %}

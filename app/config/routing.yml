@@ -1,0 +1,36 @@
+reporte_dat_periodos:
+    resource: "@ReporteBundle/Controller/DatPeriodosController.php"
+    type:     annotation
+
+parte_diario_dat_alerta_accion:
+    resource: "@ParteDiarioBundle/Controller/DatAlertaAccionController.php"
+    type:     annotation
+
+reporte:
+    resource: "@ReporteBundle/Controller"
+    type: annotation
+
+parte_diario:
+    resource: "@ParteDiarioBundle/Resources/config/routing.yml"
+    prefix:   /parte
+
+nomenclador:
+    resource: "@NomencladorBundle/Resources/config/routing.yml"
+    prefix:   /nom
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+login_path:
+  path: /login
+  defaults: { _controller: AdminBundle:Usuario:login }
+
+check_path:
+  path: /login_check
+
+logout:
+  path: /logout
+
+
+

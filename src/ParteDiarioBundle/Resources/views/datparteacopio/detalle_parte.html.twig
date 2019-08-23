@@ -1,0 +1,80 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parteacopio_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de acopio</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+
+ {% block tabletab %}
+     <div class="row">
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Ruta: </label>
+             <div class="col-sm-8">
+                 {{ parte.ruta }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">UEB/Destino: </label>
+             <div class="col-sm-8">
+                 {{ destino }}
+             </div>
+         </div>
+
+     </div>
+
+     <div class="box-header">
+         <h3 class="box-title">
+             Suministradores
+         </h3>
+     </div>
+     <table aria-describedby="detalle_parte" id="detalleparteacopio-table"
+            class="table table-bordered table-condensed table-striped dataTable">
+         <thead>
+         <tr>
+             <th>Suministrador</th>
+             <th>Producto</th>
+             <th>UM</th>
+             <th>Cantidad</th>
+             <th>Acidez (%)</th>
+         </tr>
+         </thead>
+         <tbody aria-relevant="all" aria-live="polite" role="alert">
+         {% for acop in parte.acopio %}
+             <tr>
+                 <td>{{ acop.entidad }}</td>
+                 <td>{{ acop.producto }}</td>
+                 <td>{{ acop.um }}</td>
+                 <td>{{ acop.cantidad }}</td>
+                 <td>{{ acop.acidez }}</td>
+             </tr>
+         {% endfor %}
+         </tbody>
+     </table>
+
+     <button title="Regresar" id="regresar_detalle" data-url="{{ path('parteacopio_index',{'fecha':fecha, 'ueb':ueb}) }}" class="btn btn-primary   col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+

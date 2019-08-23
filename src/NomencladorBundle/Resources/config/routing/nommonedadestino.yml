@@ -1,0 +1,47 @@
+monedadestino_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:index" ,remember:null}
+    methods:  GET
+
+monedadestino_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:show" }
+    methods:  GET
+
+monedadestino_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:new" }
+    methods:  [GET, POST]
+
+monedadestino_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:edit" }
+    methods:  [GET, POST]
+
+monedadestino_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:delete" }
+    methods:  DELETE
+
+monedadestino_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:eliminar" }
+    methods:  [GET, POST]
+
+monedadestino_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:SetActivo" }
+    methods:  [GET, POST]
+
+monedadestino_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:listado" }
+    methods:  GET
+monedadestino_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:exportar" }
+    methods:  [GET, POST]
+monedadestino_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomMonedadestino:listar" }
+    methods:  [GET, POST]

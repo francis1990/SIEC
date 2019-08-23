@@ -1,0 +1,97 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+{% block bread %}
+{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parte_alerta_index') }}">Alertas</a></li>
+    <li><a href="#">{{ title }}</a></li>
+
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+{% block menu_lateral %}
+{% endblock %}
+{% block tabletab %}
+    <table aria-describedby="example1_info" id="alerta-table"
+           class="table table-bordered table-striped table-condensed dataTable ">
+        <thead>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="alert">
+        </tbody>
+    </table>
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+
+{% block btn_estado %}
+{% endblock %}
+
+             {% block javascripts %}
+                 {{ parent() }}
+                 {% block otherscript %}
+                     <script type="text/javascript">
+                         (function ($) {
+                             $(document).ready(function () {
+                                 var dat = {{ accion }};
+                                 window.cargardatos = function (start, limit) {
+                                     window.plugin = $('#alerta-table').ajaxTable({
+                                         ajaxurl: "{{ path('parte_alertaaccion_listar') }}",
+                                         start: 0,
+                                         dat: dat,
+                                         limit: 10,
+                                         columns: [0, 1, 2, 3, 4],
+                                         columnsDef: [
+                                             {
+                                                 noFilter: true,
+                                                 style: 'width: 30px',
+                                                 field: 'id',
+                                                 header: '<span class="check-all-rows name"></span>',
+                                                 type: '',
+                                                 callback: function () {
+                                                 },
+                                                 render: function (value) {
+                                                     return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                                 }
+                                             },
+                                             {
+                                                 noFilter: true,
+                                                 field: 'fecha',
+                                                 header: 'Fecha',
+                                                 type: '',
+                                                 callback: function () {
+                                                 }
+                                             },
+                                             {
+                                                 field: 'actividad',
+                                                 header: 'Actividad',
+                                                 type: '',
+                                                 callback: function () {
+                                                 }
+                                             },
+                                             {
+                                                 field: 'entidad',
+                                                 header: 'UEB',
+                                                 type: '',
+                                                 callback: function () {
+                                                 }
+                                             },
+
+                                             {
+                                                 field: 'descripcion',
+                                                 header: 'Descripción',
+                                                 type: '',
+                                                 callback: function () {
+                                                 }
+                                             }
+                                         ]
+                                     });
+                                 };
+                                 cargardatos();
+                             });
+                         })(jQuery);
+                     </script>
+                 {% endblock %}
+             {% endblock %}

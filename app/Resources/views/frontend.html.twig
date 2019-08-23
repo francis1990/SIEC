@@ -1,0 +1,352 @@
+{# app/Resources/views/frontend.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <header class="header ">
+
+        <a href="{{ path('portada') }}" class="logo" title="Empresa Complejo Lácteo de la Habana"
+           style="text-align: left; font-family:'Arial' ">
+            <img src="{{ asset('bundles/tercero/img-siep/logo_coppelia.png') }}" style="height: 100%;" alt="ECLH"/> ECLH
+        </a>
+        <nav class="navbar navbar-static-top " role="navigation">
+            {% block hide_menu %}
+
+            {% endblock %}
+
+
+            <div class="navbar-right skin-blue">
+                <ul class="nav navbar-nav">
+                    <audio src="{{ asset('bundles/alert.ogg') }}" id="audio_alert"></audio>
+                    {% render controller('ParteDiarioBundle:DatAlerta:alerts', {'user' : app.user}) %}
+                    <!-- Notifications: style can be found in dropdown.less -->
+                    {% if is_granted('ROLE_LISTAR_PLANACOPIO') or is_granted('ROLE_LISTAR_PLANASEGURAMIENTO') or is_granted('ROLE_LISTAR_PLANDESVIO')
+                        or is_granted('ROLE_LISTAR_PLANPORTADORES') or is_granted('ROLE_LISTAR_PLANPRODUCCION') or is_granted('ROLE_LISTAR_PLANVENTA') %}
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="fa fa-gear fa-lg"></i>
+                                <span>Planes<i class="caret"></i></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if is_granted('ROLE_LISTAR_PLANACOPIO') %}
+                                    <li>
+                                        <a href="{{ path('planacopio_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Acopio
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PLANASEGURAMIENTO') %}
+                                    <li>
+                                        <a href="{{ path('planaseguramiento_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Aseguramiento
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PLANDESVIO') %}
+                                    <li>
+                                        <a href="{{ path('planacopiodestino_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Desvíos
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PLANPORTADORES') %}
+                                    <li>
+                                        <a href="{{ path('planportador_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Portadores energéticos
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PLANPRODUCCION') %}
+                                    <li>
+                                        <a href="{{ path('planproduccion_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Nivel de actividad
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PLANVENTA') %}
+                                    <li>
+                                        <a href="{{ path('planventa_index') }}">
+                                            {#<i class="fa fa-power-off"></i>#}Ventas
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_LISTAR_PARTEACOPIO') or is_granted('ROLE_LISTAR_PARTEASEGURAMIENTO') or is_granted('ROLE_LISTAR_PARTEPORTADORES')
+                        or is_granted('ROLE_LISTAR_PARTENIVELACTV') or is_granted('ROLE_LISTAR_PARTEVENTA') or is_granted('ROLE_LISTAR_PARTECUENTAS')
+                        or is_granted('ROLE_LISTAR_PARTEECONOMIA') or is_granted('ROLE_LISTAR_PARTEMERCANCIA') or is_granted('ROLE_LISTAR_PARTEMOVIMIENTO')
+                        or is_granted('ROLE_LISTAR_PARTECONSUMO') or is_granted('ROLE_LISTAR_PARTETRANSPORTE') %}
+                        <li class="dropdown notifications-menu">
+                            <a href="{{ path('parteproduccion_index') }}" class=" dropdown-toggle"
+                               data-toggle="dropdown">
+                                <i class="fa fa-gear fa-lg"></i>
+                                <span>Partes diarios <i class="caret"></i> </span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% if is_granted('ROLE_LISTAR_PARTEACOPIO') %}
+                                    <li>
+                                        <a href="{{ path('parteacopio_index') }}">
+                                            Acopio
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEASEGURAMIENTO') %}
+                                    <li>
+                                        <a href="{{ path('parteaseguramiento_index') }}">
+                                            Aseguramiento
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTECUENTAS') %}
+                                    <li>
+                                        <a href="{{ path('partecuentascobrar_index') }}">
+                                            Cuentas por cobrar
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEECONOMIA') %}
+                                    <li>
+                                        <a href="{{ path('parteeconomia_index') }}">
+                                            Economía
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEMERCANCIA') %}
+                                    <li>
+                                        <a href="{{ path('partemercanciavinculo_index') }}">
+                                            Mercancías por vínculo
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEMOVIMIENTO') %}
+                                    <li>
+                                        <a href="{{ path('partemovimiento_index') }}">
+                                            Movimientos de almacén
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEPORTADORES') %}
+                                    <li>
+                                        <a href="{{ path('parteportador_index') }}">
+                                            Portadores energéticos
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTENIVELACTV') %}
+                                    <li>
+                                        <a href="{{ path('parteproduccion_index') }}">
+                                            Nivel de actividad
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTECONSUMO') %}
+                                    <li>
+                                        <a href="{{ path('parte_consaseg_index') }}">
+                                            Consumo de materias primas
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTETRANSPORTE') %}
+                                    <li>
+                                        <a href="{{ path('partetransporte_index') }}">
+                                            Transporte
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_LISTAR_PARTEVENTA') %}
+                                    <li>
+                                        <a href="{{ path('parteventa_index') }}">
+                                            Ventas
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </li>
+                    {% endif %}
+
+                    {% if is_granted('ROLE_LISTAR_DPA') or is_granted('ROLE_LISTAR_UEB') or is_granted('ROLE_LISTAR_TIPOENTIDAD') or is_granted('ROLE_LISTAR_ENTIDAD')
+                        or is_granted('ROLE_LISTAR_GRUPOINTERES') or is_granted('ROLE_LISTAR_UM') or is_granted('ROLE_LISTAR_CONVERSION') or is_granted('ROLE_LISTAR_GENERICO')
+                        or is_granted('ROLE_LISTAR_SUBGENERICO') or is_granted('ROLE_LISTAR_ESPECIFICO') or is_granted('ROLE_LISTAR_TIPOESPECIFICO') or is_granted('ROLE_LISTAR_FORMATO')
+                        or is_granted('ROLE_LISTAR_SABORCUALIDAD') or is_granted('ROLE_LISTAR_PRODUCTO') or is_granted('ROLE_LISTAR_PRECIO') or is_granted('ROLE_LISTAR_ALMACEN')
+                        or is_granted('ROLE_LISTAR_ASEGURAMIENTO') or is_granted('ROLE_LISTAR_NORMACONSUMO') or is_granted('ROLE_LISTAR_RUTA') or is_granted('ROLE_LISTAR_TIPOTRANSPORTE')
+                        or is_granted('ROLE_LISTAR_TIPOINCIDENCIA') or is_granted('ROLE_LISTAR_CLASIFINCIDENCIA') or is_granted('ROLE_LISTAR_PORTADOR') or is_granted('ROLE_LISTAR_CUENTACONTABLE')
+                        or is_granted('ROLE_LISTAR_EJERCICIO') or is_granted('ROLE_LISTAR_TIPOPLAN') or is_granted('ROLE_LISTAR_MONEDADESTINO') or is_granted('ROLE_LISTAR_CONCEPTO')
+                        or is_granted('ROLE_LISTAR_MEDIDORPORTADOR') %}
+                        <li class="dropdown notifications-menu">
+                            {% if is_granted('ROLE_LISTAR_PRODUCTO') %}
+                                <a href="{{ path('producto_index') }}">
+                                    <i class="fa fa-gear fa-lg"></i> Nomencladores
+                                </a>
+                            {% else %}
+                                <a href="{{ path('nomencladores_index') }}">
+                                    <i class="fa fa-gear fa-lg"></i> Nomencladores
+                                </a>
+                            {% endif %}
+                        </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_LISTAR_ADMINENTIDAD') or is_granted('ROLE_LISTAR_ROL') or is_granted('ROLE_LISTAR_USUARIO') or is_granted('ROLE_SALVAR_BD')
+                        or is_granted('ROLE_ELIMINAR_HISTORIAL') %}
+                        {% if is_granted('ROLE_LISTAR_USUARIO') %}
+                            <li class="dropdown notifications-menu">
+                                <a href="{{ path('admin_usuario_lista') }}">
+                                    <i class="fa fa-gear fa-lg"></i> <span>Administración</span>
+                                </a>
+                            </li>
+                        {% else %}
+                            <li class="dropdown notifications-menu">
+                                <a href="{{ path('admin_inicio') }}">
+                                    <i class="fa fa-gear fa-lg"></i> <span>Administración</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endif %}
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>{{ app.user }} <i class="caret"></i></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#modal_cerrar" data-toggle="modal">
+                                    <i class="fa fa-power-off"></i>
+                                    <span class="hidden-sm text">Cerrar Sesión</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left bg-logo">
+        {% block menu_lateral %}
+            <aside class="left-side collapse-left">
+            </aside>
+        {% endblock %}
+        <aside class={% block asiderigth %}"right-side"{% endblock %}>
+
+            {% block titulo_cont_excep %}
+                <section class="content-header breadcrumb sms">
+                    {#<ol class="breadcrumb">#}
+                    <h8>
+                        <ol class="breadcrumb">
+                            {% block titulo_cont %}
+                                <li><a href="{{ path('portada') }}">Inicio</a></li>
+                            {% endblock %}
+                            <div style="float: right">
+                                {% block menu_bot %}
+                                {% endblock %}
+                            </div>
+                        </ol>
+                    </h8>
+
+                    {% block bread %}
+
+                    {% endblock %}
+                    {% block other_camps %}
+                    {% endblock %}
+                    {#</ol>#}
+                </section>
+            {% endblock %}
+            {% block contExcepciones %}
+                <div class="container" style="padding-top: 100px;">
+                    <div class="row col-xs-12">
+                        {% block codigo_error %}{% endblock %}
+                    </div>
+                    <div class="row col-xs-12">
+                        <h3>{% block icono_error %} {% endblock %} {% block mensaje_notif %} {% endblock %}</h3>
+                        <h4> {% block mensaje_solucion %} {% endblock %} </h4>
+                    </div>
+                </div>
+            {% endblock %}
+            <section class="content">
+                {% block cuerpo %}
+                    <div class="wrapper row-offcanvas row-offcanvas-left;">
+                        {% block contenido %}
+                        {% endblock %}
+
+                        {#<footer class="main-footer hidden-xs">
+                            <p>Versión 1.0 | Desarrollado por grupo de Desarrollo Desoft División Habana | 2018.</p>
+                        </footer>#}
+
+                    </div>
+                {% endblock %}
+            </section>
+        </aside>
+    </div>
+
+    {% block bodyExcepciones %}
+
+    {% endblock %}
+{% endblock %}
+{% block cerrar %}
+    <div class="modal fade " id="modal_cerrar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h3><span class="glyphicon glyphicon-question-sign"></span> Cerrar Sesión</h3>
+                </div>
+                <div class="modal-body ">
+                    <p>¿Está seguro que desea cerrar su sesión?</p>
+                </div>
+                <div class="modal-footer">
+                    <a id="logout" href="{{ path('logout') }}" class="btn btn-primary" title="Aceptar"><span
+                                class="glyphicon glyphicon-ok"></span> Aceptar</a>
+                    <a id="cancelar" href="#" title="Cancelar" class="btn btn-default" data-dismiss="modal"><span
+                                class="glyphicon glyphicon-remove"></span> Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alerta_notificacion" data-dismiss="true" style="display: none">
+        <span class="fa fa-times cerrar_notificacion"></span>
+        <p style="width: 105%">Usted tiene notificaciones pendientes</p>
+    </div>
+{% endblock %}
+{% block more_scripts %}
+    <script>
+        window.alertasActivas = function () {
+            var alertas = $('.alertas span').data('count');
+            if (alertas > 0) {
+                $('#audio_alert').attr('autoplay', true);
+                $('.alerta_notificacion').fadeToggle(1000);
+                $('.cerrar_notificacion').click(function () {
+                    $('.alerta_notificacion').fadeToggle(500);
+                })
+            }
+        };
+        alertasActivas();
+        window.suprimirAlertas = function (_this) {
+            $.ajax({
+                url: $(_this).attr('data-url'),
+                type: 'GET',
+                success: function (html) {
+                    $('.alertas').replaceWith(
+                        html
+                    );
+                    alertasActivas();
+                }
+            });
+        };
+        window.revisarAlertas = function (_this) {
+            $.ajax({
+                url: $(_this).attr('data-url'),
+                type: 'GET',
+                success: function (html) {
+                    $('.alertas').replaceWith(
+                        html
+                    );
+                    alertasActivas();
+                }
+            });
+        };
+
+    </script>
+{% endblock %}
+
+
+
+

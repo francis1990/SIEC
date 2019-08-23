@@ -1,0 +1,34 @@
+nomtiponorma_index:
+        path:     /list/{remember}
+        defaults: { _controller: "NomencladorBundle:NomTipoNorma:index",remember:null }
+        methods:  GET
+
+nomtiponorma_new:
+        path:     /nuevo
+        defaults: { _controller: "NomencladorBundle:NomTipoNorma:new" }
+        methods:  [GET,POST]
+        
+nomtiponorma_listar:
+        path:     /listar
+        defaults: { _controller: "NomencladorBundle:NomTipoNorma:listar" }
+        methods:  [GET,POST]
+
+nomtiponorma_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomTipoNorma:edit" }
+    methods:  [GET,POST]
+
+nomtiponorma_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "NomencladorBundle:NomTipoNorma:eliminar" }
+    methods:  [GET,POST]
+
+nomtiponorma_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipoNorma:SetActivo" }
+    methods:  [GET, POST]
+
+nomtiponorma_exportar:
+    path:     /exportar
+    defaults: { _controller: "NomencladorBundle:NomTipoNorma:exportar" }
+    methods:  [GET,POST]

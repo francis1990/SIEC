@@ -1,0 +1,96 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_insert.html.twig' %}
+{% block li_link %}
+{% endblock %}
+{% block li_actual %}
+{% endblock %}
+{% block link_actual %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a>Nomencladores</a></li>
+    <li><a href="{{ path('aseguramiento_index') }}">Aseguramiento</a></li>
+    <li><a href="#"> {{ accion }} </a></li>
+{% endblock %}
+{% block form_col3 %}
+    <div class="form-group col-xs-6">
+        <label id="lb_unidadmedida"
+               class="col-xs-4 control-label">{{ form_label(form.idunidadmedida) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.idunidadmedida) }}
+            {{ form_errors(form.idunidadmedida) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <label id="lb_padre"
+               class="col-xs-4 control-label">{{ form_label(form.padre) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.padre) }}
+            {{ form_errors(form.padre) }}
+        </div>
+    </div>
+    {% if accion == "Editar" %}
+        <input type="hidden" value="{{ padre }}" id="idpadre"/>
+    {% endif %}
+
+    <div class="form-group col-xs-6">
+        <label class="col-xs-4 control-label">{{ form_label(form.precio_cup) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.precio_cup) }}
+            {{ form_errors(form.precio_cup) }}
+        </div>
+    </div>
+
+    <div class="form-group col-xs-6">
+        <label class="col-xs-4 control-label">{{ form_label(form.precio_cuc) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.precio_cuc) }}
+            {{ form_errors(form.precio_cuc) }}
+        </div>
+    </div>
+
+
+    <div class="form-group col-xs-6 ">
+        <label id="lb_ordenmpb"
+               class="col-xs-4 control-label">{{ form_label(form.ordenmpb) }}</label>
+        <div class="col-xs-1">
+            {{ form_widget(form.mpb) }}
+            {{ form_errors(form.mpb) }}
+        </div>
+        <div class="col-xs-7">
+            {{ form_widget(form.ordenmpb) }}
+            {{ form_errors(form.ordenmpb) }}
+        </div>
+    </div>
+
+
+
+{% endblock %}
+ {% block botonesInsert %}
+     <div class="row">
+         <div class="col-md-offset-6">
+             {% if accion =='Adicionar' %}
+                 {{ form_widget(form.agregar) }}
+             {% endif %}
+             {{ form_widget(form.aceptar) }}
+
+             <a href=" {{ path('aseguramiento_index') }} "
+                data-url="{{ path('aseguramiento_index') }}"
+                class="btn btn-default  {% if accion != 'Adicionar' %} editcerrar {% endif %}" id="btn-cerrar">
+                 <i class="glyphicon glyphicon-remove icon-white"></i>
+                 Cancelar
+             </a>
+
+         </div>
+     </div>
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_tree.js') }}"></script>
+    {% endblock %}
+{% endblock %}

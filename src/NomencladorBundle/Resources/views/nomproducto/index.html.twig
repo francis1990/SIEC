@@ -1,0 +1,240 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_jquery.html.twig' %}
+
+{% block bread %}
+
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a>Nomencladores</a></li>
+    <li><a href="{{ path('producto_index') }}">Productos</a></li>
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+{% block table_id %} id="productos-table" {% endblock %}
+
+  {% block btn_estado %}
+      {% if is_granted('ROLE_ADICIONAR_PRODUCTO') %}
+          <a href='javascript:;' data-url='{{ path('producto_new', { 'id': 0 }) }}'
+             data-new="{{ path('producto_newid') }}"
+             id="add_producto" title="Adicionar"
+             class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+              <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+      {% endif %}
+      {% if is_granted('ROLE_ELIMINAR_PRODUCTO') %}
+          <a title="Eliminar" data-ajax-url="{{ path('producto_eliminar') }}" id="eliminar" href="#modal_eliminar"
+             data-toggle="modal"
+             class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled">
+              <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+      {% endif %}
+      <a data-ajax-url="{{ path('producto_activar') }}" id="btn_activar"
+         class="text-yellow btn btn-xs m-r-5 m-b-10 btn-default disabled " {#data-toggle="tooltip"#}
+         title="Activar">
+          <span class="fa fa-lightbulb-o "></span> Activar</a>
+      <a data-ajax-url="{{ path('producto_activar') }}" id="btn_desactivar"
+         class="btn btn-xs m-r-5 m-b-10 btn-default disabled" {#data-toggle="tooltip"#}
+         title="Desactivar">
+          <span class="fa fa-lightbulb-o "></span> Desactivar</a>
+      <a data-url="{{ path('producto_exportar') }}" id="btn_export_producto"
+         class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+          <span class="glyphicon glyphicon-print"></span> Exportar</a>
+
+      <select class="btn btn-xs text-left" data-placeholder="Niveles de Producto"
+              style="float: right; border: 1px solid rgb(202, 202, 255) ! important;" id="select_niv">
+          {#<option class="text-left" value="13">Todos los niveles</option>#}
+          <option class="text-left" value="0">Genérico</option>
+          <option class="text-left" value="1">Subgenérico</option>
+          <option class="text-left" value="2">Específico</option>
+          <option class="text-left" value="3">Tipo de Específico</option>
+          <option class="text-left" value="4">Todos</option>
+      </select>
+  {% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            var padres = [];
+            var padresExpand = [];
+            {% for val in app.session.get('padres') %}
+            padres.push( {{ val }});
+            {% endfor %}
+            {{ app.session.set('padres',[]) }}
+
+            window.cargardatos = function (nivel) {
+
+                nivel = nivel || $('#select_niv').val() //'-1';
+                lock_screen();
+                var idpro = 0;
+                $('#productos-table').ajaxTreeTable({
+                    ajaxurl: "{{ path('producto_listar') }}",
+                    filterType: 'f',
+                    rootLevel: 0,
+                    idField: 'idproducto',
+                    parentField: 'idpadre',
+                    dat: nivel,
+                    {% if remember == "1" %}
+                    rememberStatus: true,
+                    {% endif %}
+                    start: 0,
+                    onComplete: function () {
+
+                        if (window.controlTotal) {
+                            setTimeout(function () {
+                                if (padres.length > 1) {
+                                    for (var i = 0; i < padres.length; i++) {
+                                        $('#productos-table .grid-item[data-id=' + padres[i] + ']').trigger('mousedown');
+                                        if (i == padres.length - 1) {
+                                            $('#productos-table .grid-item[data-id=' + padres[i] + ']').parent().addClass('at-selected-row');
+                                            $('.check_nom[id=' + padres[i] + ']').attr('checked', 'checked');
+                                        }
+                                    }
+                                } else if (padres.length == 1) {
+                                    $('#productos-table .grid-item[data-id=' + padres[0] + ']').parent().addClass('at-selected-row');
+                                    $('.check_nom[id=' + padres[0] + ']').attr('checked', 'checked');
+                                }
+
+                            }, 1000);
+                        }
+
+                        setTimeout(function () {
+                            window.controlTotal = false;
+                        }, 10000);
+
+                        function checkEv() {
+                            var el = $('.check_nom:checked');
+
+                            if (el.length == 0) {
+                                $('#eliminar').removeClass('disabled');
+                                $('#modif_pro').removeClass('disabled');
+                                $('#btn_activar').removeClass('disabled');
+                                $('#btn_desactivar').removeClass('disabled');
+
+                                $('#eliminar').addClass('disabled');
+                                $('#modif_pro').addClass('disabled');
+                                $('#btn_activar').addClass('disabled');
+                                $('#btn_desactivar').addClass('disabled');
+                            } else {
+                                $('#eliminar').removeClass('disabled');
+                                if (el.length != 1) {
+                                    $('#modif_pro').removeClass('disabled');
+                                    $('#modif_pro').addClass('disabled');
+                                } else if (el.length == 1) {
+                                    $('#modif_pro').removeClass('disabled');
+                                }
+                                $('#modif_pro').removeClass('disabled');
+                                $('#btn_activar').removeClass('disabled');
+                                $('#btn_desactivar').removeClass('disabled');
+                            }
+
+                        }
+
+                        window.setCheckEvents();
+
+                        $('.check_nom').change(checkEv);
+                        $('tr').click(checkEv);
+                        $('.check-all-rows').find('input').change(checkEv);
+                        setTimeout(function () {
+                            $('.check-all-rows').find('input').change(checkEv);
+                        });
+                    },
+                    limit: 10,
+                    columns: [0, 1, 2, 3, 4],
+                    columnsDef: [//
+                        {
+                            noFilter: true,
+                            style: "width: 50px",
+                            field: 'idproducto',
+                            class: 'name',
+//                        header: ' <li id="at-clear" class="pull-left"><a href="javascript:;">Limpiar filtros</a></li>',
+                            header: '',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value, values) {
+                                var icon = (values && values[4]) ? 'glyphicon-file leaf' : 'glyphicon-chevron-right';
+                                return '<a href="#"><span class="glyphicon ' + icon + '"></span> </a> ';
+                            }
+                        },
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'check-all-rows name',
+                            field: '',
+                            header: '', /* <input type="checkbox" class="check_nom"/> */
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                return '<input type="checkbox" id="' + value[0] + '" class="check_nom" /> ';
+                            }
+                        },
+                        {
+                            style: 'width: 80px',
+                            field: 'codigo',
+                            header: 'Código',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        },
+                        {
+                            field: 'nombre', header: 'Nombre', type: '', callback: function () {
+                            }
+                        },
+                        {
+                            tipoFiltro: 'boolean',
+                            style: 'width: 80px; text-align: center',
+                            field: 'activo',
+                            class: 'name',
+                            header: 'Activo',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                if (value == 1) {
+                                    return '<span class="fa fa-check text-green"></span>';
+                                } else {
+                                    return '<span class="glyphicon glyphicon-remove text-red"></span>';
+                                }
+
+                            }
+                        }
+                        {% if is_granted('ROLE_MODIFICAR_PRODUCTO') or is_granted('ROLE_ELIMINAR_PRODUCTO') %}
+                        , {
+                            noFilter: true,
+                            style: 'text-align: center; width: 100px',
+                            header: 'Acciones',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (row) {
+                                var accionModif = "", accionElimi = "";
+                                {% if is_granted('ROLE_MODIFICAR_PRODUCTO') %}
+                                var ajaxurl_mod = '{{ path('producto_edit', { 'id': 0 }) }}';
+                                accionModif = ' <a  href="' + ajaxurl_mod.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                    'data-id="' + row[3] + '" title="Editar">' +
+                                    '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ELIMINAR_PRODUCTO') %}
+                                var ajaxurl = '{{ path('producto_eliminar') }}';
+                                accionElimi = '<a id="del-item-' + row[0] + '" title="Eliminar" class="link_del" ' +
+                                    'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurl + '"' +
+                                    'data-id="' + row[3] + '"><span class="glyphicon glyphicon-trash text-red"></span>';
+                                {% endif %}
+
+                                return accionModif + accionElimi;
+                            }
+                        }
+                        {% endif %}
+                    ]
+                });
+                setTimeout(unlock_screen);
+            };
+            setTimeout(function () {
+                cargardatos();
+            });
+        </script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,49 @@
+planventa_index:
+    path:     /list/{ejercicio}/{tipoPlan}/{ueb}/{fisicoval}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:index" ,ejercicio:0,tipoPlan:0,ueb:0,fisicoval:2,remember:null}
+    methods:  GET
+
+planventa_show:
+    path:     /{id}/show
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:show" }
+    methods:  GET
+
+planventa_new:
+    path:     /new/{ejercicio}/{tipoPlan}/{ueb}/{fisicoval}/{padre}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:new",ejercicio:0,tipoPlan:0,ueb:0,fisicoval:0,padre:null}
+
+planventa_listarplan:
+    path:     /listarplan
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:listarPlanP" }
+    methods:  GET
+
+
+planventa_validar:
+    path:     /validar
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:validar" }
+    methods:  GET
+
+planventa_generar:
+    path:      /{data}/generar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:generar" }
+    methods:  [GET, POST]
+
+planventa_edit:
+    path:     /editar/{id}/{ejercicio}/{tipoPlan}/{ueb}/{fisicoval}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:edit" ,ejercicio:0,tipoPlan:0,ueb:0,fisicoval:0}
+    methods:  [GET, POST]
+
+planventa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:delete" }
+    methods:  DELETE
+
+planventa_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:eliminar" }
+    methods:  [GET, POST]
+
+detalle_planventa:
+    path:      /detalle/{id}/{ejercicio}/{tipoPlan}/{ueb}/{fisicoval}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanVenta:detallePlan" ,ejercicio:0,tipoPlan:0,ueb:0,fisicoval:2}
+    methods:  [GET, POST]

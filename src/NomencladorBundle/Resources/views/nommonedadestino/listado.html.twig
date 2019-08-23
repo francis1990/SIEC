@@ -1,0 +1,8 @@
+<select id="filtro-moneda" data-placeholder="Moneda/Destino" class="form-control chosen-select">
+    <option value="0" data-url="">Seleccione..</option>
+    {% for p in md %}
+        <option value="{{ p.id }}">
+            {{ p.nombre }}
+        </option>
+    {% endfor %}
+</select>

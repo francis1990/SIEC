@@ -1,0 +1,38 @@
+parteproduccion_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:index",fecha:0,ueb:0 ,remember:null}
+    methods:  GET
+
+parteproduccion_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:new" }
+    methods:  [GET, POST]
+
+parteproduccion_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:guardar",fecha:0,ueb:0}
+
+parteproduccion_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+parteproduccion_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:delete" }
+    methods:  DELETE
+
+parteproduccion_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:eliminar" }
+    methods:  [GET, POST]
+
+parteproduccion_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:listar" }
+    methods:  [GET, POST]
+
+detalleParteNactv:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioProduccion:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]

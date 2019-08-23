@@ -1,0 +1,113 @@
+{% extends 'AdminBundle:Default:admin.html.twig' %}
+
+ {% block titulo_cont %}
+     <li><a href="{{ path('portada') }}">Inicio</a></li>
+     <li><a href="{{ path('config_general') }}">Administración</a></li>
+     <li><a href="{{ path('admin_rol_lista') }}">Roles</a></li>
+     <li><a class="active">{{ accion }}</a></li>
+ {% endblock %}
+
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ accion }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-rol','class':'form-edit' }}) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.descRol) }}</label>
+
+                                    <div class="col-sm-6">
+                                        {{ form_widget(form.descRol) }}
+                                        {{ form_errors(form.descRol) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="multiSelectPermisos" class="control-label"> Permisos</label>
+                                    {% if accion == "Adicionar" %}
+                                        <select id="multiSelectPermisos" multiple="multiple" class="form-control"
+                                                style="height: 200px;">
+                                            {% for permiso in permisos %}
+                                                <option value="{{ permiso['id'] }}">{{ permiso['descPermiso'] }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% else %}
+                                        <select id="multiSelectPermisos" multiple="multiple" class="form-control"
+                                                style="height: 200px;">
+                                            {% for permiso in permisos %}
+                                                {% if permiso['relation'] != null %}
+                                                    <option selected
+                                                            value="{{ permiso['id'] }}">{{ permiso['descPermiso'] }}</option>
+                                                {% else %}
+                                                    <option value="{{ permiso['id'] }}">{{ permiso['descPermiso'] }}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <div class="col-xs-6 col-xs-offset-6">
+                                    {% if accion == "Adicionar" %}
+                                        <button title="Guardar" data-action="aplicar" type="submit"
+                                                class="btn btn-primary disabled "
+                                                id="btn_aplicar_rol">
+                                            <i class="glyphicon glyphicon-save icon-white"></i>
+                                            Guardar
+                                        </button>
+                                    {% endif %}
+                                    {{ form_widget(form.aceptar) }}
+                                    <a title="Cancelar" href="{{ path('admin_rol_lista') }}"
+                                       data-url="{{ path('admin_rol_lista') }}"
+                                       class="btn btn-default {% if accion != 'Adicionar' %} editcerrar {% endif %}">
+                                        <i class="glyphicon glyphicon-remove icon-white"></i>
+                                        Cancelar
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block more_scripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+
+        $('#form-rol').submit(function () {
+            lock_screen();
+            var lista = JSON.stringify($("#multiSelectPermisos").val());
+
+            $('#rol_listaPermisos').val(lista);
+        });
+
+        $('#form-rol *').on('keyup change', null, function () {
+            valBotonesRol();
+        });
+
+        function valBotonesRol() {
+            if ($('#form-rol').valid() && $('#multiSelectPermisos').val() !== null) {
+                $('#btn_aplicar_rol,#btnInsertarRol').removeClass('disabled');
+            } else {
+                $('#btn_aplicar_rol,#btnInsertarRol').addClass('disabled');
+            }
+        }
+
+    </script>
+
+{% endblock %}

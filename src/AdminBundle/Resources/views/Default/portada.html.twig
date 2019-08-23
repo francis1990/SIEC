@@ -1,0 +1,78 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+
+    {% block cuerpo %}
+        <section class="content">
+            <div class="row">
+                {% if is_granted('ROLE_LISTAR_INCIDENCIA') %}
+                    <div class="col-lg-3 col-md-3 col-md-offset-1">
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h2>
+                                    INCIDENCIAS
+                                </h2>
+
+                                <p>
+                                    <span class="card-small">Afectaciones diarias</span>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-warning"></i>
+                            </div>
+
+                            <a href="{{ path('incidencia_index') }}" class="small-box-footer">
+                                Ir a esta sección <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if is_granted('ROLE_LISTAR_ALERTA') %}
+                    <div class="col-lg-3 col-md-3">
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h2>
+                                    ALERTAS
+                                </h2>
+
+                                <p>
+                                    <span class="card-small">Alertas</span>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion-ios7-bell"></i>
+                            </div>
+                            <a href="{{ path('parte_alerta_index') }}" class="small-box-footer">
+                                Ir a esta sección <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+                {% if is_granted('ROLE_GENERAR_REPORTE') %}
+                    <div class="col-lg-3 col-md-3">
+                        <div class="small-box bg-aqua">
+                            <div class="inner">
+                                <h2>
+                                    REPORTES
+                                </h2>
+
+                                <p class="card-small">
+                                    <span class="card-small">Reportes de salida</span>
+                                </p>
+                            </div>
+                            <div class="icon">
+                                <i class="fa fa-bar-chart-o"></i>
+                            </div>
+                            <a href="{{ path('reportadeor_index') }}" class="small-box-footer">
+                                Ir a esta sección <i class="fa fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+        <br>        <br>        <br>        <br>        <br>
+        <div class="div-logo-portada">
+        </div>
+    {% endblock %}

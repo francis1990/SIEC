@@ -1,0 +1,225 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_jquery.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a>Nomencladores</a></li>
+    <li><a href="{{ path('dpa_index') }}">DPA</a></li>
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+     {% block btn_estado %}
+         {% if is_granted('ROLE_ADICIONAR_DPA') %}
+             <a href="{{ path('dpa_new') }}"
+                id="add_dpa"
+                class="btn btn-xs m-r-5 m-b-10 btn-default text-green" title="Adicionar">
+                 <span class="glyphicon glyphicon-plus"></span> Adicionar</a>
+         {% endif %}
+
+         {% if is_granted('ROLE_ELIMINAR_DPA') %}
+             <a data-ajax-url="{{ path('dpa_eliminar') }}" title="Eliminar" id="eliminar" href="#modal_eliminar"
+                data-toggle="modal"
+                class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled">
+                 <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+         {% endif %}
+
+         <a data-ajax-url="{{ path('dpa_activar') }}" id="btn_activar"
+            class="text-yellow btn btn-xs m-r-5 m-b-10 btn-default disabled " {#data-toggle="tooltip"#}
+            title="Activar">
+             <span class="fa fa-lightbulb-o "></span> Activar</a>
+
+         <a data-ajax-url="{{ path('dpa_activar') }}" id="btn_desactivar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default disabled" {#data-toggle="tooltip"#}
+            title="Desactivar">
+             <span class="fa fa-lightbulb-o ">&nbsp;</span> Desactivar</a>
+
+         <a id="btn_export_dpa" data-url="{{ path('dpa_exportar') }}"
+            class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+             <span class="glyphicon glyphicon-print "></span> Exportar</a>
+
+     {% endblock %}
+{% block table_id %} id="dpas-table" {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    {% block otherscript %}
+        <script type="text/javascript">
+            window.flag = 0;
+            var padres = [];
+            var padresExpand = [];
+            {% for val in app.session.get('padres') %}
+            padres.push( {{ val }});
+            {% endfor %}
+            {{ app.session.set('padres',[]) }}
+
+            window.cargardatos = function (nivel) {
+                nivel = nivel || 0;
+                lock_screen();
+                var idpro = 0;
+
+
+                $('#dpas-table').ajaxTreeTable({
+                    ajaxurl: "{{ path('dpa_listar') }}",
+                    filterType: 'f',
+                    rootLevel: 0,
+                    idField: 'iddpa',
+                    parentField: 'idpadre',
+                    dat: nivel,
+
+                    {% if remember == "1" %}
+                    rememberStatus: true,
+                    {% endif %}
+
+                    start: 0,
+                    onComplete: function () {
+                        var cont = 0;
+
+                        if (window.controlTotal) {
+                            setTimeout(function () {
+                                if (padres.length > 1) {
+                                    for (var i = 0; i < padres.length; i++) {
+                                        $('#dpas-table .grid-item[data-id=' + padres[i] + ']').trigger('mousedown');
+                                        if (i == padres.length - 1) {
+                                            $('#dpas-table .grid-item[data-id=' + padres[i] + ']').parent().addClass('at-selected-row');
+                                            $('.check_nom[id=' + padres[i] + ']').attr('checked', 'checked');
+                                        }
+                                    }
+                                } else if (padres.length == 1) {
+                                    $('#dpas-table .grid-item[data-id=' + padres[0] + ']').parent().addClass('at-selected-row');
+                                    $('.check_nom[id=' + padres[0] + ']').attr('checked', 'checked');
+                                }
+
+                            }, 100);
+                        }
+
+                        setTimeout(function () {
+                            window.controlTotal = false;
+                        }, 5000);
+
+                        function checkEv() {
+                            var el = $('.check_nom:checked');
+
+                            if (el.length == 0) {
+                                $('#eliminar').removeClass('disabled');
+                                $('#btn_activar').removeClass('disabled');
+                                $('#btn_desactivar').removeClass('disabled');
+
+                                $('#eliminar').addClass('disabled');
+                                $('#btn_activar').addClass('disabled');
+                                $('#btn_desactivar').addClass('disabled');
+                            } else {
+                                $('#eliminar').removeClass('disabled');
+                                $('#btn_activar').removeClass('disabled');
+                                $('#btn_desactivar').removeClass('disabled');
+                            }
+
+                        }
+
+                        window.setCheckEvents();
+
+                        $('.check_nom').change(checkEv);
+                        $('tr').click(checkEv);
+                        $('.check-all-rows').find('input').change(checkEv);
+                        setTimeout(function () {
+                            $('.check-all-rows').find('input').change(checkEv);
+                        }, 1000);
+                    },
+                    limit: 10,
+                    columns: [0, 1, 2, 3, 4],
+                    columnsDef: [//
+                        {
+                            noFilter: true,
+                            style: "width: 50px",
+                            field: 'iddpa',
+                            class: 'name',
+//                        header: ' <li id="at-clear" class="pull-left"><a href="javascript:;">Limpiar filtros</a></li>',
+                            header: '',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value, values) {
+                                var icon = (values && values[4]) ? 'glyphicon-file leaf' : 'glyphicon-chevron-right';
+                                return '<a href="#"><span class="glyphicon ' + icon + '' + " data_id_" + values[0] + '" ></span> </a> ';
+                            }
+                        },
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'check-all-rows name',
+                            field: '',
+                            header: '', /* <input type="checkbox" class="check_nom"/> */
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                return '<input type="checkbox" id="' + value[0] + '" class="check_nom" /> ';
+                            }
+                        },
+                        {
+                            style: 'width: 80px',
+                            field: 'codigo',
+                            header: 'Código',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        },
+                        {
+                            field: 'nombre', header: 'Nombre', type: '', callback: function () {
+                            }
+                        },
+                        {
+                            tipoFiltro: 'boolean',
+                            style: 'width: 80px; text-align: center',
+                            field: 'activo',
+                            class: 'name',
+                            header: 'Activo',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                if (value == 1) {
+                                    return '<span class="fa fa-check text-green"></span>';
+                                } else {
+                                    return '<span class="glyphicon glyphicon-remove text-red"></span>';
+                                }
+                            }
+                        }
+                        {% if is_granted('ROLE_MODIFICAR_DPA') or is_granted('ROLE_ELIMINAR_DPA') %}
+                        , {
+                            noFilter: true,
+                            style: 'text-align: center; width: 100px',
+                            header: 'Acciones',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (row) {
+                                var accionModif = "", accionElimi = "";
+                                {% if is_granted('ROLE_MODIFICAR_DPA') %}
+                                var ajaxurl_mod2 = '{{ path('dpa_edit', { 'id': 0 }) }}';
+                                accionModif = ' <a  href="' + ajaxurl_mod2.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod2 + '"' +
+                                    'data-id="' + row[3] + '" title="Editar">' +
+                                    '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ELIMINAR_DPA') %}
+                                var ajaxurl = '{{ path('dpa_eliminar') }}';
+                                accionElimi = '<a id="del-item-' + row[0] + '" title="Eliminar" class="link_del" ' +
+                                    'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurl + '"' +
+                                    'data-id="' + row[3] + '"><span class="glyphicon glyphicon-trash text-red"></span>';
+                                {% endif %}
+
+                                return accionModif + accionElimi;
+                            }
+                        }
+                        {% endif %}
+                    ]
+                });
+                setTimeout(unlock_screen, 2000);
+            };
+            setTimeout(function () {
+                cargardatos();
+            }, 3000);
+        </script>
+    {% endblock %}
+{% endblock %}

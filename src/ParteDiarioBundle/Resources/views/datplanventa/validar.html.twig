@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>Documento sin t&iacute;tulo</title>
+    <style type="text/css">
+        td, th {
+            border-left: 1px solid #474747;
+            border-bottom: 1px solid #474747;
+            margin: 0;
+        }
+
+        .negrita {
+            border-top: 2px solid #474747;
+            border-bottom: 2px solid #474747;
+        }
+
+        table {
+            border-spacing: 0;
+            border: 1px solid #777;
+        }
+    </style>
+</head>
+
+<body class="">
+<h4 align="center" style="margin-top: 5px"><strong>Validación de Planes de Ventas </strong></h4>
+<h5 style="margin-top: 5px">
+    <p align="left" class="Estilo1">Ueb: {{ ueb }} &nbsp;&nbsp;&nbsp;&nbsp;
+
+        Ejercicio: {{ ejercicio }} &nbsp;&nbsp;&nbsp;&nbsp;
+
+        Tipo Plan: {{ tipoplan }} &nbsp;&nbsp; Fecha:{{ fecha }}
+        &nbsp;&nbsp; Hora:{{ hora }}  </p>
+
+</h5>
+<div align="center">
+
+    <table width="100%" class="" id="generar-table">
+        <thead align="left">
+        <tr style="background-color: #00c0ef;font-size: small">
+            <th width="20%">Cliente</th>
+            <th width="20%">Producto</th>
+            <th width="2%" class="text name">UM</th>
+            <th width="2%" class="text name">Origen</th>
+            <th width="2%" class="text name">Destino</th>
+            <th width="5%" class="text name">Valor</th>
+            <th width="5%" class="text name">Ene</th>
+            <th width="5%" class="text name">Feb</th>
+            <th width="5%" class="text name">Mar</th>
+            <th width="5%" class="text name">Abr</th>
+            <th width="5%" class="text name">May</th>
+            <th width="5%" class="text name">Jun</th>
+            <th width="5%" class="text name">Jul</th>
+            <th width="5%" class="text name">Ago</th>
+            <th width="5%" class="text name">Sep</th>
+            <th width="5%" class="text name">Oct</th>
+            <th width="5%" class="text name">Nov</th>
+            <th width="5%" class="text name">Dic</th>
+            <th width="5%" class="text name">Total Capturado</th>
+            <th width="5%" class="text name">Total Calculado</th>
+            <th width="5%" class="text name">Diferencia</th>
+        </tr>
+        </thead>
+        <tbody class="" style="font-size: 90%">
+        {% for dat in  data %}
+            {#{% if dat[0] =='Diferencia' %}#}
+                {#<tr align="left" style="border:solid;border-bottom-color: #1a1a1a;">#}
+                    {#{% for d in dat %}#}
+                        {#{% if loop.index >3 %}#}
+                            {#<th style="background-color: #7aba7b;color: #942a25" align="right">{{ d }}</th>#}
+                        {#{% else %}#}
+                            {#<th style="background-color: #7aba7b;color: #942a25" align="left">{{ d }}</th>#}
+                        {#{% endif %}#}
+                    {#{% endfor %}#}
+                {#</tr>#}
+            {#{% else %}#}
+                <tr style="font-family: Courier;" >
+                    {% for d in dat %}
+                        {% if loop.index >3 %}
+                            <td align="right"  class="">{{ d }}</td>
+                        {% else %}
+                            <td align="left"  class="">{{ d }}</td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {#{% endif %}#}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<blockquote>
+    <h1 align="center">&nbsp;</h1>
+</blockquote>
+
+<script src="{{ asset('bundles/tercero/js/jquery.min.js') }}"></script>
+
+<script>
+
+//    (function($){
+//
+//        $(document).ready( function(){
+//
+//            var rows = $('td');
+//
+//            $(rows).each( function( elem, index ){
+//                var e = $(elem);
+//                console.log(e.html());
+//                if ( e.text() == 'Diferencia' ) {
+//                    $(e.parent()).css('background-color', '#ada');
+//                }
+//            } );
+//
+//        } );
+//
+//    })(jQuery);
+
+</script>
+
+</body>
+
+</html>

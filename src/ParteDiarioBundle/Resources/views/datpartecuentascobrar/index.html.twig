@@ -1,0 +1,239 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('partecuentascobrar_index') }}">Partes diarios de cuentas por cobrar</a></li>
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+ {% block tabletab %}
+     <table aria-describedby="example1_info" id="parte-table" data-fecha="{{ fecha }}"
+            class="table table-bordered table-condensed table-striped dataTable">
+         <thead>
+         </thead>
+         <tbody aria-relevant="all" aria-live="polite" role="alert">
+         </tbody>
+     </table>
+ {% endblock %}
+{% block actionFiltro %} action="{{ path('partecuentascobrar_new') }}"{% endblock %}
+  {% block btn_estado %}
+      {{ parent() }}
+      {% if is_granted('ROLE_ADICIONAR_PARTECUENTAS') %}
+          <button form="form-filtro" id="add" title="Adicionar"
+                  class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+              <span class="glyphicon glyphicon-plus "></span> Adicionar
+          </button>
+      {% endif %}
+      {% if is_granted('ROLE_ELIMINAR_PARTECUENTAS') %}
+          <a href="#modal_eliminar" data-toggle="modal" id="eliminar" title="Eliminar"
+             class=" btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+             data-ajax-url="{{ path('partecuentascobrar_delete') }}">
+              <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+      {% endif %}
+      <a title="Pagar" href="#" data-url="{{ path('partecuentascobrar_pagar') }}" id="btn_pagar"
+         class="btn btn-xs m-r-5 m-b-10 btn-default text-blue disabled">
+          <span class="glyphicon glyphicon-move "></span> Pagar</a>
+
+  {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     {% block otherscript %}
+         <script type="text/javascript">
+             (function ($) {
+                 $(document).ready(function () {
+                     {% if fecha !=0 %}
+                     $('#filtro-dia').val($('#parte-table').data('fecha'));
+                     {% endif %}
+                     {% if ueb !=0 %}
+                     $('#filtro-ueb').val({{ ueb }}).trigger("chosen:updated");
+                     {% endif %}
+                     // $('#filtro-parte').val(1).trigger("chosen:updated");
+                     window.cargardatos = function () {
+                         if (!dat) {
+                             var dat = [];
+                             dat.push($('#filtro-ueb').val());
+                             dat.push($('#filtro-dia').val());
+                         }
+
+                         $('#parte-table').ajaxTable({
+                             ajaxurl: "{{ path('partecuentascobrar_listar') }}",
+                             start: 0,
+                             dat: dat,
+                             {% if remember == "1" %}
+                             rememberStatus: true,
+                             {% endif %}
+                             onComplete: function () {
+                                 function checkEv() {
+                                     var el = $('.check_nom:checked');
+                                     var check = $('.check-all-rows:checked');
+                                     if (el.length == 0) {
+                                         $('#eliminar').removeClass('disabled');
+                                         $('#btn_pagar').removeClass('disabled');
+                                     } else {
+                                         $('#eliminar').removeClass('disabled');
+                                         $('#btn_pagar').removeClass('disabled');
+                                     }
+                                 }
+
+                                 $('.check_nom').change(checkEv);
+                                 $('tr').click(checkEv);
+                                 setTimeout(function () {
+                                     $('.check-all-rows').find('input').change(checkEv);
+                                 });
+
+
+                                 window.setCheckEvents();
+                             },
+                             limit: 10,
+                             columns: [0, 1, 2, 3, 4, 5, 6, 7],
+                             columnsDef: [
+                                 {
+                                     noFilter: true,
+                                     style: 'width: 5px',
+                                     field: 'idparte',
+                                     header: '<span class="check-all-rows name"></span>',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (value) {
+                                         return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                     }
+                                 },
+                                 {
+                                     noFilter: true,
+                                     style: 'width: 50px',
+                                     field: 'fecha',
+                                     header: 'Fecha',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 80px',
+                                     field: 'ueb',
+                                     header: 'UEB',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 }, {
+                                     style: 'width: 70px',
+                                     field: 'nro_factura',
+                                     header: 'Factura',
+                                     class: 'tex',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 140px',
+                                     field: 'cuenta',
+                                     header: 'Cuenta',
+                                     class: 'tex',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+
+                                 {
+                                     style: 'width: 170px',
+                                     field: 'cliente',
+                                     header: 'Cliente',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 65px',
+                                     field: 'moneda',
+                                     header: 'Moneda',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 50px',
+                                     field: 'valor',
+                                     header: 'Valor',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 }
+
+                                 {% if is_granted('ROLE_MODIFICAR_PARTECUENTAS') or is_granted('ROLE_ELIMINAR_PARTECUENTAS') %}
+                                 , {
+                                     noFilter: true,
+                                     style: 'text-align: center; width: 50px',
+                                     header: 'Acciones',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (row) {
+                                         var f = dat[1].split('/');
+                                         var fe = 0;
+                                         if (f.length > 1) {
+                                             fe = f[0] + '-' + f[1] + '-' + f[2]
+                                         }
+                                         var ue = dat[0] === '' ? 0 : dat[0];
+                                         var accionModif = "", accionElimi = "", accionMostrar = "";
+                                         {% if is_granted('ROLE_MODIFICAR_PARTECUENTAS') %}
+                                         var ajaxurlmod = '{{ path('partecuentascobrar_edit', { 'id': 0 }) }}';
+                                         accionModif = ' <a title="Editar" href="' + ajaxurlmod.replace('/editar/0', '/editar/' + row[0] + '/' + fe + '/' + ue) + '" class="btn_edit" data-id="' + row[0] + '">' +
+                                             '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                         {% endif %}
+
+                                         {% if is_granted('ROLE_ELIMINAR_PARTECUENTAS') %}
+                                         var ajaxuredel = '{{ path('partecuentascobrar_delete') }}';
+                                         accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar" onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" data-ajax-url="' + ajaxuredel + '"' +
+                                             'data-id="' + row[0] + '"><span class="glyphicon glyphicon-trash text-red"></span></a> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                         {% endif %}
+
+                                         {% if is_granted('ROLE_LISTAR_PARTECUENTAS') %}
+                                         var ajaxurlmos = '{{ path('partecuentascobrar_detalle', { 'id': 0 }) }}';
+                                         accionMostrar = '<a title="Mostrar" id="ver_parte_acopio" href="' + ajaxurlmos.replace('/detalle/0', '/detalle/' + row[0] + '/' + fe + '/' + ue) + '">' +
+                                             '<span class="glyphicon glyphicon-eye-open "></span>';
+                                         {% endif %}
+
+                                         return accionModif + accionElimi + accionMostrar;
+                                     }
+                                 }
+                                 {% endif %}
+                             ]
+
+                         });
+                     };
+                     cargardatos();
+                     $('#btn_pagar').click(function (e) {
+                         e.preventDefault();
+                         var array = [];
+                         var filas = $('.check_nom:checked');
+                         filas.each(function (i, elem) {
+                             if (elem.id != '' && elem.checked)
+                                 array.push(elem.id);
+                         });
+                         if (filas.length > 0) {
+                             lock_screen();
+                             $.ajax({
+                                 type: "POST",
+                                 url: $(this).data('url'),
+                                 data: {'id': array},
+                                 success: function (response) {
+                                     unlock_screen();
+                                     if (response.respuesta == 'error')
+                                         mostrarMSG('No se han podido actualizar las cuentas', 'danger');
+                                     else {
+                                         // mostrarMSG('Se han actualizado las cuentas satisfactoriamente');
+                                         cargardatos();
+                                     }
+                                 },
+                                 failures: function (response) {
+                                     unlock_screen();
+                                 }
+                             });
+                         }
+                     });
+                 });
+             })(jQuery);
+         </script>
+     {% endblock %}
+ {% endblock %}

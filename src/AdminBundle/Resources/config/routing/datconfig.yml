@@ -1,0 +1,39 @@
+config_general:
+    path:     /entidad
+    defaults: { _controller: "AdminBundle:DatConfig:index" }
+    methods:  GET
+
+config_fecha_listar:
+    path:     /listar
+    defaults: { _controller: "AdminBundle:DatConfig:listar" }
+    methods:  [GET, POST]
+
+config_entidad_new:
+    path:     /entidad/new
+    defaults: { _controller: "AdminBundle:DatConfig:new" }
+    methods:  [GET, POST]
+
+config_entidad_editar:
+    path:     /{id}/editar
+    defaults: { _controller: "AdminBundle:DatConfig:editar" }
+    methods:  [GET, POST]
+
+config_delete:
+    path:     /config/delete
+    defaults: { _controller: "AdminBundle:DatConfig:delete" }
+    methods:  DELETE
+
+config_ueb:
+    path:     /ueb
+    defaults: { _controller: "AdminBundle:DatConfig:setUebFiltro" }
+    methods:  [ POST]
+
+config_fecha:
+    path:     /fecha
+    defaults: { _controller: "AdminBundle:DatConfig:setFechaFiltro" }
+    methods:  [ POST]
+
+config_fecha_new:
+    path:     /fecha/new
+    defaults: { _controller: "AdminBundle:DatConfig:newFecha" }
+    methods:  [GET, POST]

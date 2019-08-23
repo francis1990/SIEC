@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomPortador</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idportador</th>
+                <td>{{ nomPortador.idportador }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomPortador.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomPortador.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ nomPortador.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('portador_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('portador_edit', { 'id': nomPortador.idportador }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,43 @@
+tipoespecifo_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:index",remember:null }
+    methods:  GET
+tipoespecifico_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:listar" }
+    methods:  [GET, POST]
+
+tipoespecifo_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:new" }
+    methods:  [GET, POST]
+
+tipoespecifo_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:edit" }
+    methods:  [GET, POST]
+
+tipoespecifo_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:delete" }
+    methods:  DELETE
+
+tipoespecifo_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:eliminar" }
+    methods:  [GET, POST]
+
+tipoespecifo_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:SetActivo" }
+    methods:  [GET, POST]
+
+tipoespecifico_delAll:
+    path:      /tipoespecifo_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:eliminar" }
+    methods:  [GET, POST]
+
+tipoespecifico_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomTipoespecifico:exportar" }
+    methods:  [GET, POST]

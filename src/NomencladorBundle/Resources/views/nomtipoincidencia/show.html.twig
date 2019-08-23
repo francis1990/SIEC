@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomTipoIncidencia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idtipoincidencia</th>
+                <td>{{ nomTipoIncidencium.idtipoincidencia }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomTipoIncidencium.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomTipoIncidencium.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ nomTipoIncidencium.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('tipoincidencia_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('tipoincidencia_edit', { 'id': nomTipoIncidencium.idtipoincidencia }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

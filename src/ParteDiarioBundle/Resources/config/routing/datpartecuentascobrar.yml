@@ -1,0 +1,38 @@
+partecuentascobrar_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+partecuentascobrar_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:new" }
+    methods:  [GET, POST]
+
+partecuentascobrar_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:guardar",fecha:0,ueb:0}
+
+partecuentascobrar_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:edit",fecha:0,ueb:0  }
+    methods:  [GET, POST]
+
+partecuentascobrar_delete:
+    path:     /delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:delete" }
+    methods:  POST
+
+partecuentascobrar_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:listar" }
+    methods:  [GET, POST]
+
+partecuentascobrar_pagar:
+    path:     /pagar
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:pay" }
+    methods:  [GET, POST]
+
+partecuentascobrar_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteCuentasCobrar:detalleParte" ,fecha:0,ueb:0 }
+    methods:  [GET, POST]

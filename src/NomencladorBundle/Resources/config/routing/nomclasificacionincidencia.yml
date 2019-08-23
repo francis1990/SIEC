@@ -1,0 +1,47 @@
+clasificacionincidencia_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:index", remember:null }
+    methods:  GET
+
+clasificacionincidencia_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:listar" }
+    methods:  [GET, POST]
+    
+clasificacionincidencia_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:show" }
+    methods:  GET
+
+clasificacionincidencia_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:new" }
+    methods:  [GET, POST]
+clasificacionincidencia_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:exportar" }
+    methods:  [GET, POST]
+
+clasificacionincidencia_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:edit" }
+    methods:  [GET, POST]
+
+clasificacionincidencia_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:delete" }
+    methods:  DELETE
+clasificacionincidencia_eliminar:
+    path:      /clasificacionincidencia_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:eliminar" }
+    methods:  [GET, POST]
+
+clasificacionincidencia_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:listado" }
+    methods:  GET
+    
+clasificacionincidencia_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomClasificacionIncidencia:SetActivo" }
+    methods:  [GET, POST]

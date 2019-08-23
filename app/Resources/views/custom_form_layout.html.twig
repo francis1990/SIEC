@@ -1,0 +1,456 @@
+{% block button_widget %}
+    {% spaceless %}
+        {% if form.vars.label_format == 'btn-add' %}
+            {% set name = form.vars.full_name %}
+            {% if form.vars.attr.name is defined %}
+                {% set name = form.vars.attr.name %}
+            {% endif %}
+            {% set id = form.vars.id %}
+            {% if form.vars.attr.id is defined %}
+                {% set id = form.vars.attr.id %}
+            {% endif %}
+            <button id="{{ id }}" name="{{ name }}"
+                    class="{{ form.vars.attr.class }}" type="submit" value="{{ form.vars.label }}">
+                <i class="{{ form.vars.attr.widget }}"></i>{{ form.vars.label }}
+            </button>
+        {% endif %}
+    {% endspaceless %}
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_partediario_produccion_incidencias_entry_widget %}
+    <tr id="dat_partediario_produccion_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_acopio_incidencias_entry_widget %}
+    <tr id="dat_parte_acopio_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_desvio_incidencias_entry_widget %}
+    <tr>
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_portador_incidencias_entry_widget %}
+    <tr id="dat_parte_portador_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulario de medidor del parte de portador #}
+{% block _dat_parte_portador_listMedidor_entry_widget %}
+    <tr data-number= {{ form.vars.name }}>
+        <td class="form-group">
+            {{ form_widget(form.medidor, {'attr': {'data-number' : form.vars.name, 'data-parent' : form.parent.vars.id, 'data-url' : path('parteportador_findLastParte')}}) }}
+            {{ form_errors(form.medidor) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.lectura, {'attr' :{'data-number' : form.vars.name, 'data-parent' : form.parent.vars.id}}) }}
+            {{ form_errors(form.lectura) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.multiplicador, {'attr' :{'data-number' : form.vars.name, 'data-parent' : form.parent.vars.id}}) }}
+            {{ form_errors(form.multiplicador) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.consumo) }}
+            {{ form_errors(form.consumo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_aseguramiento_incidencias_entry_widget %}
+    <tr id="dat_parte_aseguramiento_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_partediario_economia_incidencias_entry_widget %}
+    <tr id="dat_partediario_economia_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_transporte_incidencias_entry_widget %}
+    <tr id="dat_parte_transporte_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_movimiento_incidencias_entry_widget %}
+    <tr id="dat_parte_movimiento_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_mercancia_vinculo_incidencias_entry_widget %}
+    <tr id="dat_parte_mercancia_vinculo_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_cuentas_cobrar_incidencias_entry_widget %}
+    <tr id="dat_parte_cuentas_cobrar_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulariode incidencias segun parte #}
+{% block _dat_parte_venta_incidencias_entry_widget %}
+    <tr id="dat_parte_venta_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+{# Personalización al mostrar el formulario de productos parteVenta #}
+{% block _dat_parte_venta_productos_entry_widget %}
+    <tr>
+        <td class="form-group">
+            {{ form_widget(form.producto, {'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.producto) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.almacen) }}
+            {{ form_errors(form.almacen) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.origen) }}
+            {{ form_errors(form.origen) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.cantfisica, {'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.cantfisica) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.preciomn, {'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.preciomn) }}
+        </td>
+        <td class="form-group ">
+            {{ form_widget(form.importemn,{'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.importemn) }}
+        </td>
+        <td class="form-group ">
+            {{ form_widget(form.preciocuc, {'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.preciocuc) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.importecuc,{'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.importecuc) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.impuesto) }}
+            {{ form_errors(form.impuesto) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+
+{# Personalización al mostrar el formulario de aseguramientos en Normas de Consumo #}
+{% block _nom_norma_aseguramientos_entry_widget %}
+    <tr data-number= {{ form.vars.name }}>
+        <td class="form-group" colspan="2">
+            {{ form_widget(form.aseguramiento,{'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.aseguramiento) }}
+        </td>
+        <td class="form-group" colspan="2">
+            {{ form_widget(form.umaseg) }}
+            {{ form_errors(form.umaseg) }}
+        </td>
+        <td class="form-group" colspan="2">
+            {{ form_widget(form.moneda) }}
+            {{ form_errors(form.moneda) }}
+        </td>
+
+        {#Cantidad#}
+        <td class="form-group">
+            {{ form_widget(form.norma_neta) }}
+            {{ form_errors(form.norma_neta) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.perdida) }}
+            {{ form_errors(form.perdida) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.cantaseg) }}
+            {{ form_errors(form.cantaseg) }}
+        </td>
+
+        {#Grasa#}
+        <td class="form-group">
+            {{ form_widget(form.norma_neta_grasa) }}
+            {{ form_errors(form.norma_neta_grasa) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.perdida_grasa) }}
+            {{ form_errors(form.perdida_grasa) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.cantaseg_grasa) }}
+            {{ form_errors(form.cantaseg_grasa) }}
+        </td>
+
+        {#SNG#}
+        <td class="form-group">
+            {{ form_widget(form.norma_neta_sng) }}
+            {{ form_errors(form.norma_neta_sng) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.perdida_sng) }}
+            {{ form_errors(form.perdida_sng) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.cantaseg_sng) }}
+            {{ form_errors(form.cantaseg_sng) }}
+        </td>
+
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+
+{# Personalización al mostrar el formulario de aseguramientos en Suministradores en Ruta #}
+{% block _nom_ruta_suministradores_entry_widget %}
+    <tr data-number= {{ form.vars.name }}>
+        <td class="form-group">
+            {{ form_widget(form.entidad,{'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.entidad) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.producto,{'attr' : {'data-number' : form.vars.name}}) }}
+            {{ form_errors(form.producto) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}
+
+{# Personalización al mostrar el formulario de incidencias en Consumo de Materia Prima#}
+{% block _dat_parte_diario_cons_aseg_incidencias_entry_widget %}
+    <tr id="dat_parte_diario_cons_aseg_incidencias_">
+        <td class="form-group">
+            {{ form_widget(form.descripcion) }}
+            {{ form_errors(form.descripcion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idcasificacion) }}
+            {{ form_errors(form.idcasificacion) }}
+        </td>
+        <td class="form-group">
+            {{ form_widget(form.idtipo) }}
+            {{ form_errors(form.idtipo) }}
+        </td>
+        {% if form.parent.vars.allow_delete -%}
+            <td>
+                <button type="button" title="{{ 'delete'|trans }}" class="remove-form-embedded"><i
+                            class="glyphicon glyphicon-trash"></i></button>
+            </td>
+        {%- endif -%}
+    </tr>
+{% endblock %}

@@ -1,0 +1,6 @@
+<select id="filtro-producto" data-placeholder="Producto"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for p in productos %}
+        <option value="{{ p.idproducto  }}">{{ p.nombre }}</option>
+    {% endfor %}
+</select>

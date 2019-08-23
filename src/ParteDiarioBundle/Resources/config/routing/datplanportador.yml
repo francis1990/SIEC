@@ -1,0 +1,29 @@
+planportador_index:
+    path:     /list/{ejercicio}/{tipoPlan}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:index" ,ejercicio:0,tipoPlan:0,ueb:0,remember:null}
+    methods:  GET
+
+planportador_listarplan:
+    path:     /listarplan
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:listarPlanP" }
+    methods:  GET
+
+planportador_new:
+    path:     /new/{ejercicio}/{tipoPlan}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:new" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
+
+planportador_edit:
+    path:     /editar/{id}/{ejercicio}/{tipoPlan}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:edit" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
+
+planportador_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:eliminar" }
+    methods:  [GET, POST]
+
+detalle_planportador:
+    path:      /detalle/{id}/{ejercicio}/{tipoPlan}/{ueb}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanPortador:detallePlan" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]

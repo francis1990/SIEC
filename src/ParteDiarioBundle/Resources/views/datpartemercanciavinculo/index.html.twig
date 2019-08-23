@@ -1,0 +1,197 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('partemercanciavinculo_index') }}">Partes diarios de mercancías por vínculo</a></li>
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+ {% block tabletab %}
+     <table aria-describedby="example1_info" id="parte-table" data-fecha="{{ fecha }}"
+            class="table table-bordered table-condensed table-striped dataTable">
+         <thead>
+         </thead>
+         <tbody aria-relevant="all" aria-live="polite" role="alert">
+         </tbody>
+     </table>
+ {% endblock %}
+{% block actionFiltro %} action="{{ path('partemercanciavinculo_new') }}"{% endblock %}
+  {% block btn_estado %}
+      {{ parent() }}
+      {% if is_granted('ROLE_ADICIONAR_PARTEMERCANCIA') %}
+          <button form="form-filtro" id="add" title="Adicionar"
+             class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+              <span class="glyphicon glyphicon-plus "></span> Adicionar</button>
+      {% endif %}
+      {% if is_granted('ROLE_ELIMINAR_PARTEMERCANCIA') %}
+          <a href="#modal_eliminar" data-toggle="modal" id="eliminar" title="Eliminar"
+             class=" btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+             data-ajax-url="{{ path('partemercanciavinculo_delete') }}">
+              <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+      {% endif %}
+
+  {% endblock %}
+ {% block javascripts %}
+     {{ parent() }}
+     {% block otherscript %}
+         <script type="text/javascript">
+             (function ($) {
+                 $(document).ready(function () {
+                     {% if fecha !=0 %}
+                     $('#filtro-dia').val($('#parte-table').data('fecha'));
+                     {% endif %}
+                     {% if ueb !=0 %}
+                     $('#filtro-ueb').val({{ueb}}).trigger("chosen:updated");
+                     {% endif %}
+                     $('#filtro-parte').val(9).trigger("chosen:updated");
+                     window.cargardatos = function () {
+                         if (!dat) {
+                             var dat = [];
+                             dat.push($('#filtro-ueb').val());
+                             dat.push($('#filtro-dia').val());
+                         }
+                         $('#parte-table').ajaxTable({
+                             ajaxurl: "{{ path('partemercanciavinculo_listar') }}",
+                             start: 0,
+                             dat: dat,
+
+                             {% if remember == "1" %}
+                             rememberStatus: true,
+                             {% endif %}
+                             onComplete: function () {
+                                 function checkEv() {
+                                     var el = $('.check_nom:checked');
+                                     var check = $('.check-all-rows:checked');
+                                     if (el.length == 0) {
+                                         $('#eliminar').removeClass('disabled');
+                                     } else {
+                                         $('#eliminar').removeClass('disabled');
+                                     }
+                                 }
+
+                                 $('.check_nom').change(checkEv);
+                                 $('tr').click(checkEv);
+                                 setTimeout(function () {
+                                     $('.check-all-rows').find('input').change(checkEv);
+                                 }, 3000);
+
+
+                                 window.setCheckEvents();
+                             },
+                             limit: 10,
+                             columns: [0, 1, 2, 3, 4, 5,6],
+                             columnsDef: [
+                                 {
+                                     noFilter: true,
+                                     style: 'width: 5px',
+                                     field: 'idparte',
+                                     header: '<span class="check-all-rows name"></span>',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (value) {
+                                         return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                     }
+                                 },
+                                 {
+                                     noFilter: true,
+                                     style: 'width: 50px',
+                                     field: 'fecha',
+                                     header: 'Fecha',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 100px',
+                                     field: 'ueb',
+                                     header: 'UEB',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 }, {
+                                     style: 'width: 30px',
+                                     field: 'nro_factura',
+                                     header: 'Factura',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 200px',
+                                     field: 'producto',
+                                     header: 'Producto',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 40px',
+                                     field: 'um',
+                                     header: 'UM',
+                                     type: '', callback: function () {
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 50px',
+                                     field: 'cantidad',
+                                     header: 'Cantidad',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 }
+
+                                 {% if is_granted('ROLE_MODIFICAR_PARTEMERCANCIA') or is_granted('ROLE_ELIMINAR_PARTEMERCANCIA') %}
+                                 , {
+                                     noFilter: true,
+                                     style: 'text-align: center; width: 50px',
+                                     header: 'Acciones',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (row) {
+                                         var f=dat[1].split('/');
+                                         var fe=0;
+                                         if(f.length>1){
+                                             fe=f[0]+'-'+f[1]+'-'+f[2]
+                                         }
+                                         var ue= dat[0]===''? 0:dat[0];
+                                         var accionModif = "", accionElimi = "",accionMostrar = "";
+                                         {% if is_granted('ROLE_MODIFICAR_PARTEMERCANCIA') %}
+                                         var ajaxurlmod = '{{ path('partemercanciavinculo_edit', { 'id': 0 }) }}';
+                                         accionModif = ' <a title="Editar" href="' + ajaxurlmod.replace('/editar/0', '/editar/' + row[0] + '/'+fe+'/'+ue) + '" class="btn_edit" data-id="' + row[0] + '">' +
+                                             '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                         {% endif %}
+
+                                         {% if is_granted('ROLE_ELIMINAR_PARTEMERCANCIA') %}
+                                         var ajaxuredel = '{{ path('partemercanciavinculo_delete') }}';
+                                         accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar" ' +
+                                             'onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" ' +
+                                             'data-ajax-url="' + ajaxuredel + '"' +
+                                             'data-id="' + row[0] + '">' +
+                                             '<span class="glyphicon glyphicon-trash text-red"></span></a> &nbsp;&nbsp;&nbsp;&nbsp;';
+                                         {% endif %}
+
+                                         {% if is_granted('ROLE_LISTAR_PARTEMERCANCIA') %}
+                                         var ajaxurlmos = '{{ path('partemercanciavinculo_detalle', { 'id': 0 }) }}';
+                                         accionMostrar = '<a title="Mostrar" id="ver_parte_acopio" href="' + ajaxurlmos.replace('/detalle/0', '/detalle/' + row[0] + '/'+fe+'/'+ue) + '">' +
+                                             '<span class="glyphicon glyphicon-eye-open "></span>';
+
+                                         {% endif %}
+
+                                         return accionModif + accionElimi + accionMostrar;
+                                     }
+                                 }
+                                 {% endif %}
+                             ]
+
+                         });
+                     };
+                     cargardatos();
+                 });
+             })(jQuery);
+         </script>
+
+     {% endblock %}
+ {% endblock %}

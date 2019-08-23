@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPartediarioProduccion</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idparte</th>
+                <td>{{ datPartediarioProduccion.idparte }}</td>
+            </tr>
+            <tr>
+                <th>Enproceso</th>
+                <td>{% if datPartediarioProduccion.enproceso %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Cantidad</th>
+                <td>{{ datPartediarioProduccion.cantidad }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if datPartediarioProduccion.fecha %}{{ datPartediarioProduccion.fecha|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('parteproduccion_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('parteproduccion_edit', { 'id': datPartediarioProduccion.idparte }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

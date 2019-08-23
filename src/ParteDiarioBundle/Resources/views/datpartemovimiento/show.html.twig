@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatParteTransporte</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idparte</th>
+                <td>{{ datParteTransporte.idparte }}</td>
+            </tr>
+            <tr>
+                <th>Fecha</th>
+                <td>{% if datParteTransporte.fecha %}{{ datParteTransporte.fecha|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Existencia</th>
+                <td>{{ datParteTransporte.existencia }}</td>
+            </tr>
+            <tr>
+                <th>Disponible</th>
+                <td>{{ datParteTransporte.disponible }}</td>
+            </tr>
+            <tr>
+                <th>Cdt</th>
+                <td>{{ datParteTransporte.cdt }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('partetransporte_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('partetransporte_edit', { 'id': datParteTransporte.idparte }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

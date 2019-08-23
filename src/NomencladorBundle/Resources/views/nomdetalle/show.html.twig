@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomDetalle</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Iddetalle</th>
+                <td>{{ nomDetalle.iddetalle }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomDetalle.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomDetalle.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('detalle_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('detalle_edit', { 'id': nomDetalle.iddetalle }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

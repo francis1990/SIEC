@@ -1,0 +1,39 @@
+concepto_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomConcepto:index",remember:null }
+    methods:  [GET, POST]
+
+concepto_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:listar" }
+    methods:  [GET, POST]
+
+concepto_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:new" }
+    methods:  [GET, POST]
+
+concepto_edit:
+    path:     /{id}/editar/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:editar" }
+    methods:  [GET, POST]
+
+concepto_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:delete" }
+    methods:  DELETE
+
+concepto_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:eliminar" }
+    methods:  [GET, POST]
+
+concepto_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:SetActivo" }
+    methods:  [GET, POST]
+
+concepto_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomConcepto:exportar" }
+    methods:  [GET, POST]

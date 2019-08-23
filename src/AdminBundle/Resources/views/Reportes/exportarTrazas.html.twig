@@ -1,0 +1,26 @@
+{% extends 'AdminBundle:Default:baseExportar.html.twig' %}
+
+{% block colspan 3 %}
+
+{% block title %}HISTORIAL DEL SISTEMA{% endblock %}
+
+{% block content %}
+    <table border="1" width="100%">
+    <thead>
+    <tr>
+        <th class="max">Descripción</th>
+        <th>Usuario</th>
+        <th>Fecha</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for traza in elementos %}
+        <tr>
+            <td>{{ traza.descTraza }}</td>
+            <td>{{ traza.usuario }}</td>
+            <td>{{ traza.fechaCreacion | date('d/m/Y h:i:s a') }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

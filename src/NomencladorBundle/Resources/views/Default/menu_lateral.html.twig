@@ -1,0 +1,213 @@
+{% block menu_lateral %}
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left info">
+                <p>Nomencladores</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            {% if is_granted('ROLE_LISTAR_DPA') or is_granted('ROLE_LISTAR_UEB') or is_granted('ROLE_LISTAR_TIPOENTIDAD')
+                or is_granted('ROLE_LISTAR_ENTIDAD') or is_granted('ROLE_LISTAR_GRUPOINTERES') %}
+                <li class="treeview ">
+                    <a href="#">
+                        <i class="fa fa-edit"></i>
+                        <span>Entidades</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted('ROLE_LISTAR_DPA') %}
+                            <li><a href="{{ path('dpa_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> DPA</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_UEB') %}
+                            <li><a href="{{ path('ueb_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> UEB</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_TIPOENTIDAD') %}
+                            <li><a class="ent" href="{{ path('tipoentidad_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Tipos de entidades</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_ENTIDAD') %}
+                            <li><a class="ent" href="{{ path('entidad_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Entidades</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_GRUPOINTERES') %}
+                            <li><a href="{{ path('grupointeres_new') }}"><i
+                                            class="fa fa-angle-double-right"></i> Grupos de interés</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+
+            {% endif %}
+            {% if is_granted('ROLE_LISTAR_UM') %}
+                <li><a href="{{ path('unidadmedida_index') }}"><i class="fa fa-angle-double-right"></i>Unidades de
+                        medida</a></li>
+            {% endif %}
+           {# {% if is_granted('ROLE_LISTAR_CONVERSION') %}
+                <li><a href="{{ path('conversion_index') }}"><i class="fa fa-angle-double-right"></i>Conversiones</a>
+                </li>
+            {% endif %}#}
+
+            {% if is_granted('ROLE_LISTAR_GENERICO') or is_granted('ROLE_LISTAR_SUBGENERICO') or is_granted('ROLE_LISTAR_ESPECIFICO')
+                or is_granted('ROLE_LISTAR_TIPOESPECIFICO') or is_granted('ROLE_LISTAR_FORMATO') or is_granted('ROLE_LISTAR_SABORCUALIDAD')
+                or is_granted('ROLE_LISTAR_PRODUCTO') %}
+                <li class="treeview">
+                    <a href="#"> <i class="fa fa-edit"></i>
+                        <span>Productos</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu" style="diaplay: block">
+                        {% if is_granted('ROLE_LISTAR_GENERICO') %}
+                            <li><a href="{{ path('generico_index') }}"><i class="fa fa-angle-double-right"></i>
+                                    Genéricos</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_SUBGENERICO') %}
+                            <li class=""><a href="{{ path('subgenerico_index') }}"><i
+                                            class="fa fa-angle-double-right"></i>
+                                    Sub-genéricos</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_ESPECIFICO') %}
+                            <li class=""><a href="{{ path('especifico_index') }}"><i
+                                            class="fa fa-angle-double-right"></i>
+                                    Específicos</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_TIPOESPECIFICO') %}
+                            <li class=""><a href="{{ path('tipoespecifo_index') }}"><i
+                                            class="fa fa-angle-double-right"></i>
+                                    Tipos de específico</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_FORMATO') %}
+                            <li class=""><a href="{{ path('formato_index') }}"><i class="fa fa-angle-double-right"></i>
+                                    Formatos</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_SABORCUALIDAD') %}
+                            <li class=""><a href="{{ path('sabor_index') }}"><i class="fa fa-angle-double-right"></i>
+                                    Sabores/Cualidades</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_PRODUCTO') %}
+                            <li class="active"><a href="{{ path('producto_index') }}"><i
+                                            class="fa fa-angle-double-right"></i>Productos</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_PRECIO') %}
+                <li><a href="{{ path('precio_index') }}"><i class="fa fa-angle-double-right"></i>Precios</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_LISTAR_ALMACEN') %}
+                <li><a href="{{ path('almacen_index') }}"><i class="fa fa-angle-double-right"></i>Almacenes</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_LISTAR_ASEGURAMIENTO') %}
+                <li><a href="{{ path('aseguramiento_index') }}"><i
+                                class="fa fa-angle-double-right"></i>Aseguramientos</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_NORMACONSUMO') or is_granted('ROLE_LISTAR_TIPONORMACONSUMO') %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i><span>Normas de consumo</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted('ROLE_LISTAR_TIPONORMACONSUMO') %}
+                            <li><a href="{{ path('nomtiponorma_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Tipos de Norma de consumo</a>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_NORMACONSUMO') %}
+                            <li><a href="{{ path('norma_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Normas de consumo</a></li>
+                        {% endif %}
+
+                    </ul>
+                </li>
+            {% endif %}
+
+
+            {% if is_granted('ROLE_LISTAR_RUTA') %}
+                <li><a href="{{ path('ruta_index') }}"><i class="fa fa-angle-double-right"></i>Rutas</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_LISTAR_TIPOTRANSPORTE') %}
+                <li><a href="{{ path('tipotransporte_index') }}"><i
+                                class="fa fa-angle-double-right"></i>Tipos de transporte</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_TIPOINCIDENCIA') or is_granted('ROLE_LISTAR_CLASIFINCIDENCIA') %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i><span>Incidencias</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted('ROLE_LISTAR_TIPOINCIDENCIA') %}
+                            <li><a href="{{ path('tipoincidencia_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Tipos de incidencia</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_CLASIFINCIDENCIA') %}
+                        <li><a href="{{ path('clasificacionincidencia_index') }}"><i
+                                        class="fa fa-angle-double-right"></i> Clasificaciones de incidencia</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_PORTADOR') or is_granted('ROLE_LISTAR_MEDIDORPORTADOR') %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i><span>Portadores</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted('ROLE_LISTAR_PORTADOR') %}
+                            <li><a href="{{ path('portador_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Portadores energéticos</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_MEDIDORPORTADOR') %}
+                            <li><a href="{{ path('nommedidor_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Medidores</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+
+
+            {% if is_granted('ROLE_LISTAR_CUENTACONTABLE') %}
+                <li><a href="{{ path('cuentacontable_index') }}"><i
+                                class="fa fa-angle-double-right"></i>Cuentas contable</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_EJERCICIO') or is_granted('ROLE_LISTAR_TIPOPLAN') %}
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-edit"></i><span>Planes</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted('ROLE_LISTAR_EJERCICIO') %}
+                            <li><a href="{{ path('ejercicio_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Ejercicios</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_LISTAR_TIPOPLAN') %}
+                            <li><a href="{{ path('tipoplan_index') }}"><i
+                                            class="fa fa-angle-double-right"></i> Tipos de plan</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_LISTAR_MONEDADESTINO') %}
+                <li><a href="{{ path('monedadestino_index') }}"><i
+                                class="fa fa-angle-double-right"></i> Monedas/Destinos</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_LISTAR_CONCEPTO') %}
+                <li><a href="{{ path('concepto_index') }}"><i
+                                class="fa fa-angle-double-right"></i> Conceptos</a></li>
+            {% endif %}
+
+        </ul>
+    </section>
+{% endblock %}

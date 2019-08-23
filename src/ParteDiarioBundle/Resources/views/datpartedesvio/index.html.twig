@@ -1,0 +1,148 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('partedesvio_index') }}">Parte diario de desvios</a></li>
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+
+     {% block tabletab %}
+
+         <table aria-describedby="example1_info" id="acopio-table"
+                class="table table-bordered table-striped table-condensed dataTable">
+             <thead>
+             </thead>
+             <tbody aria-relevant="all" aria-live="polite" role="alert">
+             </tbody>
+         </table>
+     {% endblock %}
+{% block menu_bot %}
+    {{ parent() }}
+    <a href="{{ path('partedesvio_new') }}" id="add"
+        title="Adicionar"
+       class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+        <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+    <a href="#" data-url="{{ path('partedesvio_edit',{'id':0}) }}" title="Editar" id="modif-des" class="btn btn-xs m-r-5 m-b-10 btn-default text-blue disabled">
+        <span class="glyphicon glyphicon-pencil "></span> Editar</a>
+    <a  href="#modal_eliminar" data-toggle="modal"  id="eliminar" title="Eliminar"
+        class=" btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+        data-ajax-url="{{ path('partedesvio_delete') }}">
+        <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+
+    {#{% endif %}#}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $('#filtro-parte').val(11);
+                    $('#filtro-parte').trigger("chosen:updated");
+                    window.cargardatos=function(){
+                        var ajaxurlmod = '{{ path('partedesvio_edit',{'id':0}) }}';
+                        var ajaxuredel = '{{ path('partedesvio_delete') }}';
+                        if (!dat) {
+                            var dat = [];
+                            dat.push($('#filtro-ueb').val());
+                            dat.push( $('#filtro-dia').val());
+                        }
+                        $('#acopio-table').ajaxTable({
+                            ajaxurl: "{{ path('partedesvio_listar') }}",
+                            start: 0,
+                            dat: dat,
+                            {% if remember == "1" %}                                  rememberStatus: true,                                  {% endif %}
+                            onComplete: function () {
+                                function checkEv() {
+                                    var el = $('.check_nom:checked');
+                                    var check = $('.check-all-rows:checked');
+                                    if (el.length == 0) {
+                                        $('#eliminar').addClass('disabled');
+                                        $('#modif-des').addClass('disabled');
+                                    } else {
+                                        if (el.length != 1) {
+                                            $('#modif-des').removeClass('disabled');
+                                            $('#modif-des').addClass('disabled');
+                                        } else if (el.length == 1) {
+                                            $('#modif-des').removeClass('disabled');
+                                        }
+                                        $('#eliminar').removeClass('disabled');
+                                    }
+                                }
+                                $('.check_nom').change(checkEv);
+                                $('tr').click(checkEv);
+                                setTimeout(function () {
+                                    $('.check-all-rows').find('input').change(checkEv);
+                                }, 3000);
+                                window.setCheckEvents();
+                            },
+                            limit: 10,
+                            columns: [0, 1, 2,3,4,5,6],
+                            columnsDef: [
+                                {
+                                    noFilter: true,
+                                    style: 'width: 5px',
+                                    field: 'idparte',
+                                    header: '<span class="check-all-rows name"></span>',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                    }
+                                },
+                                {
+                                    style: 'width: 180px', field: 'producto', header: 'Producto', type: '', callback: function () {
+                                }
+                                },
+                                {
+                                    style: 'width: 140px', field: 'destino', header: 'Destino', type: '', callback: function () {
+                                }
+                                },
+                                {
+                                    style: 'width: 15px', field: 'um', header: 'UM', type: '', callback: function () {
+                                }
+                                },
+
+                                {
+                                    style: 'width: 10px',
+                                    field: 'cantidad',
+                                    header: 'Desviado',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    style: 'width: 10px', field: 'fecha', header: 'Fecha', type: '',noFilter: true, callback: function () {
+                                    }
+                                },{
+                                    style: 'width: 40px', field: 'ueb', header: 'UEB', type: '',noFilter: true, callback: function () {
+                                    }
+                                },{
+                                    noFilter: true,
+
+                                    style: 'text-align: center; width: 20px',
+                                    header: 'Acciones',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (row) {
+                                        return ' <a title="Editar"  href="' + ajaxurlmod.replace('/0/edit', '/' + row[0] + '/edit') + '"  class="btn_edit" data-id="' + row[0] + '">' +
+                                        '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                        '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar" onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" data-ajax-url="' + ajaxuredel + '"' +
+                                        'data-id="' + row[0] + '">' +
+                                        '<span class="glyphicon glyphicon-trash text-red"></span></a>';
+                                    }
+                                }
+                            ]
+                        });
+                    };
+                    cargardatos();
+                });
+
+            })(jQuery);
+
+        </script>
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_partedesvio.js') }}"></script>
+    {% endblock %}
+{% endblock %}

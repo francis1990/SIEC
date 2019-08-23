@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomUnidadmedida</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idunidadmedida</th>
+                <td>{{ nomUnidadmedida.idunidadmedida }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomUnidadmedida.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomUnidadmedida.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Abreviatura</th>
+                <td>{{ nomUnidadmedida.abreviatura }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('unidadmedida_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('unidadmedida_edit', { 'id': nomUnidadmedida.idunidadmedida }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

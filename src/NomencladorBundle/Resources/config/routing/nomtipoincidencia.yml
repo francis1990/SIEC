@@ -1,0 +1,47 @@
+tipoincidencia_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:index",remember:null }
+    methods:  GET
+tipoincidencia_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:listar" }
+    methods:  [GET, POST]
+tipoincidencia_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:show" }
+    methods:  GET
+
+tipoincidencia_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:new" }
+    methods:  [GET, POST]
+
+tipoincidencia_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:edit" }
+    methods:  [GET, POST]
+
+tipoincidencia_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:delete" }
+    methods:  DELETE
+
+tipoincidencia_eliminar:
+    path:      /tipoincidencia_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:eliminar" }
+    methods:  [GET, POST]
+
+tipoincidencia_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:listado" }
+    methods:  GET
+
+tipoincidencia_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:SetActivo" }
+    methods:  [GET, POST]
+
+tipoincidencia_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomTipoIncidencia:exportar" }
+    methods:  [GET, POST]

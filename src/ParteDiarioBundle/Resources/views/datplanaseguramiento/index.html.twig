@@ -1,0 +1,562 @@
+{% extends 'ParteDiarioBundle:comunplan:comunplan.html.twig' %}
+ {% block css %}
+     {{ parent() }}
+     <style type="text/css">
+         .dataTables_wrapper {
+             margin-top: -40px;
+             overflow: hidden;
+         }
+
+         #plan-aseguramiento-validar tr:nth-of-type(3n) {
+             border-bottom: 3px solid #222;
+         }
+     </style>
+ {% endblock %}
+{% block actionFiltro %} action="{{ path('planaseguramiento_new') }}"{% endblock %}
+{% block botones %}
+    {% if is_granted('ROLE_ADICIONAR_PLANASEGURAMIENTO') %}
+        <a href="{{ path('planaseguramiento_new') }}" form="form-filtro" id="btn_adicionar_plan" title="Adicionar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+            <span class="glyphicon glyphicon-plus "></span> Adicionar
+        </a>
+    {% endif %}
+
+    {% if is_granted('ROLE_ELIMINAR_PLANASEGURAMIENTO') %}
+        <a data-ajax-url="{{ path('planaseguramiento_eliminar') }}" id="eliminar" title="Eliminar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+           href="#modal_eliminar" data-toggle="modal">
+            <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+    {% endif %}
+    {% if validar ==  1 %}
+        <a data-ajax-url="" id="gener-aseg" title="Generar Validación"
+           onclick=""
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-green "
+           href="javascript:;">
+            <span class="glyphicon glyphicon-star"></span> Validar</a>
+    {% endif %}
+{% endblock %}
+ {% block titulo_plan %}
+     <li><a href="{{ path('planaseguramiento_index') }}">Planes de aseguramiento</a></li>
+ {% endblock %}
+{% block tabletab %}
+    <table id="plan-aseguramiento"
+           class="table table-bordered table-condensed table-striped dataTable  table-hover table-stripped"
+           style="font-size:small">
+        <thead>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="alert"
+               class="table table-bordered table-striped table-hover table-heading">
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_plan.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_tree.js') }}"></script>
+        <script type="text/javascript">
+            var val = false, ins = false;
+            {% set mesActual = "now"|date("m") %}
+            {% set mesAnterior = "now"|date_modify('-1 month') | date("m") %}
+            {% set mesSiguiente = "now"|date_modify('+1 month') | date("m") %}
+
+            function toggleVal(b) {
+                val = b;
+                if (b)
+                    $('.validar-box').slideDown(300);
+                else
+                    $('.validar-box').slideUp(300);
+            }
+
+            function toggleIns(b) {
+                ins = b;
+                if (b)
+                    $('.insert-box').slideDown(300);
+                else
+                    $('.insert-box').slideUp(300);
+            }
+
+            function insertar() {
+                ins = !ins;
+
+                toggleIns(ins);
+                toggleVal(false);
+            }
+
+            jQuery('#vaseguramiento').click(function () {
+                val = !val;
+
+                toggleVal(val);
+                toggleIns(false);
+
+                if (val) {
+                    validar();
+                }
+            });
+            $('#filtro-ueb').val({{ ueb }})
+            $('#filtro-ejercicio').val({{ ejercicio }})
+            $('#filtro-tipoplans').val({{ tipoplan }})
+            $('#categoria_plan').val(5);
+
+            $('.input-month').keyup(function (evt) {
+                valFloat($(this), evt, '#error-elem');
+            });
+            window.validar = function () {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                dat.push(0);
+
+                $('#plan-aseguramiento-validar').ajaxTable({
+                    ajaxurl: "{{ path('planaseguramiento_validar') }}",
+                    //rememberStatus: true,
+                    start: 0,
+                    dat: dat,
+                    limit: 10,
+                    {% if remember == "1" %}
+                    rememberStatus: true,
+                    {% endif %}
+                    showP: false,
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+                    columnsDef: [
+                        {
+                            style: "width:400px",
+                            noFilter: true,
+                            field: 'nombre',
+                            class: 'text name',
+                            header: 'Producto',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'idunidadmedida',
+                            class: 'text name',
+                            header: 'UM',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'idmonedadestino',
+                            class: 'text name',
+                            header: 'Destino',
+                            type: '',
+                            callback: function () {
+                            }
+                        },
+                        {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: 'enero',
+                            header: 'Ene',
+                            class: 'text name',
+                            type: 'i',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: 'febrero',
+                            header: 'Feb',
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'marzo',
+                            header: 'Mar',
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'abril',
+                            header: 'Abr',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'mayo',
+                            header: 'May',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'junio',
+                            header: 'Jun',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'julio',
+                            header: 'Jul',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'agosto',
+                            header: 'Ago',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'septiembre',
+                            header: 'Sep',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'octubre',
+                            header: 'Oct',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'noviembre',
+                            header: 'Nov',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'diciembre',
+                            header: 'Dic',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'cantidad',
+                            class: 'text name',
+                            header: 'Total',
+                            type: '',
+                            callback: function () {
+                            }
+                        }
+                    ]
+                });
+            }
+
+            var padres = [];
+            var padresExpand = [];
+            {% for val in app.session.get('padres') %}
+            padres.push( {{ val }});
+            {% endfor %}
+            {{ app.session.set('padres',[]) }}
+
+            window.cargardatos = function (dat) {
+                /*removeField();*/
+                if (!dat) {
+                    var dat = [];
+                    dat.push($('#filtro-ueb').val());
+                    dat.push($('#filtro-tipoplans').val());
+                    dat.push($('#filtro-ejercicio').val());
+                }
+                lock_screen();
+                var idaseguramiento = 0;
+                window.tabla_plan = $('#plan-aseguramiento').ajaxTreeTable({
+                    ajaxurl: "{{ path('planaseguramiento_listarplan') }}",
+                    filterType: 'f',
+                    rootLevel: 0,
+                    idField: 'idplanaseguramiento',
+                    parentField: 'idplanaseguramiento',
+                    dat: dat,
+                    start: 0,
+                    limit: 10,
+                    showClearButton: false,
+                    onComplete: function () {
+
+                        if (window.controlTotal) {
+                            setTimeout(function () {
+                                if (padres.length > 1) {
+                                    for (var i = 0; i < padres.length; i++) {
+                                        $('#plan-aseguramiento .grid-item[data-id=' + padres[i] + ']').trigger('mousedown');
+                                        if (i == padres.length - 1) {
+                                            $('#plan-aseguramiento .grid-item[data-id=' + padres[i] + ']').parent().addClass('at-selected-row');
+                                            $('.check_nom[id=' + padres[i] + ']').attr('checked', 'checked');
+                                        }
+                                    }
+                                } else if (padres.length == 1) {
+                                    $('#plan-aseguramiento .grid-item[data-id=' + padres[0] + ']').parent().addClass('at-selected-row');
+                                    $('.check_nom[id=' + padres[0] + ']').attr('checked', 'checked');
+                                }
+
+                            }, 100);
+                        }
+
+                        setTimeout(function () {
+                            window.controlTotal = false;
+                        }, 8000);
+
+                        if ($('tbody tr td .check_nom').length === 0) {
+                            $('#gener-aseg').addClass('hidden');
+                        }
+
+                        function checkEv() {
+                            var el = $('.check_nom:checked');
+                            if (el.length == 0) {
+                                $('#eliminar').addClass('disabled');
+                            } else {
+                                $('#eliminar').removeClass('disabled');
+                            }
+                        }
+
+                        $('.check_nom').change(checkEv);
+                        $('tr').click(checkEv);
+                        setTimeout(function () {
+                            $('.check-all-rows').find('input').change(checkEv);
+                        }, 3000);
+                        window.setCheckEvents();
+                    },
+                    columns: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10/*, 11, 12, 13, 14, 15, 16, 17, 18, 19*/],
+                    columnsDef: [
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'name',
+                            field: 'idplanaseguramiento',
+                            header: ' ',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value, values) {
+                                var icon = (values && values[10]) ? 'glyphicon-file leaf' : 'glyphicon-chevron-right';
+
+                                return '<a href="#"><span class="glyphicon ' + icon + '"></span> </a> ';
+                            }
+                        },
+                        {
+                            noFilter: true,
+                            style: "width: 20px; text-align: center",
+                            class: 'check-all-rows name',
+                            field: 'idplanaseguramiento',
+                            header: '',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (value) {
+                                return '<input type="checkbox" id="' + value + '" class="check_nom" /> ';
+
+                            }
+                        }, {
+                            style: "width:400px",
+                            noFilter: true,
+                            field: 'nombre',
+                            class: 'text name',
+                            header: 'Aseguramiento',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'idunidadmedida',
+                            class: 'text name',
+                            header: 'UM',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'idmonedadestino',
+                            class: 'text name',
+                            header: 'Destino',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: "width:60px",
+                            noFilter: true,
+                            field: 'cantidad',
+                            class: 'text name',
+                            header: 'Total',
+                            type: '',
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: "{{ meses[mesAnterior] | lower }}",
+                            header: "{{ meses[mesAnterior] }}",
+                            class: 'text name',
+                            type: 'i',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width:60px',
+                            noFilter: true,
+                            field: "{{ meses[mesActual] | lower }}",
+                            header: "{{ meses[mesActual] }}",
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: "{{ meses[mesSiguiente] | lower }}",
+                            header: "{{ meses[mesSiguiente] }}",
+                            class: 'text name',
+                            type: '',
+                            editable: true,
+                            callback: function () {
+                            }
+                        }, {
+                            style: 'width: 60px',
+                            noFilter: true,
+                            field: 'diferencia',
+                            header: 'Diferencia',
+                            class: 'text name',
+                            type: '',
+                            callback: function () {
+                            }
+                        }
+                        {% if is_granted('ROLE_MODIFICAR_PLANASEGURAMIENTO') or is_granted('ROLE_ELIMINAR_PLANASEGURAMIENTO') or is_granted('ROLE_LISTAR_PLANASEGURAMIENTO') %}
+                        ,
+                        {
+                            noFilter: true,
+                            style: 'text-align: center; width: 100px',
+                            header: 'Acciones',
+                            type: '',
+                            callback: function () {
+                            },
+                            render: function (row) {
+                                ueb = ($('#filtro-ueb').val());
+                                tipo = ($('#filtro-tipoplans').val());
+                                ejer = ($('#filtro-ejercicio').val());
+                                var accionModif = "", accionElimi = "", accionMostrar = "";
+                                {% if is_granted('ROLE_MODIFICAR_PLANASEGURAMIENTO') %}
+                                var ajaxurl_mod = '{{ path('planaseguramiento_edit', { 'id': 0 }) }}';
+                                accionModif = ' <a  title="Editar" href="' + ajaxurl_mod.replace('editar/0', 'editar/' + row[0] + '/' + ejer + '/' + tipo + '/' + ueb)
+                                    + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod + '"' +
+                                    'data-id="' + row[0] + '"><span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_ELIMINAR_PLANASEGURAMIENTO') %}
+                                var ajaxuredel = '{{ path('planaseguramiento_eliminar') }}';
+                                accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" href="#modal_eliminar" onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" data-ajax-url="' + ajaxuredel + '"' +
+                                    'data-id="' + row[0] + '"><span class="glyphicon glyphicon-trash text-red"></span></a> &nbsp;&nbsp;';
+                                {% endif %}
+
+                                {% if is_granted('ROLE_LISTAR_PLANASEGURAMIENTO') %}
+                                var ajaxurlmos = '{{ path('detalle_planaseg', { 'id': 0 }) }}';
+                                accionMostrar = '<a title="Mostrar" id="ver_plan_aseguramiento" data-id="' + row[5] + '" href="' + ajaxurlmos.replace('/detalle/0/0/0/0/', '/detalle/' + row[0] + '/' + ejer + '/' + tipo + '/' + ueb) + '">' +
+                                    '<span class="glyphicon glyphicon-eye-open "></span>';
+                                {% endif %}
+
+                                return accionModif + accionElimi + accionMostrar;
+                            }
+                        }
+                        {% endif %}
+                    ]
+                });
+                setTimeout(unlock_screen, 2000);
+            }
+            setTimeout(function () {
+                cargardatos();
+            }, 2000);
+            ;
+            $('#filtro-ueb').change(function () {
+                var dat = [];
+                dat.push($(this).val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('#filtro-ejercicio').change(function () {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($(this).val());
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('#filtro-tipoplans').change(function () {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($(this).val());
+                dat.push($('#filtro-ejercicio').val());
+                if (dat != "") {
+                    cargardatos(dat);
+                }
+            });
+            $('#categoria_plan').change(function (evt) {
+                var dat = [];
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                dat.push(5);
+                url = $(this).find('option:selected').data('url').replace('0', dat);
+
+                window.location.href = url;
+            });
+
+            $('#gener-aseg').click(function () {
+                var dat = [];
+
+                dat.push($('#filtro-ueb').val());
+                dat.push($('#filtro-tipoplans').val());
+                dat.push($('#filtro-ejercicio').val());
+                var ruta = '{{ path('planaseguramiento_generar', { 'data': 'NODATA' }) }}';
+                ruta = ruta.replace('NODATA', dat);
+
+                var pagina = window.open(ruta);
+            });
+            $('#btn_adicionar_plan').click(function (event) {
+                event.preventDefault();
+                var add = $('#btn_adicionar_plan').attr('href');
+                var url = add;
+                var padre = $('.check_nom:checked');
+                var ueb = $('#filtro-ueb').val();
+                var plan = $('#filtro-tipoplans').val();
+                var ejer = $('#filtro-ejercicio').val();
+                var idpadre = undefined !== padre[0] ? '/' + padre[0].id : '';
+                url = add.replace('/new', '/new/' + ejer + '/' + plan + '/' + ueb + idpadre);
+                window.location = url;
+            })
+        </script>
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active " id={% block menu_id1 %}"Específico"{% endblock %}>
+            <div class="row" style="padding:  15px">
+                {% block menu_botones %}
+                    <button title="Adicionar" type="button" id="btn_addesp"
+                            class="btn btn-sm btn-primary pull-right m-r-5 m-b-10">
+                        <i class="fa fa-plus"></i> Adicionar
+                    </button>
+                {% endblock %}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                        {% block menu_tr %}
+                        <tr>
+                            {% block menu_tha %}
+                                <th></th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Uso</th>
+                                <th>Acciones</th>
+                            {% endblock %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="10px"><input type="checkbox"/></td>
+                            <td style="width: 120px">{{ nomEspecifico.codigo }}</td>
+                            <td>{{ nomEspecifico.nombre }}</td>
+                            <td width="15px"></td>
+                            <td width="70px">
+                                <a title="Edit" href="{{ path('generico_edit', { 'id': nomEspecifico.idespecifico }) }}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
+
+                                &nbsp; <i class="fa fa-trash-o"></i></td>
+                        </tr>
+                        {% endblock %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <h1>NomEspecifico</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idespecifico</th>
+                <td>{{ nomEspecifico.idespecifico }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomEspecifico.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomEspecifico.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Codonei</th>
+                <td>{{ nomEspecifico.codOnei }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('especifico_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('especifico_edit', { 'id': nomEspecifico.idespecifico }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

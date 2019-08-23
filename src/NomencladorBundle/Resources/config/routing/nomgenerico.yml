@@ -1,0 +1,42 @@
+generico_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomGenerico:index",remember:null }
+    methods:  GET
+
+generico_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:show" }
+    methods:  GET
+
+generico_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:new" }
+    methods:  [GET, POST]
+
+generico_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:edit" }
+    methods:  [GET, POST]
+
+generico_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:delete" }
+    methods:  DELETE
+
+generico_eliminar:
+    path:      /generico_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:genericoEliminar" }
+    methods:  [GET, POST]
+
+generico_activar:
+    path:      /generico_activar/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:SetActivo" }
+    methods:  [GET, POST]
+generico_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:listar" }
+    methods:  [GET, POST]
+generico_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomGenerico:exportar" }
+    methods:  [GET, POST]

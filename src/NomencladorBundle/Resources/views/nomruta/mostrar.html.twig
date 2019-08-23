@@ -1,0 +1,74 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('ruta_index') }}">Ruta</a></li>
+    <li><a href="#">Suministrador</a></li>
+{% endblock %}
+{% block tabletab %}
+
+        <div class="box-header">
+            <h6 class="box-title">Datos Ruta: {{ ruta.nombre }}</h6>
+        </div><!-- /.box-header -->
+        <div class="box-body table-responsive">
+            <table id="datosRutas" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                    <th>Suministrador</th>
+                    <th>Producto</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for sumin  in suministradores %}
+                    <tr>
+                        <td>{{ sumin.entidad.nombre }}</td>
+                        <td>{{ sumin.producto.nombre }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        </div><!-- /.box-body -->
+<div class="row">
+    <div class="form-group col-xs-12">
+        <div class="col-xs-6 col-xs-offset-6">
+        <a href="{{ path('ruta_index') }}" title="Regresar"  class="btn btn-default   "><i
+                    class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+        </a>
+        <a href="{{ path('ruta_edit',{ 'id': ruta.idruta}) }}" title="Regresar"  class="btn btn-primary  "><i
+                    class="glyphicon glyphicon-pencil icon-white"></i> Editar
+        </a>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <!-- DATA TABES SCRIPT -->
+        <script type="text/javascript"
+                src="{{ asset('bundles/tercero/js/plugins/datatables/jquery.dataTables.js') }}"></script>
+        <script type="text/javascript"
+                src="{{ asset('bundles/tercero/js/plugins/datatables/dataTables.bootstrap.js') }}"></script>
+
+        <!-- page script -->
+        <script type="text/javascript">
+            $(function () {
+                $('#datosRutas').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": true,
+                    "bAutoWidth": false
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
+
+

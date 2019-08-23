@@ -1,0 +1,8 @@
+ALTER TABLE dat_plan_venta ADD grupopadre INT DEFAULT NULL, ADD grupoentidad INT DEFAULT NULL;
+ALTER TABLE dat_plan_venta ADD CONSTRAINT FK_646E2A98EAD9F38A FOREIGN KEY (grupopadre) REFERENCES nom_grupointeres (idgrupointeres);
+ALTER TABLE dat_plan_venta ADD CONSTRAINT FK_646E2A98B0B2F871 FOREIGN KEY (grupoentidad) REFERENCES nom_grupointeres (idgrupointeres);
+CREATE INDEX IDX_646E2A98EAD9F38A ON dat_plan_venta (grupopadre);
+CREATE INDEX IDX_646E2A98B0B2F871 ON dat_plan_venta (grupoentidad);
+/*Para el problema de los precios en aseguramientos a la hora de editar*/
+UPDATE nom_aseguramiento SET precio_cuc = 0;
+UPDATE nom_aseguramiento SET precio_cup = 0;

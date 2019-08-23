@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPlanVenta</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idplanventa</th>
+                <td>{{ datPlanVentum.idplanventa }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ datPlanVentum.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ datPlanVentum.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ datPlanVentum.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ datPlanVentum.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ datPlanVentum.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ datPlanVentum.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ datPlanVentum.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ datPlanVentum.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ datPlanVentum.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ datPlanVentum.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ datPlanVentum.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ datPlanVentum.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ datPlanVentum.diciembre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planventa_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planventa_edit', { 'id': datPlanVentum.idplanventa }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

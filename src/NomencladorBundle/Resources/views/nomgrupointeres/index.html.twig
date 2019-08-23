@@ -1,0 +1,181 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+{% block bread %}
+
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('grupointeres_index') }}">Grupos de interés</a></li>
+{% endblock %}
+ {% block menu_bot %}
+     {% if is_granted('ROLE_ADICIONAR_GRUPOINTERES') %}
+         <a href='#' id="btn_addgrupo"
+            data-url='{{ path('grupointeres_new', { 'id': 0 }) }}' data-new="{{ path('grupointeres_new') }}"
+            title="Adicionar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+             <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+     {% endif %}
+     {% if is_granted('ROLE_ELIMINAR_GRUPOINTERES') %}
+         <a data-ajax-url="{{ path('grupointeres_eliminar') }}" id="eliminar" title="Eliminar"
+            class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled"
+            href="#modal_eliminar" data-toggle="modal">
+             <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+     {% endif %}
+
+     <a data-ajax-url="{{ path('grupointeres_activar') }}" id="btn_activar"
+        class="text-yellow btn btn-xs m-r-5 m-b-10 btn-default disabled" title="Activar">
+         <span class="fa fa-lightbulb-o "></span> Activar</a>
+     <a data-ajax-url="{{ path('grupointeres_activar') }}" id="btn_desactivar"
+        class="btn btn-xs m-r-5 m-b-10 btn-default disabled"
+             {#data-toggle="tooltip"#} title="Desactivar">
+         <span class="fa fa-lightbulb-o "></span> Desactivar</a>
+
+     <a data-url="{{ path('grupointeres_exportar') }}" id="btn_export_gruposinteres"
+        class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+         <span class="glyphicon glyphicon-print"></span> Exportar</a>
+
+ {% endblock %}
+         {% block tabletab %}
+             <table aria-describedby="example1_info" id="grupointeress-table"
+                    class="table table-bordered table-condensed table-striped dataTable ">
+                 <thead> </thead>
+                 <tbody aria-relevant="all" aria-live="polite" role="alert">
+                 </tbody>
+             </table>
+
+         {% endblock %}
+
+         {% block javascripts %}
+             {{ parent() }}
+             {% block otherscript %}
+                 <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_tree.js') }}"></script>
+                 <script type="text/javascript">
+                     window.cargardatos = function (nivel) {
+                         nivel = nivel || 0;
+                         lock_screen();
+                         var idpro = 0;
+                         var ajaxurldel = '{{ path('grupointeres_eliminar') }}';
+                         var ajaxurl_mod2 = '{{ path('grupointeres_edit', { 'id': 0 }) }}';
+                         $('#grupointeress-table').ajaxTreeTable({
+                             ajaxurl: "{{ path('grupointeres_listar') }}",
+                             filterType: 'f',
+                             rootLevel: 0,
+                             {% if remember == "1" %}
+                             rememberStatus: true,
+                             {% endif %}
+                             idField: 'idgrupointeres',
+                             parentField: 'igrupointeresdre',
+                             dat: nivel,
+                             start: 0,
+                             onComplete: function () {
+
+                                 function checkEv() {
+                                     var el = $('.check_nom:checked');
+                                 }
+
+                                 function checkEvH() {
+                                     var el = $('.check_nom:checked');
+                                 }
+
+                                 window.setCheckEvents();
+
+                                 $('.check_nom').change(checkEv);
+                                 $('tr').click(checkEv);
+                                 $('.check-all-rows').change(checkEvH);
+                                 $('.check-all-rows').find('input').change(checkEv);
+                                 setTimeout(function () {
+                                     $('.check-all-rows').find('input').change(checkEv);
+                                 }, 1000);
+                             },
+                             limit: 10,
+                             columns: [0, 1, 2, 3],
+                             columnsDef: [//
+                                 {
+                                     noFilter: true,
+                                     style: "width: 50px",
+                                     field: 'idgrupointeres',
+                                     class: 'name',
+//                        header: ' <li id="at-clear" class="pull-left"><a href="javascript:;">Limpiar filtros</a></li>',
+                                     header: '',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (value) {
+                                         return '<a href="#"><span class="glyphicon glyphicon-chevron-right"></span> </a> ';
+                                     }
+                                 },
+                                 {
+                                     noFilter: true,
+                                     style: "width: 20px; text-align: center",
+                                     class: 'check-all-rows name',
+                                     field: '',
+                                     header: '', /* <input type="checkbox" class="check_nom"/> */
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (value) {
+                                         return '<input type="checkbox" id="' + value[0] + '" class="check_nom" /> ';
+                                     }
+                                 },
+                                 {
+                                     style: 'width: 80px',
+                                     field: 'codigo',
+                                     header: 'Código',
+                                     class: 'text name',
+                                     type: '',
+                                     callback: function () {
+                                     }
+                                 },
+                                 {
+                                     field: 'nombre', header: 'Nombre', type: '', callback: function () {
+                                     }
+                                 },
+                                 {
+                                     noFilter: true,
+                                     style: 'width: 80px; text-align: center',
+                                     field: 'activo',
+                                     class: 'name',
+                                     header: 'Activo',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (value) {
+                                         if (value == 1) {
+                                             return '<span class="fa fa-check text-green"></span>';
+                                         } else {
+                                             return '<span class="glyphicon glyphicon-remove text-red"></span>';
+                                         }
+
+                                     }
+                                 },
+                                 {
+                                     noFilter: true,
+                                     style: 'text-align: center; width: 100px',
+                                     class: 'name',
+                                     header: 'Acciones',
+                                     type: '',
+                                     callback: function () {
+                                     },
+                                     render: function (row) {//ajaxurl_mod
+//                            var idpro = value[0];
+                                         {#var ajaxurl_mod = '{{ path('grupointeres_edit', { 'id':  value[0] }) }}';#}
+                                         return ' <a title="Editar"  href="' + ajaxurl_mod2.replace('/0/edit', '/' + row[0] + '/edit') + '" class="btn_edit"  data-ajax-url="' + ajaxurl_mod2 + '"' +
+                                             'data-id="' + row[3] + '">' +
+                                             '<span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
+                                             '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del" ' +
+                                             'onclick="window.cp_temp_stored_id=' + row[0] + ';" href="#modal_eliminar" data-toggle="modal" data-ajax-url="' + ajaxurldel + '"' +
+                                             'data-id="' + row[0] + '">' +
+                                             '<span class="glyphicon glyphicon-trash text-red"></span>';
+                                     }
+                                 }
+                             ]
+                         });
+                         setTimeout(unlock_screen, 2000);
+                     };
+                     setTimeout(function () {
+                         cargardatos();
+                     }, 1000);
+                 </script>
+             {% endblock %}
+         {% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_index.html.twig' %}
+
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('tipoportador_index') }}">Tipo de Portador </a></li>
+{% endblock %}
+{% block listtitle %}
+{% endblock %}
+    {% block btn_delete %} data-ajax-url="{{ path('tipoportador_deleteAll') }}" id="eliminarport" {% endblock %}
+{% block btn_estado %}
+{% endblock %}
+{% block valcol_1 %}
+    id="tipoportador-id-{{ nom_var.idtipoportador}}"
+{% endblock %}
+    {% block id_check %}
+        id="{{ nom_var.idtipoportador}}"
+    {% endblock %}
+    {% block link_acc %}
+        <a style="margin-right: 25px" href="{{ path('tipoportador_edit', { 'id': nom_var.idtipoportador}) }}"><i
+                    class="fa fa-pencil-square-o text-green"></i></a>
+        <a class="btn_deltipoportador" href="#" data-ajax-url="{{ path('tipoportador_eliminar') }}"
+           data-id="{{ nom_var.idtipoportador}}">
+            <i class="fa fa-trash-o text-red"></i></a>
+    {% endblock %}
+    {% block exist_nula %}tipo de portadores  {% endblock %}
+    {% block btn_insert %}  href="{{ path('tipoportador_new') }}"  {% endblock %}

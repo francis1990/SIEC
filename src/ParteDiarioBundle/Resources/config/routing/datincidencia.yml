@@ -1,0 +1,34 @@
+incidencia_index:
+    path:     /lista/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:index",remember:null  }
+    methods:  GET
+
+incidencia_show:
+    path:     /mostrar/{id}
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:show" }
+    methods:  GET
+
+incidencia_new:
+    path:     /new/
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:new" }
+    methods:  [GET, POST]
+
+incidencia_edit:
+    path:     /editar/{id}
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:edit" }
+    methods:  [GET, POST]
+
+incidencia_delete:
+    path:     /eliminar/{id}
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:delete" }
+    methods:  DELETE
+
+incidencia_listar:
+    path:     /listar
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:listar" }
+    methods:  [GET, POST]
+
+incidencia_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatIncidencia:eliminar" }
+    methods:  [GET, POST]

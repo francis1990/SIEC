@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active " id={% block menu_id1 %}"Subgenerico"{% endblock %}>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-bordered table-condensed table-hover">
+                        <thead>
+                        {% block menu_tr %}
+                        <tr>
+                            {% block menu_tha %}
+                                <th></th>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Uso</th>
+                                <th>Acciones</th>
+                            {% endblock %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td width="10px"><input type="checkbox"/></td>
+                            <td style="width: 120px">{{ nomSubgenerico.codigo }}</td>
+                            <td>{{ nomSubgenerico.nombre }}</td>
+                            <td width="15px"></td>
+                            <td width="70px">
+                                <a title="Edit" href="{{ path('subgenerico_edit', { 'id': nomSubgenerico.idsubgenerico }) }}"> <i
+                                            class="fa fa-pencil-square-o"></i></a>
+                                &nbsp; <i class="fa fa-trash-o"></i></td>
+                        </tr>
+                        </tr>
+                        {% endblock %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <h1>NomSubgenerico</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>Idsubgenerico</th>
+            <td>{{ nomSubgenerico.idsubgenerico }}</td>
+        </tr>
+        <tr>
+            <th>Código</th>
+            <td>{{ nomSubgenerico.codigo }}</td>
+        </tr>
+        <tr>
+            <th>Nombre</th>
+            <td>{{ nomSubgenerico.nombre }}</td>
+        </tr>
+        <tr>
+            <th>Codonei</th>
+            <td>{{ nomSubgenerico.codOnei }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('subgenerico_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('subgenerico_edit', { 'id': nomSubgenerico.idsubgenerico }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+            <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

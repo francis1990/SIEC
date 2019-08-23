@@ -1,0 +1,38 @@
+tipoportador_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:index",remember:null }
+    methods:  GET
+
+tipoportador_show:
+    path:     /{id}/show
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:show" }
+    methods:  GET
+
+tipoportador_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:new" }
+    methods:  [GET, POST]
+
+tipoportador_insert:
+    path:     /tipoportador_insert/
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:insert" }
+    methods:  [GET, POST]
+
+tipoportador_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:edit" }
+    methods:  [GET, POST]
+
+tipoportador_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:delete" }
+    methods:  DELETE
+
+tipoportador_eliminar:
+    path:      /tipoincidencia_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:eliminar" }
+    methods:  [GET, POST]
+tipoportador_deleteAll:
+    path:      /portador_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomTipoPortador:deleteSelect" }
+    methods:  [GET, POST]

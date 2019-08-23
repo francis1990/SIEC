@@ -1,0 +1,113 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+{% block hide_menu %}{% endblock %}
+{% block bread %}{% endblock %}
+{% block menu_lateral %}{% endblock %}
+{% block menu_bot %}{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('planportador_index',{'ejercicio': ejercicio,'tipoPlan': tipoPlan,'ueb':ueb}) }}">Plan de portador energético</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block tabletab %}
+    <div class="row">
+
+        <div class="form-group col-sm-6">
+            <label for="ueb" class="col-sm-4 control-label"> Ejercicio:</label>
+
+            <div class="col-sm-8">
+                {{ plan.idejercicio }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb"
+                   class="col-sm-4 control-label"> Portador:</label>
+
+            <div class="col-sm-8">
+                {{ plan.idportador }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb"
+                   class="col-sm-4 control-label"> UEB:</label>
+
+            <div class="col-sm-8">
+                {{ plan.idueb }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb"
+                   class="col-sm-4 control-label"> UM:</label>
+
+            <div class="col-sm-8">
+                {{ plan.idunidadmedida }}
+            </div>
+        </div>
+        <div class="form-group  col-sm-6">
+            <label for="codigo"
+                   class="col-sm-4 control-label"> Tipo de plan:</label>
+            <div class="col-sm-8">
+                {{ plan.idtipoplan }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb"
+                   class="col-sm-4 control-label"> Cantidad total:</label>
+            <div class="col-sm-8">
+                {{ plan.cantidad }}
+            </div>
+        </div>
+        <div class="form-group col-sm-6">
+            <label for="ueb"
+                   class="col-sm-4 control-label"> Diferencia:</label>
+
+            <div class="col-sm-8">
+                {{ diferencia }}
+            </div>
+        </div>
+        <table class="table table-bordered table-condensed table-striped dataTable"
+               style="width: 95%;">
+            <thead>
+            <tr role="row">
+                <th>Enero</th>
+                <th>Febrero</th>
+                <th>Marzo</th>
+                <th>Abril</th>
+                <th>Mayo</th>
+                <th>Junio</th>
+                <th>Julio</th>
+                <th>Agosto</th>
+                <th>Septiembre</th>
+                <th>Octubre</th>
+                <th>Noviembre</th>
+                <th>Diciembre</th>
+            </tr>
+            </thead>
+            <tbody aria-relevant="all" aria-live="polite" role="alert"
+                   class="table table-bordered table-striped table-hover table-heading">
+            <tr>
+                <td class=""> {{ plan.enero }}</td>
+                <td class="">{{ plan.febrero }}</td>
+                <td class="">{{ plan.marzo }}</td>
+                <td class="">{{ plan.abril }}</td>
+                <td class="may">{{ plan.mayo }}</td>
+                <td class="jun">{{ plan.junio }}</td>
+                <td class="jul">{{ plan.julio }}</td>
+                <td class="ago">{{ plan.agosto }}</td>
+                <td class="sep">{{ plan.septiembre }}</td>
+                <td class="oct">{{ plan.octubre }}</td>
+                <td class="nov">{{ plan.noviembre }}</td>
+                <td class="dic">{{ plan.diciembre }}</td>
+            </tr>
+
+        </table>
+    </div>
+    <br>
+    <button title="Regresar" id="regresar_detalle" data-url="{{ path('planportador_index',{'ejercicio': ejercicio,'tipoPlan': tipoPlan,'ueb':ueb}) }}"
+            class="btn btn-primary   col-xs-offset-10"><i class="glyphicon glyphicon-arrow-left icon-white"></i>
+        Regresar
+    </button>
+{% endblock %}

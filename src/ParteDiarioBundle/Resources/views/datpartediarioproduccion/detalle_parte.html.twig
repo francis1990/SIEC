@@ -1,0 +1,155 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parteproduccion_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de nivel de actividad</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+ {% block tabletab %}
+
+     <div class="row">
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Almacén:</label>
+             <div class="col-sm-8">
+                 {{ parte.almacen }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Moneda/destino:</label>
+             <div class="col-sm-8">
+                 {{ parte.moneda }}
+             </div>
+         </div>
+
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Producto:</label>
+             <div class="col-sm-8">
+                 {{ parte.producto }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Cantidad proceso:</label>
+             <div class="col-sm-8">
+                 {{ parte.cantproceso }}
+             </div>
+         </div>
+
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Unidad de medida:</label>
+             <div class="col-sm-8">
+                 {{ parte.um }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Cantidad UM Inf:</label>
+             <div class="col-sm-8">
+                 {{ parte.cantidad }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Cantidad física:</label>
+             <div class="col-sm-8">
+                 {{ parte.entrega }}
+             </div>
+         </div>
+         {% if parte.cantempaque != null %}
+             <div class="form-group col-sm-6 ">
+                 <label for="codigo" class="control-label col-sm-4"> Cantidad empaque:</label>
+                 <div class="col-sm-8">
+                     {{ parte.cantempaque }}
+                 </div>
+             </div>
+         {% endif %}
+
+     </div>
+
+     <button title="Regresar" id="regresar_detalle" data-url="{{ path('parteproduccion_index',{'fecha':fecha, 'ueb':ueb}) }}"
+             class="btn btn-primary col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+                var nCloneTh = document.createElement('th');
+                var nCloneTd = document.createElement('td');
+                nCloneTd.innerHTML = '<img src="{{ asset("bundles/tercero/datables/details_open.png") }}">';
+                nCloneTd.className = "left";
+
+                $('#detalleParteNA-table thead tr').each(function () {
+                    this.insertBefore(nCloneTh, this.childNodes[0]);
+                });
+                $('#detalleParteNA-table tbody tr').each(function () {
+                    this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+                });
+
+                function fnFormatDetails(oTable, nTr) {
+                    var aData = oTable.fnGetData(nTr);
+                    var sOut = '<tr>' +
+                        '<td colspan="5">' +
+                        '<span class="detalle-parte">Precio CUP:</span> ' + aData[7] +
+                        '<span class="detalle-parte">Precio CUC:</span> ' + aData[8] +
+                        '<span class="detalle-parte">Impuesto:</span> ' + aData[9] +
+                        '<br>' +
+                        '<span class="detalle-parte">Almacén:</span> ' + aData[10] +
+                        '<br>' +
+                        '<span class="detalle-parte">Origen:</span> ' + aData[11] +
+                        '</td></tr>';
+                    return sOut;
+                }
+
+                var oTable = $('#detalleParteNA-table').dataTable({
+                    "aoColumnDefs": [
+                        {"bSortable": false, "aTargets": [0]},
+                        {"bVisible": false, "aTargets": [7, 8, 9, 10, 11]}
+                    ],
+                    "aaSorting": [[1, 'asc']],
+                    "bLengthChange": false
+
+                });
+                $('#detalleParteNA-table td img').on('click', function () {
+                    var nTr = $(this).parents('tr')[0];
+                    if (oTable.fnIsOpen(nTr)) {
+                        this.src = "{{ asset("bundles/tercero/datables/details_open.png") }}";
+                        oTable.fnClose(nTr);
+                    } else {
+                        this.src = "{{ asset("bundles/tercero/datables/details_close.png") }}";
+                        oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                    }
+                });
+            });
+
+        </script>
+    {% endblock %}
+{% endblock %}
+

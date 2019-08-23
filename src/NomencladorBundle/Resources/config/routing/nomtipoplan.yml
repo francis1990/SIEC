@@ -1,0 +1,43 @@
+tipoplan_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:index",remember:null }
+    methods:  GET
+tipoplan_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:listar" }
+    methods:  [GET, POST]
+
+tipoplan_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:new" }
+    methods:  [GET, POST]
+
+tipoplan_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:edit" }
+    methods:  [GET, POST]
+
+tipoplan_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:delete" }
+    methods:  DELETE
+
+tipoplan_eliminar:
+    path:      /tipoplan_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:eliminar" }
+    methods:  [GET, POST]
+
+tipoplan_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:listado" }
+    methods:  GET
+
+tipoplan_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:SetActivo" }
+    methods:  [GET, POST]
+
+tipoplan_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomTipoPlan:exportar" }
+    methods:  [GET, POST]

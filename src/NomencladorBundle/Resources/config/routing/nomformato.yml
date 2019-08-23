@@ -1,0 +1,41 @@
+formato_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomFormato:index" ,remember:null}
+    methods:  GET
+formato_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomFormato:listar" }
+    methods:  [GET, POST]
+formato_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomFormato:show" }
+    methods:  GET
+
+formato_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomFormato:new" }
+    methods:  [GET, POST]
+
+formato_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomFormato:edit" }
+    methods:  [GET, POST]
+
+formato_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomFormato:delete" }
+    methods:  DELETE
+
+formato_eliminar:
+    path:      /formato_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomFormato:formatoEliminar" }
+    methods:  [GET, POST]
+
+formato_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomFormato:SetActivo" }
+    methods:  [GET, POST]
+formato_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomFormato:exportar" }
+    methods:  [GET, POST]

@@ -1,0 +1,50 @@
+unidadmedida_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:index",remember:null }
+    methods:  GET
+
+unidadmedida_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:listar" }
+    methods:  [GET, POST]
+
+unidadmedida_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:show" }
+    methods:  GET
+
+unidadmedida_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:new" }
+    methods:  [GET, POST]
+
+unidadmedida_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:edit" }
+    methods:  [GET, POST]
+
+unidadmedida_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:delete" }
+    methods:  DELETE
+
+unidadmedida_eliminar:
+    path:      /unidadmedida_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:eliminar" }
+    methods:  [GET, POST]
+
+unidadmedida_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:listado" }
+    methods:  GET
+
+unidadmedida_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:SetActivo" }
+    methods:  [GET, POST]
+    
+
+unidadmedida_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomUnidadmedida:exportar" }
+    methods:  [GET, POST]

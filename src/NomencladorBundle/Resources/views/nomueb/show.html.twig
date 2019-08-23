@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomUeb</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idueb</th>
+                <td>{{ nomUeb.idueb }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomUeb.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomUeb.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ nomUeb.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('ueb_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('ueb_edit', { 'id': nomUeb.idueb }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'ParteDiarioBundle:Default:parte_base.html.twig' %}
+{% block bread %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+
+    <li><a href="{{ path('parte_alerta_index') }}">Alertas</a></li>
+{% endblock %}
+
+
+{% block titulo_cont %}
+    Alertas
+{% endblock %}
+{% block listtitle %}
+    Listado de Alertas
+{% endblock %}
+
+{% block menu_lateral %}
+    <aside class="left-side">
+        <section class="sidebar">
+            <div class="user-panel">
+                <div class="pull-left info">
+                    <p>Partes Diarios</p>
+                </div>
+            </div>
+            <ul class="sidebar-menu">
+                <li class="treeview active">
+                    <a href="#">
+                        <i class="fa fa-edit"></i>
+                        <span>ALERTAS</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu" style="diaplay: block">
+                        <li ><a title="Alertas" href="{{ path('parte_alerta_index') }}"><i
+                                        class="fa fa-angle-double-right"></i>Alertas</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+{% endblock %}
+{% block tabletab %}
+    {% if datAlertas is not empty %}
+        <table  aria-describedby="example1_info" id="DataTables_Table_0" class="table  table-striped table-responsive dataTable  bootstrap-datatable ">
+            <thead>
+            <tr role="row">
+                <th style="width: 10px;"></th>
+                <th  class="sorting"  aria-label="Código: activate to sort column descending"
+                     style="width: auto;" colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                     tabindex="0" role="columnheader" >Cantidad
+                </th>
+                <th  class="sorting"  aria-label="Nombre: activate to sort column descending"
+                     style="width: auto;" colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                     tabindex="0" role="columnheader" >
+                    Actividad
+                </th>
+                <th class="sorting"   aria-label="Peso: activate to sort column descending"
+                    style="width: auto;" colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                    tabindex="0" role="columnheader" >
+                    Descripcion
+                </th>
+                <th class="sorting"   aria-label="UM: activate to sort column descending"
+                    style="width: auto;" colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                    tabindex="0" role="columnheader" >
+                    Fecha
+                <th class="sorting"   aria-label="UM: activate to sort column descending"
+                    style="width: auto;" colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                    tabindex="0" role="columnheader" >
+                    Insumo
+
+                </th>
+
+            </tr>
+            </thead>
+            <tbody aria-relevant="all" aria-live="polite" role="alert">
+            {% for usuarios in datAlertas %}
+                <tr class="{{ cycle(['par', 'impar'], loop.index) }}"  id="row-{{ datAlerta.id }}">
+                    <td class="center"><input id="{{ datAlerta.id }}" type="checkbox"/></td>
+                    </td>
+                    <td class="center">{{ datAlerta.cant}}</td>
+                    <td class="center">{{ datAlerta.actividad }}</td>
+
+                    {#ARREGLAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!#}
+                    <td class="center">{{ datAlerta.usuarios|length }}</td>
+
+
+
+                    <td class="center">{{ datAlerta.descripcion }}</td>
+                    <td class="center">{{ datAlerta.fecha|date("d-m-Y")}}</td>
+                    <td class="center">{{ datAlerta.insumo }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <div class="alert alert-info alert-dismissable">
+            <i class="fa fa-info"></i>
+            <b>Información!</b> No existen Alertas registradas.
+        </div>
+    {% endif %}
+{% endblock %}
+

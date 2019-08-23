@@ -1,0 +1,132 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+ {% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="#">Parte Diario</a></li>
+     <li><a href="{{ path('partecuentascobrar_index') }}">Cuentas por cobrar</a></li>
+    <li><a class="active">Editar</a></li>
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-pccobrar','class':'form-edit'} }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.ueb) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.ueb) }}
+                                        {{ form_errors(form.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.fecha) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.fecha) }}
+                                        {{ form_errors(form.fecha) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.idcuentacontable) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.idcuentacontable) }}
+                                        {{ form_errors(form.idcuentacontable) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.cliente) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.cliente) }}
+                                        {{ form_errors(form.cliente) }}
+                                    </div>
+
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.moneda) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.moneda) }}
+                                        {{ form_errors(form.moneda) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.valor) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.valor) }}
+                                        {{ form_errors(form.valor) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.factura) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.factura) }}
+                                        {{ form_errors(form.factura) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.diasvencido) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.diasvencido) }}
+                                        {{ form_errors(form.diasvencido) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.montovencido) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.montovencido) }}
+                                        {{ form_errors(form.montovencido) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.fecha_reclama) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.fecha_reclama) }}
+                                        {{ form_errors(form.fecha_reclama) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group ">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <button class="btn btn-primary  disabled" id="btn_add_pccobrar" data-accion="aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </button>
+                                        <a href="{{ path('partecuentascobrar_index') }}" id="btn_cerrar"
+                                           data-url="{{ path('partecuentascobrar_index') }}"
+                                           class="btn btn-default  editcerrar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteccobrar.js') }}"></script>
+{% endblock %}

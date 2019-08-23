@@ -1,0 +1,28 @@
+{% extends 'AdminBundle:Default:baseExportar.html.twig' %}
+
+{% block colspan 2 %}
+
+{% block title %}LISTADO DE ROLES{% endblock %}
+
+{% block content %}
+<table border="1" width="100%">
+    <thead>
+        <tr>
+            <th class="max">Descripción</th>
+            <th>Activo</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for rol in elementos %}
+        <tr>
+            <td>{{ rol.descrol }}</td>
+            {% if rol.activo %}
+                <td>Si</td>
+            {% else %}
+                <td>No</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

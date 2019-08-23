@@ -1,0 +1,82 @@
+producto_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomProducto:index",remember:null }
+    methods:  GET
+
+producto_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomProducto:show" }
+    methods:  GET
+
+producto_newid:
+    path:       /new/
+    defaults: { _controller: "NomencladorBundle:NomProducto:newId" }
+    methods:  [GET, POST]
+
+producto_new:
+    path:       /{id}/new/
+    defaults: { _controller: "NomencladorBundle:NomProducto:new" }
+    methods:  [GET, POST]
+
+producto_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomProducto:edit" }
+    methods:  [GET, POST]
+
+producto_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomProducto:delete" }
+    methods:  DELETE
+
+producto_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomProducto:eliminar" }
+    methods:  [GET, POST]
+
+producto_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomProducto:listar" }
+    methods:  [GET, POST]
+
+producto_sabor:
+    path:     /sabor/
+    defaults: { _controller: "NomencladorBundle:NomProducto:saborByIdSub" }
+    methods:  [GET, POST]
+
+producto_formato:
+    path:     /formato/
+    defaults: { _controller: "NomencladorBundle:NomProducto:formatoByIdSub" }
+    methods:  [GET, POST]
+
+producto_especificos:
+    path:     /especifico/
+    defaults: { _controller: "NomencladorBundle:NomProducto:especificosByIdSub" }
+    methods:  [GET, POST]
+
+producto_elementos:
+    path:     /elementos/
+    defaults: { _controller: "NomencladorBundle:NomProducto:elemByIdSub" }
+    methods:  [GET, POST]
+
+producto_activar:
+    path:      /producto_activar/
+    defaults: { _controller: "NomencladorBundle:NomProducto:SetActivo" }
+    methods:  [GET, POST]
+
+producto_deleteAll:
+    path:      /producto_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomProducto:eliminar" }
+    methods:  [GET, POST]
+
+producto_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomProducto:listado" }
+    methods:  GET
+producto_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomProducto:exportar" }
+    methods:  [GET, POST]
+producto_tree:
+    path:      /tree/
+    defaults: { _controller: "NomencladorBundle:NomProducto:getTree" }
+    methods:  [GET, POST]

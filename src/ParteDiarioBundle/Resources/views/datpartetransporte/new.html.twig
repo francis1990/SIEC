@@ -1,0 +1,127 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+ {% block menu_lateral %}{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="{{ path('partetransporte_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de transporte</a></li>
+      <li><a class="active">{{ action }}</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content" id="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ action }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-ptrans','class':'form-edit', 'novalidate':'novalidate'} }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">Datos generales</a></li>
+                                    <li><a href="#tab_3" data-toggle="tab">Incidencias</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <fieldset>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.fecha) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.fecha) }}
+                                                    {{ form_errors(form.fecha) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.existencia) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.existencia) }}
+                                                    {{ form_errors(form.existencia) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="clearfix"></div>
+                                            <div class="form-group col-xs-6">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.ueb) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.ueb) }}
+                                                    {{ form_errors(form.ueb) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.disponible) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.disponible) }}
+                                                    {{ form_errors(form.disponible) }}
+                                                </div>
+
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.tipotransporte) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.tipotransporte) }}
+                                                    {{ form_errors(form.tipotransporte) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.cdt) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.cdt) }}
+                                                    {{ form_errors(form.cdt) }}
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                    <div class="tab-pane" id="tab_3">
+                                        {% include 'ParteDiarioBundle:Default:add_incidencias.html.twig' %}
+                                    </div><!-- /.tab-pane -->
+                                </div><!-- /.tab-content -->
+                            </div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        {% if action == 'Adicionar' %}
+                                            {{ form_widget(form.guardar) }}
+                                        {% endif %}
+                                        {{ form_widget(form.aceptar) }}
+                                        <a href="{{ path('partetransporte_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                           data-url="{{ path('partetransporte_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                           title="Cancelar"
+                                           id="btn_cerrar"
+                                           class="btn btn-default  btn-cancel {% if action != 'Adicionar' %} editcerrar {% endif %}">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_partetransp.js') }}"></script>
+{% endblock %}

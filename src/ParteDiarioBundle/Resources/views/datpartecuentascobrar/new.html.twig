@@ -1,0 +1,170 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+ {% block menu_lateral %}{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="{{ path('partecuentascobrar_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de cuenta por cobrar</a></li>
+      <li><a class="active">{{ action }}</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content" id="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ action }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-pccobrar', 'novalidate':'novalidate' ,'class':'form-edit' } }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+
+                            <div class="nav-tabs-custom">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#tab_1" data-toggle="tab">Datos generales</a></li>
+                                    <li><a href="#tab_3" data-toggle="tab">Incidencias</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="tab_1">
+                                        <fieldset>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.fecha) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.fecha) }}
+                                                    {{ form_errors(form.fecha) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.valor) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.valor) }}
+                                                    {{ form_errors(form.valor) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.ueb) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.ueb) }}
+                                                    {{ form_errors(form.ueb) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.montovencido) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.montovencido) }}
+                                                    {{ form_errors(form.montovencido) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.idcuentacontable) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.idcuentacontable) }}
+                                                    {{ form_errors(form.idcuentacontable) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.factura) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.factura) }}
+                                                    {{ form_errors(form.factura) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.cliente) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.cliente) }}
+                                                    {{ form_errors(form.cliente) }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.diasvencido) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.diasvencido) }}
+                                                    {{ form_errors(form.diasvencido) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6 ">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.moneda) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.moneda) }}
+                                                    {{ form_errors(form.moneda) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.fecha_reclama) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.fecha_reclama) }}
+                                                    {{ form_errors(form.fecha_reclama) }}
+                                                    {{ form_errors(form) }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-xs-6">
+                                                <label for="codigo"
+                                                       class="col-xs-4 control-label"> {{ form_label(form.fechadocumento) }}</label>
+                                                <div class="col-xs-8">
+                                                    {{ form_widget(form.fechadocumento) }}
+                                                    {{ form_errors(form.fechadocumento) }}
+                                                    {{ form_errors(form) }}
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="tab-pane" id="tab_3">
+                                        {% include 'ParteDiarioBundle:Default:add_incidencias.html.twig' %}
+                                    </div><!-- /.tab-pane -->
+                                </div><!-- /.tab-content -->
+                            </div>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-6 col-xs-12  col-sm-offset-6">
+                                        {% if action == 'Adicionar' %}
+                                            {{ form_widget(form.guardar) }}
+                                        {% endif %}
+                                        {{ form_widget(form.aceptar) }}
+                                        <a href="{{ path('partecuentascobrar_index',{'fecha':fecha, 'ueb':ueb}) }}" id="btn_cerrar"
+                                           data-url="{{ path('partecuentascobrar_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                           class="btn btn-default btn-cancel {% if action != 'Adicionar' %} editcerrar {% endif %}"
+                                           title="Cancelar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteccobrar.js') }}"></script>
+{% endblock %}

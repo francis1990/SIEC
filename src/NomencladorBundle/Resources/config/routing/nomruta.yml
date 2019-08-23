@@ -1,0 +1,58 @@
+ruta_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomRuta:index",remember:null }
+    methods:  GET
+ruta_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomRuta:listar" }
+    methods:  [GET, POST]
+ruta_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomRuta:show" }
+    methods:  GET
+
+ruta_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomRuta:new" }
+    methods:  [GET, POST]
+
+
+ruta_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomRuta:edit" }
+    methods:  [GET, POST]
+
+ruta_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomRuta:delete" }
+    methods:  DELETE
+
+ruta_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomRuta:eliminar" }
+    methods:  [GET, POST]
+
+ruta_deleteAll:
+    path:      /ruta_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomRuta:eliminar" }
+    methods:  [GET, POST]
+
+
+ruta_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomRuta:listado" }
+    methods:  GET
+
+ruta_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomRuta:SetActivo" }
+    methods:  [GET, POST]
+
+ruta_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomRuta:exportar" }
+    methods:  [GET, POST]
+ruta_mostrar:
+    path:     /{id}/mostrar/
+    defaults: { _controller: "NomencladorBundle:NomRuta:mostrar" }
+    methods:  GET

@@ -1,0 +1,6 @@
+<select id="um_consumo" data-placeholder="Unidad medida" class="form-control" >
+    <option value="0">Seleccione...</option>
+    {% for um in ums %}
+        <option value="{{ um.idunidadmedida  }}">{{ um.nombre }}</option>
+    {% endfor %}
+</select>

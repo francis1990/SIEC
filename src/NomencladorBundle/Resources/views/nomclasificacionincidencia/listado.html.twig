@@ -1,0 +1,6 @@
+<select id="filtro-clasif" data-placeholder="Clasificación"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for p in clasif %}
+        <option value="{{ p.id  }}">{{ p.nombre }}</option>
+    {% endfor %}
+</select>

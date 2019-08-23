@@ -1,0 +1,98 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="#">Parte Diario</a></li>
+      <li><a href="{{ path('partedesvio_index') }}">Desvio</a></li>
+      <li><a class="active">Editar</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-body ">
+                        {{ form_start(form,{'attr':{ 'id':'form-pdesvio','class':'form-edit'  } }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group col-sm-3 col-xs-10">
+                                    <label for="codigo"
+                                           class=" control-label"> {{ form_label(form.ueb) }}</label>
+                                    <div class="">
+                                        {{ form_widget(form.ueb) }}
+                                        {{ form_errors(form.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.fecha) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.fecha) }}
+                                        {{ form_errors(form.fecha) }}
+                                    </div>
+                                </div> <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.producto) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.producto) }}
+                                        {{ form_errors(form.producto) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.destino) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.destino) }}
+                                        {{ form_errors(form.destino) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.um) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.um) }}
+                                        {{ form_errors(form.um) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(form.cantidad) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(form.cantidad) }}
+                                        {{ form_errors(form.cantidad) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <button class="btn btn-primary disabled" id="btn_add_pdesv"
+                                                data-accion="aceptar"
+                                                title="Aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </button>
+                                        <a  title="Cancelar" id="btn_cerrar" href="{{ path('partedesvio_index') }}" data-des="{{ datParte.destino ~'-'~datParte.tipo}}"
+                                            data-url="{{ path('partedesvio_index') }}"
+                                                {# style="width: 88px"#}
+                                            class="btn btn-default btn-cancel editcerrar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_partedesvio.js') }}"></script>
+{% endblock %}

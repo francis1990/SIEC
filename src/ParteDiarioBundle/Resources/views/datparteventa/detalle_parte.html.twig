@@ -1,0 +1,167 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block hide_menu %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('parteventa_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de venta</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+
+ {% block tabletab %}
+     <div class="row">
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+
+         </div>
+         <div class="form-group col-sm-6">
+             <label for="codigo" class="control-label col-sm-4"> Cliente:</label>
+             <div class="col-sm-8">
+                 {{ parte.cliente }}
+             </div>
+
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+
+         </div>
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Factura: </label>
+             <div class="col-sm-8">
+                 {{ parte.factura }}
+             </div>
+         </div>
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Importe final CUC: </label>
+             <div class="col-sm-8">
+                 {{ parte.importeFinalCuc }}
+             </div>
+
+         </div>
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Importe final CUP: </label>
+             <div class="col-sm-8">
+                 {{ parte.importeFinalMn }}
+             </div>
+
+         </div>
+     </div>
+     <div class="box-header">
+         <h3 class="box-title">
+             Productos
+         </h3>
+     </div>
+     <table aria-describedby="detalle_parte" id="detalleparte-table"
+            class="table table-bordered table-condensed table-striped dataTable">
+         <thead>
+         <tr>
+             <th>Producto</th>
+             <th>UM</th>
+             <th>Cantidad</th>
+             <th>Cantidad física</th>
+             <th>Importe CUP</th>
+             <th>Importe CUC</th>
+
+             <th>Precio CUP</th>
+             <th>Precio CUC</th>
+             <th>Impuesto</th>
+             <th>Almacén</th>
+             <th>Origen</th>
+         </tr>
+         </thead>
+         <tbody aria-relevant="all" aria-live="polite" role="alert">
+         {% for prod in parte.productos %}
+             <tr>
+                 <td>{{ prod.producto }}</td>
+                 <td>{{ prod.um }}</td>
+                 <td>{{ prod.cantidad }}</td>
+                 <td>{{ prod.cantfisica }}</td>
+                 <td>{{ prod.importemn }}</td>
+                 <td>{{ prod.importecuc }}</td>
+
+                 <td>{{ prod.preciomn }}</td>
+                 <td>{{ prod.preciocuc }}</td>
+                 <td>{{ prod.impuesto }}</td>
+                 <td>{{ prod.almacen }}</td>
+                 <td>{{ prod.origen }}</td>
+
+             </tr>
+         {% endfor %}
+         </tbody>
+     </table>
+
+     <button title="Regresar" id="regresar_detalle" data-url="{{ path('parteventa_index',{'fecha':fecha, 'ueb':ueb}) }}" class="btn btn-primary   col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+                var nCloneTh = document.createElement('th');
+                var nCloneTd = document.createElement('td');
+                nCloneTd.innerHTML = '<img src="{{ asset("bundles/tercero/datables/details_open.png") }}">';
+                nCloneTd.className = "left";
+
+                $('#detalleparte-table thead tr').each(function () {
+                    this.insertBefore(nCloneTh, this.childNodes[0]);
+                });
+                $('#detalleparte-table tbody tr').each(function () {
+                    this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+                });
+
+                function fnFormatDetails(oTable, nTr) {
+                    var aData = oTable.fnGetData(nTr);
+                    var sOut = '<tr>' +
+                        '<td colspan="5">' +
+                        '<span class="detalle-parte">Precio CUP:</span> ' + aData[7] +
+                        '<span class="detalle-parte">Precio CUC:</span> ' + aData[8] +
+                        '<span class="detalle-parte">Impuesto:</span> ' + aData[9] +
+                        '<br>' +
+                        '<span class="detalle-parte">Almacén:</span> ' + aData[10] +
+                        '<br>' +
+                        '<span class="detalle-parte">Origen:</span> ' + aData[11] +
+                        '</td></tr>';
+                    return sOut;
+                }
+
+                var oTable = $('#detalleparte-table').dataTable({
+                    "aoColumnDefs": [
+                        {"bSortable": false, "aTargets": [0]},
+                        {"bVisible": false, "aTargets": [7, 8, 9, 10, 11]}
+                    ],
+                    "aaSorting": [[1, 'asc']],
+                    "bLengthChange": false
+
+                });
+                $('#detalleparte-table td img').on('click', function () {
+                    var nTr = $(this).parents('tr')[0];
+                    if (oTable.fnIsOpen(nTr)) {
+                        this.src = "{{ asset("bundles/tercero/datables/details_open.png") }}";
+                        oTable.fnClose(nTr);
+                    } else {
+                        this.src = "{{ asset("bundles/tercero/datables/details_close.png") }}";
+                        oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+                    }
+                });
+            });
+
+        </script>
+    {% endblock %}
+{% endblock %}
+

@@ -1,0 +1,119 @@
+{% extends 'AdminBundle:Default:admin.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('config_general') }}">Administración</a></li>
+    <li><a href="#">Entidad</a></li>
+{% endblock %}
+    {% block tabletab %}
+
+        <div class="row">
+            <div class="pull-right">
+                {% block botones %}
+                    {% if is_granted('ROLE_ADICIONAR_ADMINENTIDAD') and datos|length == 0 %}
+                        <a href="{{ path('config_entidad_new') }}" id="btn_adicionar_adminentidad"
+                           class="btn btn-xs m-r-5 m-b-10 btn-default text-green" title="Adicionar">
+                            <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-xs-12">
+                <table aria-describedby="example1_info" id="table_adminentidad"
+                       class="table table-bordered table-striped table-hover table-heading">
+                    <thead>
+                    </thead>
+                    <tbody aria-relevant="all" aria-live="polite" role="alert">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                cargardatos = function () {
+                    $('#table_adminentidad').ajaxTable({
+                        ajaxurl: "{{ path('config_fecha_listar') }}",
+                        start: 0,
+                        {% if remember == "1" %}                                  rememberStatus: true,                                  {% endif %}
+                        onComplete: function () {
+                            window.setCheckEvents();
+                        },
+                        limit: 10,
+                        columns: [0, 1, 2, 3],
+                        columnsDef: [
+                            {
+                                noFilter: true,
+                                style: 'width: 30px',
+                                field: 'id',
+                                header: '<span class="check-all-rows name"></span>',
+                                type: '',
+                                callback: function () {
+                                },
+                                render: function (value) {
+                                    return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                }
+                            },
+                            {
+                                style: 'width: 15px;',
+                                field: 'reup_entidad',
+                                noFilter: true,
+                                header: 'REUP',
+                                type: '',
+                                callback: function () {
+                                }
+                            },
+                            {
+                                style: 'width: 100px',
+                                field: 'nombreEntidad',
+                                noFilter: true,
+                                header: 'Nombre',
+                                type: '',
+                                callback: function () {
+                                }
+                            },
+                            {
+                                style: 'width: 120px;',
+                                field: 'direccion',
+                                noFilter: true,
+                                header: 'Dirección',
+                                type: '',
+                                callback: function () {
+                                }
+                            }
+                            {% if is_granted('ROLE_MODIFICAR_ADMINENTIDAD') %}
+                            , {
+                                noFilter: true,
+                                style: 'text-align: center; width: 10px',
+                                header: 'Acciones',
+                                type: '',
+                                callback: function () {
+                                },
+                                render: function (row) {
+                                    var clase = row[5] ? "disabled" : "";
+                                    var accionModif = "";
+                                    {% if is_granted('ROLE_MODIFICAR_ADMINENTIDAD') %}
+                                    var ajaxurl_mod = '{{ path('config_entidad_editar', { 'id': 0 }) }}';
+                                    accionModif = ' <a  href="' + ajaxurl_mod.replace('/0/edit', '/' + row[0] + '/edit') + '" class=" btn_edit ' + clase + '" data-ajax-url="' + ajaxurl_mod + '"' +
+                                        'data-id="' + row[3] + '" title="Editar"><span class="glyphicon glyphicon-pencil text-blue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+                                    {% endif %}
+                                    return accionModif;
+                                }
+                            }
+                            {% endif %}
+                        ]
+                    });
+                };
+                cargardatos();
+            });
+        })(jQuery);
+    </script>
+
+{% endblock %}

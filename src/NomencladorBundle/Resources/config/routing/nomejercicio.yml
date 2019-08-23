@@ -1,0 +1,40 @@
+ejercicio_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:index",remember:null }
+    methods:  GET
+
+ejercicio_show:
+    path:     /{id}/show
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:show" }
+    methods:  GET
+ejercicio_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:listar" }
+    methods:  [GET, POST]
+ejercicio_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:new" }
+    methods:  [GET, POST]
+
+ejercicio_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:edit" }
+    methods:  [GET, POST]
+ejercicio_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:exportar" }
+    methods:  [GET, POST]
+ejercicio_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:delete" }
+    methods:  DELETE
+
+ejercicio_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:eliminar" }
+    methods:  [GET, POST]
+
+ejercicio_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomEjercicio:SetActivo" }
+    methods:  [GET, POST]

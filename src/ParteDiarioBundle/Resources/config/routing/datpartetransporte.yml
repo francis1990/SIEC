@@ -1,0 +1,33 @@
+partetransporte_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+partetransporte_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:new" }
+    methods:  [GET, POST]
+
+partetransporte_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:guardar",fecha:0,ueb:0}
+
+partetransporte_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+partetransporte_delete:
+    path:     /delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:delete" }
+    methods:  [GET, POST]
+
+partetransporte_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:listar" }
+    methods:  [GET, POST]
+
+partetransporte_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteTransporte:detalleParte" ,fecha:0,ueb:0}
+    methods:  [GET, POST]

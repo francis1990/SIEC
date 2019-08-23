@@ -1,0 +1,22 @@
+{% block menu_lateral %}
+    <section class="sidebar">
+        <div class="user-panel">
+            <div class="pull-left info">
+                    <p>{% block menu_titulo %}Partes Diarios {% endblock %}</p>
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="{{ path('parteacopio_index') }}"><i class="fa fa-angle-double-right"></i>Acopio</a></li>
+            <li><a href="{{ path('parteaseguramiento_index') }}"><i class="fa fa-angle-double-right"></i>Aseguramiento</a></li>
+            <li><a href="{{ path('partecuentascobrar_index') }}"><i class="fa fa-angle-double-right"></i>Cuentas por cobrar</a></li>
+            <li><a href="{{ path('parteeconomia_index') }}"><i class="fa fa-angle-double-right"></i>Economía</a></li>
+            <li><a href="{{ path('partemercanciavinculo_index') }}"><i class="fa fa-angle-double-right"></i>Mercancía por vínculo</a></li>
+            <li><a href="{{ path('partemovimiento_index') }}"><i class="fa fa-angle-double-right"></i>Movimiento de almacén</a></li>
+            <li><a href="{{ path('parteportador_index') }}"><i class="fa fa-angle-double-right"></i>Portadores energéticos</a></li>
+            <li><a href="{{ path('parteproduccion_index') }}"><i class="fa fa-angle-double-right"></i>Nivel de actividad</a></li>
+            <li><a href="{{ path('parte_consaseg_index') }}"><i class="fa fa-angle-double-right"></i>Consumo de materias primas</a></li>
+            <li><a href="{{ path('partetransporte_index') }}"><i class="fa fa-angle-double-right"></i>Transporte</a></li>
+            <li><a href="{{ path('parteventa_index') }}"><i class="fa fa-angle-double-right"></i>Venta</a></li>
+        </ul>
+    </section>
+{% endblock %}

@@ -1,0 +1,45 @@
+planproduccion_index:
+    path:     /list/{ejercicio}/{tipoPlan}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:index" ,ejercicio:0,tipoPlan:0,ueb:0,remember:null}
+    methods:  GET
+
+planproduccion_listarplan:
+    path:     /listarplan
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:listarPlanP" }
+    methods:  GET
+
+planproduccion_validar:
+    path:     /validar
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:validar" }
+    methods:  GET
+
+planproduccion_generar:
+    path:      /{data}/generar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:generar" }
+    methods:  [GET, POST]
+
+planproduccion_new:
+    path:     /new/{ejercicio}/{tipoPlan}/{ueb}/{padre}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:new",ejercicio:0,tipoPlan:0,ueb:0,padre:null}
+    methods:  [GET, POST]
+
+planproduccion_edit:
+    path:     /editar/{id}/{ejercicio}/{tipoPlan}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:edit" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
+
+
+planproduccion_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:eliminar" }
+    methods:  [GET, POST]
+
+planproduccion_listado:
+    path:     /listado/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:listado" }
+    methods:  GET
+
+detalle_planproduccion:
+    path:      /detalle/{id}/{ejercicio}/{tipoPlan}/{ueb}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanProduccion:detallePlan" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]

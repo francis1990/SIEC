@@ -1,0 +1,38 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+    {% block menu_lateral %}
+        <aside class="left-side">
+            {{ include('ParteDiarioBundle:Default:menu_lateral.html.twig') }}
+        </aside>
+    {% endblock %}
+{% block contenido %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inner">
+                <div class="box" style="min-height:450px ">
+                    <div class="box-header">
+                        <div class="box-title">
+                            <h5>
+                                {% block listtitle %}
+                                {% endblock %}
+                            </h5>
+                        </div>
+                        <div class="box-tools" style="padding-top: 10px">
+                            {% block menu_botones %}
+                            {% endblock %}</div>
+                    </div>
+                    <div class="box-body">
+                        <div id="DataTables_Table_0_wrapper" class=" dataTables_wrapper" role="grid">
+                            {% block tabletab %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+

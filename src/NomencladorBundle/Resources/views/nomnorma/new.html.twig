@@ -1,0 +1,116 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a>Nomencladores</a></li>
+      <li><a href="{{ path('norma_index') }}">Norma de consumo</a></li>
+      <li><a class="active">{{ accion }}</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+
+{% block contenido %}
+
+    <section class="content" id="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ accion }}</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-norma','class':'form-edit', 'novalidate':'novalidate' } }) }}
+                        <div class=" bootstrap-validator-form">
+                            <div class="tab-content">
+                                <div class="tab-pane active">
+                                    <fieldset>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.producto) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.producto) }}
+                                                {{ form_errors(form.producto) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.tiponorma) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.tiponorma) }}
+                                                {{ form_errors(form.tiponorma) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.valornorma) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.valornorma) }}
+                                                {{ form_errors(form.valornorma) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.umnorma) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.umnorma) }}
+                                                {{ form_errors(form.umnorma) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.grasa) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.grasa) }}
+                                                {{ form_errors(form.grasa) }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4 col-xs-4">
+                                            <label for="codigo"
+                                                   class=" control-label"> {{ form_label(form.sng) }}</label>
+                                            <div class="">
+                                                {{ form_widget(form.sng) }}
+                                                {{ form_errors(form.sng) }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-sm-12 col-xs-12">
+                                            {% include 'NomencladorBundle:nomnorma:add_aseguramiento.html.twig' %}
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                        <fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-6 col-xs-12  col-sm-offset-6">
+                                    {% if accion == 'Adicionar' %}
+                                        {{ form_widget(form.guardar) }}
+                                    {% endif %}
+                                    {{ form_widget(form.aceptar) }}
+                                    <a title="Cancelar" id="btn_cerrar"
+                                       href="{{ path('norma_index') }}"
+                                       data-url="{{ path('norma_index') }}"
+                                       class="btn btn-default  btn-cancel  {% if accion != 'Adicionar' %} editcerrar {% endif %}">
+                                        <i class="glyphicon glyphicon-remove icon-white"></i>
+                                        Cancelar
+                                    </a>
+
+                                </div>
+                            </div>
+                        </fieldset>
+                        {{ form_end(form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('bundles/tercero/js/app.js') }}"></script>
+    <script src="{{ asset('bundles/tercero/js/js_crud/fn_norma.js') }}"></script>
+
+{% endblock %}

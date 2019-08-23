@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomCuentacontable</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idcuentacontable</th>
+                <td>{{ nomCuentacontable.idcuentacontable }}</td>
+            </tr>
+            <tr>
+                <th>Numero</th>
+                <td>{{ nomCuentacontable.numero }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomCuentacontable.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('cuentacontable_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('cuentacontable_edit', { 'id': nomCuentacontable.idcuentacontable }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

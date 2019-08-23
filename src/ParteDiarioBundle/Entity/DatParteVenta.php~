@@ -1,0 +1,121 @@
+<?php
+
+namespace ParteDiarioBundle\Entity;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\ORM\Mapping as ORM;
+use NomencladorBundle\Entity\NomUeb;
+use NomencladorBundle\Entity\NomEntidad;
+
+/**
+ * DatParteVenta
+ *
+ * @ORM\Table(name="dat_parte_venta")
+ * @ORM\Entity(repositoryClass="ParteDiarioBundle\Repository\DatParteVentaRepository")
+ */
+
+class DatParteVenta extends DatParte
+{
+
+    /**
+     * @var NomEntidad
+     *
+     * @ORM\ManyToOne(targetEntity="\NomencladorBundle\Entity\NomEntidad")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="cliente", referencedColumnName="identidad")
+     * })
+     */
+    private $cliente;
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="factura", type="string",length=20, nullable=false)
+     */
+    private $factura;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cancelada", type="string",length=20, nullable=true)
+     */
+    private $cancelada;
+
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity="ParteDiarioBundle\Entity\DatVentaProducto", mappedBy="parte", cascade={"persist", "remove"})
+     */
+    private $productos;
+
+    /**
+     * Set cliente
+     *
+     * @param \NomencladorBundle\Entity\NomEntidad $cliente
+     * @return DatParteVenta
+     */
+    public function setCliente(\NomencladorBundle\Entity\NomEntidad $cliente = null)
+    {
+        $this->cliente = $cliente;
+
+        return $this;
+    }
+
+    /**
+     * Get cliente
+     *
+     * @return \NomencladorBundle\Entity\NomEntidad 
+     */
+    public function getCliente()
+    {
+        return $this->cliente;
+    }
+
+
+    /**
+     * Set factura
+     *
+     * @param string $factura
+     * @return DatParteVenta
+     */
+    public function setFactura($factura)
+    {
+        $this->factura = $factura;
+
+        return $this;
+    }
+
+    /**
+     * Get factura
+     *
+     * @return string 
+     */
+    public function getFactura()
+    {
+        return $this->factura;
+    }
+
+    /**
+     * Set cancelada
+     *
+     * @param string $cancelada
+     * @return DatParteVenta
+     */
+    public function setCancelada($cancelada)
+    {
+        $this->cancelada = $cancelada;
+
+        return $this;
+    }
+
+    /**
+     * Get cancelada
+     *
+     * @return string 
+     */
+    public function getCancelada()
+    {
+        return $this->cancelada;
+    }
+
+
+}

@@ -1,0 +1,77 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a >Nomencladores</a></li>
+      <li><a href="{{ path('especifico_index') }}">Específico</a></li>
+      <li><a class="active">{{ accion }}</a></li>
+  {% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-header">
+                        <h3 class="box-title">{{ accion }}</h3>
+                    </div><!-- /.box-header -->
+                    <div class="box-body">
+                        {{ form_start(form,{'attr':{ 'id':'form-esp','class':'form-edit' }}) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="codigo"
+                                           class="col-xs-3 control-label">  {{ form_label(form.codigo) }}</label>
+
+                                    <div class="col-xs-4">
+                                        {{ form_widget(form.codigo) }}
+                                        {{ form_errors(form.codigo) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="codigo"
+                                           class="col-xs-3 control-label"> {{ form_label(form.nombre) }}</label>
+
+                                    <div class="col-xs-4">
+                                        {{ form_widget(form.nombre) }}
+                                        {{ form_errors(form.nombre) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="especifico"
+                                           class="col-xs-3 control-label"> {{ form_label(form.idsubgenerico) }}</label>
+
+                                    <div class="col-xs-4">
+                                        {{ form_widget(form.idsubgenerico) }}
+                                        {{ form_errors(form.idsubgenerico) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+
+                                <div class="form-group ">
+                                    <div class="col-sm-6 col-sm-offset-6">
+                                        {% if accion == "Adicionar" %}
+                                            <button type="submit" id="btn_agregar_esp" title="Guardar"
+                                                    class="btn btn-primary disabled">
+                                                <i class="glyphicon glyphicon-save icon-white"> </i> Guardar</button>
+                                        {% endif %}
+                                       {{ form_widget(form.aceptar) }}
+                                        <a href="{{ path('especifico_index') }}" id="btn_cerrar" title="Cancelar"
+                                           data-url = "{{ path('especifico_index') }}"
+                                           class="btn btn-default  {% if accion != 'Adicionar' %} editcerrar {% endif %}">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_rest(form) }}
+                        {{ form_end(form) }}
+                    </div><!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+

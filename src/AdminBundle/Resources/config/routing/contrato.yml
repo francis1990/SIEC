@@ -1,0 +1,24 @@
+contrato_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Contrato:index" }
+    methods:  GET
+
+contrato_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Contrato:show" }
+    methods:  GET
+
+contrato_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Contrato:new" }
+    methods:  [GET, POST]
+
+contrato_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Contrato:edit" }
+    methods:  [GET, POST]
+
+contrato_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Contrato:delete" }
+    methods:  DELETE

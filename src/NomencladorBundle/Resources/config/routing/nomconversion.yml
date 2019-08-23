@@ -1,0 +1,46 @@
+conversion_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomConversion:index",remember:null }
+    methods:  GET
+conversion_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomConversion:listar" }
+    methods:  [GET, POST]
+conversion_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomConversion:show" }
+    methods:  GET
+
+conversion_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomConversion:new" }
+    methods:  [GET, POST]
+
+conversion_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomConversion:exportar" }
+    methods:  [GET, POST]
+conversion_listarum:
+    path:     /conversion_listarum/
+    defaults: { _controller: "NomencladorBundle:NomConversion:listarUM" }
+    methods:  [GET, POST]
+
+conversion_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomConversion:edit" }
+    methods:  [GET, POST]
+
+conversion_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomConversion:delete" }
+    methods:  DELETE
+
+conversion_eliminar:
+    path:      /conversion_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomConversion:eliminar" }
+    methods:  [GET, POST]
+
+conversion_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomConversion:SetActivo" }
+    methods:  [GET, POST]

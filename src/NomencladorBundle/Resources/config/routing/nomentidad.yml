@@ -1,0 +1,61 @@
+
+entidad_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomEntidad:index" ,remember:null}
+    methods:  GET
+entidad_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:listar" }
+    methods:  [GET, POST]
+
+entidad_listar_entidad:
+    path:     /entidad_index/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:listar" }
+    methods:  [GET, POST]
+
+entidad_estado:
+    path:      /entidad_estado/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:setEstado" }
+    methods:  [GET, POST]
+
+entidad_deletesel:
+    path:      /entidad_deletesel/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:deleteSelect" }
+    methods:  [GET, POST]
+entidad_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:exportar" }
+    methods:  [GET, POST]
+entidad_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:show" }
+    methods:  GET
+
+entidad_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:NomEntidad:new" }
+    methods:  [GET, POST]
+
+entidad_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:edit" }
+    methods:  [GET, POST]
+
+entidad_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:delete" }
+    methods:  DELETE
+entidad_eliminar:
+    path:      /entidad_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:eliminar" }
+    methods:  [GET, POST]
+
+entidad_deleteAll:
+    path:      /entidad_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:deleteSelect" }
+    methods:  [GET, POST]
+
+entidad_listado:
+    path:     /listado/
+    defaults: { _controller: "NomencladorBundle:NomEntidad:listado" }
+    methods:  GET

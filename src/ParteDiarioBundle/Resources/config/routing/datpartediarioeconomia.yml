@@ -1,0 +1,33 @@
+parteeconomia_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:index",fecha:0,ueb:0 ,remember:null }
+    methods:  GET
+
+parteeconomia_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:new" }
+    methods:  [GET, POST]
+
+parteeconomia_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:guardar",fecha:0,ueb:0}
+
+parteeconomia_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:edit" ,fecha:0,ueb:0}
+    methods:  [GET, POST]
+
+parteeconomia_delete:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:delete" }
+    methods:  [GET, POST]
+
+parteeconomia_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:listar" }
+    methods:  [GET, POST]
+
+parteeconomia_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartediarioEconomia:detalleParte" ,fecha:0,ueb:0}
+    methods:  [GET, POST]

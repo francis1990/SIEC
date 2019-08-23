@@ -1,0 +1,5 @@
+<select id="filtro-entidad" data-placeholder="Entidad" class="form-control" >
+    {% for ent in ents %}
+    <option value="{{ ent.identidad  }}">{{ ent.nombre }}</option>
+    {% endfor %}
+</select>

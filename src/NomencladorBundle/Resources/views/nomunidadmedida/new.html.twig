@@ -1,0 +1,67 @@
+{% extends 'NomencladorBundle:Nom_crud:nom_insert.html.twig' %}
+{% block li_link %}
+{% endblock %}
+{% block link_actual %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a >Nomencladores</a></li>
+    <li><a href="{{ path('unidadmedida_index') }}"> Unidades de medida</a></li>
+    <li><a href="{{ path('unidadmedida_new') }}"> {{ accion }} </a></li>
+{% endblock %}
+{% block form_col3 %}
+    <div class="form-group col-xs-6">
+        <label for="abreviatura"
+               class="col-xs-4 control-label"> {{ form_label(form.abreviatura) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.abreviatura) }}
+            {{ form_errors(form.abreviatura) }}
+        </div>
+    </div>
+    <div class="form-group col-xs-6">
+        <label for="idtipoum"
+               class="col-xs-4 control-label"> {{ form_label(form.idtipoum) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.idtipoum) }}
+            {{ form_errors(form.idtipoum) }}
+        </div>
+    </div>
+
+    <div class="form-group col-xs-6">
+        <label for="idtipoum"
+               class="col-xs-4 control-label"> {{ form_label(form.cantdecimal) }}</label>
+
+        <div class="col-xs-8">
+            {{ form_widget(form.cantdecimal) }}
+            {{ form_errors(form.cantdecimal) }}
+        </div>
+    </div>
+{% endblock %}
+ {% block botonesInsert %}
+     <div class="row">
+         <div class="form-group col-xs-12">
+             <div class="col-xs-6 pull-right">
+                 {% if accion=="Adicionar" %}
+                     <button id="btn_agreunidadmedida" data-accion="agregar" type="submit"
+                             title="Guardar" class="btn btn-primary disabled ">
+                         <i class="glyphicon glyphicon-save icon-white"></i>
+                         Guardar
+                     </button>
+                 {% endif %}
+                 {{ form_widget(form.aceptar) }}
+                 <a href=" {{ path('unidadmedida_index') }} "
+                    data-url = "{{ path('unidadmedida_index') }}"
+                    class="btn btn-default {% if accion != 'Adicionar' %} editcerrar {% endif %}">
+                     <i class="glyphicon glyphicon-remove icon-white"></i>
+                     Cancelar
+                 </a>
+             </div>
+         </div>
+     </div>
+ {% endblock %}
+
+
+
+

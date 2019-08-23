@@ -1,0 +1,156 @@
+
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="#">Parte diario</a></li>
+      <li><a href="{{ path('parteportador_index') }}">Portador Energético</a></li>
+      <li><a class="active">Editar</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-body">
+                        {{ form_start(edit_form,{'attr':{ 'id':'form-pport','class':'form-edit'} }) }}
+                        <div class="form-horizontal bootstrap-validator-form">
+                            <fieldset>
+
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.ueb) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.ueb) }}
+                                        {{ form_errors(edit_form.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.fecha) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.fecha) }}
+                                        {{ form_errors(edit_form.fecha) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.portador) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.portador) }}
+                                        {{ form_errors(edit_form.portador) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.um) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.um) }}
+                                        {{ form_errors(edit_form.um) }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.consumo) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.consumo) }}
+                                        {{ form_errors(edit_form.consumo) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.pico) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.pico) }}
+                                        {{ form_errors(edit_form.pico) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.madrugada) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.madrugada) }}
+                                        {{ form_errors(edit_form.madrugada) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.lectura) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.lectura) }}
+                                        {{ form_errors(edit_form.lectura) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label"> {{ form_label(edit_form.alcance) }}</label>
+                                    <div class="col-sm-5">
+                                        {{ form_widget(edit_form.alcance) }}
+                                        {{ form_errors(edit_form.alcance) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3 control-label control-label "> {{ form_label(edit_form.inventario) }}</label>
+                                    <div class="col-sm-5 ">
+                                        {{ form_widget(edit_form.inventario) }}
+                                        {{ form_errors(edit_form.inventario) }}
+                                    </div>
+                                </div>
+                                <div class="form-group  hidden">
+                                    <div class=" ">
+                                        {#{{ form_widget(edit_form.ueb) }}#}
+                                       {#{{ form_widget(edit_form.fecha |date('d/m/Y')) }}#}
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <a class="btn btn-primary  disabled" id="btn_port_aceptar" title="Aceptar"
+                                           data-action="aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </a>
+                                        <a href="{{ path('parteportador_index') }}" data-url="{{ path('parteportador_index')}}"
+                                           id="btn_cerrar" title="Cancelar"
+                                           class="btn btn-default  editcerrar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_rest(edit_form) }}
+                        {{ form_end(edit_form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+               /* $("#dat_parte_portador_portador").attr('disabled', 'disabled');
+                $("#dat_parte_portador_portador").prop('disabled', true);
+                $('.chosen-select').trigger("chosen:updated");*/
+            });
+        })(jQuery);
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteport.js') }}"></script>
+{% endblock %}
+
+
+
+
+
+

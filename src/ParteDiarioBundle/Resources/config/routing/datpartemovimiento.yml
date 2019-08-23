@@ -1,0 +1,33 @@
+partemovimiento_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+partemovimiento_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:new" }
+    methods:  [GET, POST]
+
+partemovimiento_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:guardar",fecha:0,ueb:0}
+
+partemovimiento_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+partemovimiento_delete:
+    path:     /delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:delete" }
+    methods:  POST
+
+partemovimiento_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:listar" }
+    methods:  [GET, POST]
+
+partemovimiento_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteMovimiento:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]

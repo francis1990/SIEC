@@ -1,0 +1,394 @@
+<?php
+
+namespace ReporteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * DatReportesFilas
+ *
+ * @ORM\Table(name="rep_reportes_filas")
+ * @ORM\Entity(repositoryClass="ReporteBundle\Repository\DatReportesFilasRepository")
+ */
+class DatReportesFilas
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_reporte", type="integer")
+     */
+    private $idReporte;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_columnaslistas_datos", type="integer")
+     */
+    private $idColumnaslistasDatos;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="nivel", type="integer")
+     */
+    private $nivel;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="col_mostrar", type="integer")
+     */
+    private $colMostrar;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="es_valor_variable", type="boolean")
+     */
+    private $esValorVariable;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_valor", type="integer")
+     */
+    private $idValor;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="valor", type="float")
+     */
+    private $valor;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_tabla_fk", type="string", length=100)
+     */
+    private $nombreTablaFk;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nombre_columna_tabla_fk", type="string", length=100)
+     */
+    private $nombreColumnaTablaFk;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_valor_padre", type="integer")
+     */
+    private $idValorPadre;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="valor_padre", type="float")
+     */
+    private $valorPadre;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="orden", type="integer")
+     */
+    private $orden;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idReporte
+     *
+     * @param integer $idReporte
+     * @return DatReportesFilas
+     */
+    public function setIdReporte($idReporte)
+    {
+        $this->idReporte = $idReporte;
+    
+        return $this;
+    }
+
+    /**
+     * Get idReporte
+     *
+     * @return integer 
+     */
+    public function getIdReporte()
+    {
+        return $this->idReporte;
+    }
+
+    /**
+     * Set idColumnaslistasDatos
+     *
+     * @param integer $idColumnaslistasDatos
+     * @return DatReportesFilas
+     */
+    public function setIdColumnaslistasDatos($idColumnaslistasDatos)
+    {
+        $this->idColumnaslistasDatos = $idColumnaslistasDatos;
+    
+        return $this;
+    }
+
+    /**
+     * Get idColumnaslistasDatos
+     *
+     * @return integer 
+     */
+    public function getIdColumnaslistasDatos()
+    {
+        return $this->idColumnaslistasDatos;
+    }
+
+    /**
+     * Set nivel
+     *
+     * @param integer $nivel
+     * @return DatReportesFilas
+     */
+    public function setNivel($nivel)
+    {
+        $this->nivel = $nivel;
+    
+        return $this;
+    }
+
+    /**
+     * Get nivel
+     *
+     * @return integer 
+     */
+    public function getNivel()
+    {
+        return $this->nivel;
+    }
+
+    /**
+     * Set colMostrar
+     *
+     * @param integer $colMostrar
+     * @return DatReportesFilas
+     */
+    public function setColMostrar($colMostrar)
+    {
+        $this->colMostrar = $colMostrar;
+    
+        return $this;
+    }
+
+    /**
+     * Get colMostrar
+     *
+     * @return integer 
+     */
+    public function getColMostrar()
+    {
+        return $this->colMostrar;
+    }
+
+    /**
+     * Set esValorVariable
+     *
+     * @param boolean $esValorVariable
+     * @return DatReportesFilas
+     */
+    public function setEsValorVariable($esValorVariable)
+    {
+        $this->esValorVariable = $esValorVariable;
+    
+        return $this;
+    }
+
+    /**
+     * Get esValorVariable
+     *
+     * @return boolean 
+     */
+    public function getEsValorVariable()
+    {
+        return $this->esValorVariable;
+    }
+
+    /**
+     * Set idValor
+     *
+     * @param integer $idValor
+     * @return DatReportesFilas
+     */
+    public function setIdValor($idValor)
+    {
+        $this->idValor = $idValor;
+    
+        return $this;
+    }
+
+    /**
+     * Get idValor
+     *
+     * @return integer 
+     */
+    public function getIdValor()
+    {
+        return $this->idValor;
+    }
+
+    /**
+     * Set valor
+     *
+     * @param float $valor
+     * @return DatReportesFilas
+     */
+    public function setValor($valor)
+    {
+        $this->valor = $valor;
+    
+        return $this;
+    }
+
+    /**
+     * Get valor
+     *
+     * @return float 
+     */
+    public function getValor()
+    {
+        return $this->valor;
+    }
+
+    /**
+     * Set nombreTablaFk
+     *
+     * @param string $nombreTablaFk
+     * @return DatReportesFilas
+     */
+    public function setNombreTablaFk($nombreTablaFk)
+    {
+        $this->nombreTablaFk = $nombreTablaFk;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombreTablaFk
+     *
+     * @return string 
+     */
+    public function getNombreTablaFk()
+    {
+        return $this->nombreTablaFk;
+    }
+
+    /**
+     * Set idValorPadre
+     *
+     * @param integer $idValorPadre
+     * @return DatReportesFilas
+     */
+    public function setIdValorPadre($idValorPadre)
+    {
+        $this->idValorPadre = $idValorPadre;
+    
+        return $this;
+    }
+
+    /**
+     * Get idValorPadre
+     *
+     * @return integer 
+     */
+    public function getIdValorPadre()
+    {
+        return $this->idValorPadre;
+    }
+
+    /**
+     * Set valorPadre
+     *
+     * @param float $valorPadre
+     * @return DatReportesFilas
+     */
+    public function setValorPadre($valorPadre)
+    {
+        $this->valorPadre = $valorPadre;
+    
+        return $this;
+    }
+
+    /**
+     * Get valorPadre
+     *
+     * @return float 
+     */
+    public function getValorPadre()
+    {
+        return $this->valorPadre;
+    }
+
+    /**
+     * Set orden
+     *
+     * @param integer $orden
+     * @return DatReportesFilas
+     */
+    public function setOrden($orden)
+    {
+        $this->orden = $orden;
+    
+        return $this;
+    }
+
+    /**
+     * Get orden
+     *
+     * @return integer 
+     */
+    public function getOrden()
+    {
+        return $this->orden;
+    }
+
+    /**
+     * Set nombreColumnaTablaFk
+     *
+     * @param string $nombreColumnaTablaFk
+     * @return DatReportesFilas
+     */
+    public function setNombreColumnaTablaFk($nombreColumnaTablaFk)
+    {
+        $this->nombreColumnaTablaFk = $nombreColumnaTablaFk;
+    
+        return $this;
+    }
+
+    /**
+     * Get nombreColumnaTablaFk
+     *
+     * @return string 
+     */
+    public function getNombreColumnaTablaFk()
+    {
+        return $this->nombreColumnaTablaFk;
+    }
+}

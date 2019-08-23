@@ -1,0 +1,7 @@
+<select id="filtro-ueb" name="filtro-ueb" data-placeholder="Empresa" class="chosen-select" style="width: 300px;">
+    <option value="0">Empresa</option>
+    {% for ueb in uebs %}
+        <option value="{{ ueb.idueb }}">
+            {{ ueb.nombre }}</option>
+    {% endfor %}
+</select>

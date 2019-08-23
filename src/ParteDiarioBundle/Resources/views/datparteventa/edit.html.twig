@@ -1,0 +1,205 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+  {% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="#">Parte Diario</a></li>
+    <li><a href="{{ path('parteventa_index') }}">Venta</a></li>
+    <li><a class="active">Editar</a></li>
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <div class="box-body">
+                        {{ form_start(form_edit,{'attr':{ 'id':'form-pventa','class':'form-edit' }}) }}
+                        <div class=" bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group col-sm-3 col-xs-10 " >
+                                    <label for="ueb"
+                                           class=" control-label"> {{ form_label(form_edit.ueb) }}</label>
+                                    <div class="">
+                                        {{ form_widget(form_edit.ueb) }}
+                                        {{ form_errors(form_edit.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-2 col-xs-10">
+                                    <label for="factura"
+                                           class=" control-label"> {{ form_label(form_edit.fecha) }}</label>
+                                    <div class="">
+                                        {{ form_widget(form_edit.fecha) }}
+                                        {{ form_errors(form_edit.fecha) }}
+                                    </div>
+                                </div><div class="form-group col-sm-5 col-xs-10 " id="div-cliente" data-url="{{ path('parteventa_precio') }}">
+                                    <label for="cliente"
+                                           class=" control-label"> {{ form_label(form_edit.cliente) }}</label>
+                                    <div class="">
+                                        {{ form_widget(form_edit.cliente) }}
+                                        {{ form_errors(form_edit.cliente) }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-2 col-xs-10">
+                                    <label for="factura"
+                                           class=" control-label"> {{ form_label(form_edit.factura) }}</label>
+                                    <div class="">
+                                        {{ form_widget(form_edit.factura) }}
+                                        {{ form_errors(form_edit.factura) }}
+                                    </div>
+                                </div>
+                                <div class="well col-sm-12">
+                                    <div class="form-group col-sm-3 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.producto) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.producto) }}
+                                            {{ form_errors(form_edit.producto) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.origen) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.origen) }}
+                                            {{ form_errors(form_edit.origen) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.almacen) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.almacen) }}
+                                            {{ form_errors(form_edit.almacen) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-3 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.um) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.um) }}
+                                            {{ form_errors(form_edit.um) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.cantidad) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.cantidad) }}
+                                            {{ form_errors(form_edit.cantidad) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.preciomn) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.preciomn) }}
+                                            {{ form_errors(form_edit.preciomn) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.importemn) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.importemn) }}
+                                            {{ form_errors(form_edit.importemn) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-sm-2 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.preciocuc) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.preciocuc) }}
+                                            {{ form_errors(form_edit.preciocuc) }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2 col-xs-10">
+                                        <label for="codigo"
+                                               class=" control-label"> {{ form_label(form_edit.importecuc) }}</label>
+                                        <div class="">
+                                            {{ form_widget(form_edit.importecuc) }}
+                                            {{ form_errors(form_edit.importecuc) }}
+                                        </div>
+                                    </div>
+                                    <a class="col-sm-1 btn btn-primary disabled " style="margin-top:15px;" id="btn_add_pro" title="Insertar">
+                                        <i class="glyphicon glyphicon-ok glyphicon-ok "></i>
+                                        Aceptar
+                                    </a>
+                                    <a class=" btn btn-default hidden " style="margin-top:15px;" id="btn_cancel_pro" title="Cancelar">
+                                        <i class="glyphicon glyphicon-remove  "></i>
+                                        Cancelar
+                                    </a>
+                                    <div  class="form-group col-xs-12  cont-table-blanco"  >
+                                        <table id="venta-pro" class=" table table-bordered table-condensed" >
+                                            <thead>
+                                            <tr role="row">
+                                                <th>Producto</th>
+                                                <th>del Vínculo</th>
+                                                <th>Almacén</th>
+                                                <th>UM</th>
+                                                <th>Cantidad</th>
+                                                <th>Precio cup</th>
+                                                <th>Precio cuc</th>
+                                                <th style="width: 15px">Acción</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody data-remove="">
+                                            {% for nom in venta_pro %}
+                                                {% if nom.origen is empty %}
+                                                   {% set origen='' %}
+                                                   {% set nombre='' %}
+                                                {% else %}
+                                                    {% set origen=nom.origen.identidad %}
+                                                    {% set nombre=nom.origen.nombre %}
+                                                {% endif %}
+                                                <tr data-val="{{nom.producto.idproducto~'-'~nom.um.idunidadmedida}}" data-valor="{{nom.preciomn~'-'~nom.cantidad~'-'~nom.almacen.idalmacen~'-'~nom.preciocuc}}" data-origen="{{ origen }}" data-id="{{nom.id}}" class="">
+                                                    <td class="center">{{ nom.producto.nombre }}</td>
+                                                    <td class="center">{{ nombre }}</td>
+                                                    <td class="center">{{ nom.almacen.nombre }}</td>
+                                                    <td class="center">{{ nom.um.nombre }}</td>
+                                                    <td class="center">{{ nom.cantidad }}</td>
+                                                    <td class="center">{{ nom.preciomn }}</td>
+                                                    <td class="center">{{ nom.preciocuc }}</td>
+                                                    <td class="center" >
+                                                        <a href="#" onclick="return modificar_item(this)" title="Editar" class="mod">
+                                                            <span class="glyphicon glyphicon-pencil text-blue"></span></a>
+                                                        &nbsp;&nbsp;&nbsp;
+                                                        <a href="#" title="Eliminar" onclick="return eliminar_item(this)" class="elim">
+                                                            <span class="glyphicon glyphicon-trash text-red"></span></a></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <a class="btn btn-primary disabled" id="btn_edit_pventa" data-accion="aceptar"
+                                           data-url="{{ path('parteventa_edit',{ 'id': datParteVentum.idparte }) }}" title="Aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </a>
+                                        <a href="{{ path('parteventa_index') }}" data-url="{{ path('parteventa_index')}}"
+                                            id="btn_cerrar" title="Cancelar"
+                                           class="btn btn-default editcerrar">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_end(form_edit) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parte_venta.js') }}"></script>
+{% endblock %}

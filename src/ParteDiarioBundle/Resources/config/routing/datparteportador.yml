@@ -1,0 +1,43 @@
+parteportador_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+parteportador_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:new" }
+    methods:  [GET, POST]
+
+parteportador_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:guardar",fecha:0,ueb:0}
+
+parteportador_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+parteportador_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:delete" }
+    methods:  DELETE
+
+parteportador_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:eliminar" }
+    methods:  [GET, POST]
+
+parteportador_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:listar" }
+    methods:  [GET, POST]
+
+parteportador_findLastParte:
+    path:     /findLastParte/
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:findLastParte" }
+    methods:  [POST]
+
+parteportador_detalle:
+    path:     /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPartePortador:detalleParte" ,fecha:0,ueb:0}
+    methods:  [GET, POST]

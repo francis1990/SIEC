@@ -1,0 +1,53 @@
+trabajador_index:
+    path:     /
+    defaults: { _controller: "AdminBundle:Trabajador:index" }
+    methods:  GET
+
+trabajador_show:
+    path:     /{id}/show
+    defaults: { _controller: "AdminBundle:Trabajador:show" }
+    methods:  GET
+
+trabajador_new:
+    path:     /new
+    defaults: { _controller: "AdminBundle:Trabajador:new" }
+    methods:  [GET, POST]
+
+trabajador_insert:
+    path:     /insert
+    defaults: { _controller: "AdminBundle:Trabajador:insert" }
+    methods:  [POST]
+
+trabajador_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "AdminBundle:Trabajador:edit" }
+    methods:  [GET, POST]
+
+trabajador_modif:
+    path:     /modif
+    defaults: { _controller: "AdminBundle:Trabajador:modif" }
+    methods:  [POST]
+
+trabajador_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "AdminBundle:Trabajador:delete" }
+    methods:  DELETE
+
+trabajador_delete_multiple:
+    path:     /delete/mult
+    defaults: { _controller: "AdminBundle:Trabajador:deleteMultiple" }
+    methods:  POST
+
+trabajador_buscadepartamento:
+    path:     /buscadepartamento
+    defaults: { _controller: "AdminBundle:Trabajador:buscadepartamento" }
+    methods:  POST
+
+trabajador_buscacargo:
+    path:     /buscacargo
+    defaults: { _controller: "AdminBundle:Trabajador:buscacargo" }
+    methods:  POST
+trabajador_buscacargodisponible:
+    path:     /buscacargo
+    defaults: { _controller: "AdminBundle:Trabajador:buscacargodisponible" }
+    methods:  POST

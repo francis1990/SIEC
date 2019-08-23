@@ -1,0 +1,113 @@
+portada:
+    path:     /
+    defaults: { _controller: AdminBundle:Default:menu }
+
+admin_inicio:
+     path:     /admin
+     defaults: { _controller: AdminBundle:Default:inicio }
+
+admin_salvaBD:
+     path:     /admin/salvaBD
+     defaults: { _controller: AdminBundle:Default:salvaBD }
+
+admin_lista_completa:
+     path:     /admin/lista
+     defaults: { _controller: AdminBundle:Default:listaCompleta }
+
+admin_importacion:
+     path:     /admin/importacion
+     defaults: { _controller: AdminBundle:Default:importacion }
+
+admin_importar_fichero:
+     path:     /admin/importarFichero
+     defaults: { _controller: AdminBundle:Default:importarFichero }
+
+admin_exportar:
+     path:     /admin/exportar
+     defaults: { _controller: AdminBundle:Default:exportar }
+
+
+#Rol ------------------------------------------------
+
+admin_rol_lista:
+     path:     /admin/rol/listar/{remember}
+     defaults: { _controller: AdminBundle:Rol:index,remember:null  }
+
+admin_rol_listar:
+     path:     /admin/roles
+     defaults: { _controller: AdminBundle:Rol:listar}
+
+admin_rol_new:
+     path:     /admin/rol/nuevo
+     defaults: { _controller: AdminBundle:Rol:crear }
+
+admin_rol_edit:
+     path:     /admin/rol/{id}/editar
+     defaults: { _controller: AdminBundle:Rol:editar }
+
+admin_rol_del:
+     path:     /admin/rol/eliminar
+     defaults: { _controller: AdminBundle:Rol:eliminar }
+
+rol_activar:
+     path:     /admin/rol/activar
+     defaults: { _controller: AdminBundle:Rol:setEstado }
+     methods:  [GET, POST]
+
+#Usuario ----------------------------------------------
+
+admin_usuario_lista:
+     path:     /admin/usuario/listar/{remember}
+     defaults: { _controller: AdminBundle:Usuario:index,remember:null }
+
+admin_usuario_listar:
+     path:     /admin/usuarios
+     defaults: { _controller: AdminBundle:Usuario:listar }
+
+admin_usuario_new:
+     path:     /admin/usuario/nuevo
+     defaults: { _controller: AdminBundle:Usuario:crear }
+     methods:  [GET, POST]
+
+admin_usuario_edit:
+     path:     /admin/usuario/editar/{id}
+     defaults: { _controller: AdminBundle:Usuario:editar }
+     methods:  [GET, POST]
+
+admin_usuario_activar:
+     path:     /admin/usuario/activar
+     defaults: { _controller: AdminBundle:Usuario:setActivo }
+     methods:  [GET, POST]
+
+admin_usuario_desbloquear:
+     path:     /admin/usuario/desbloquear
+     defaults: { _controller: AdminBundle:Usuario:desbloquearUsuario }
+     methods:  [GET, POST]
+
+#Traza ----------------------------------------------
+
+admin_traza_index:
+     path:     /admin/trazas
+     defaults: { _controller: AdminBundle:Default:index }
+     methods: [GET, POST]
+
+admin_traza:
+     path:     /admin/trazas/listar
+     defaults: { _controller: AdminBundle:Default:traza }
+     methods: [GET, POST]
+
+admin_traza_limpiar:
+     path:     /admin/traza/eliminar/todas
+     defaults: { _controller: AdminBundle:Default:eliminarTodasTraza }
+     methods: [GET, POST]
+
+admin_traza_eliminar:
+     path:     /admin/traza/eliminar/parcial
+     defaults: { _controller: AdminBundle:Default:eliminarTraza }
+     methods: [GET, POST]
+
+admin_config:
+  resource: "@AdminBundle/Resources/config/routing/datconfig.yml"
+  prefix:   /config
+
+

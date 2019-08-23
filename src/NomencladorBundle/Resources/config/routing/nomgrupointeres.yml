@@ -1,0 +1,64 @@
+grupointeres_index:
+    path:     /
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:index" }
+    methods:  GET
+
+grupointeres_listar:
+    path:     /listar
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:listar" }
+    methods:  [GET, POST]
+
+grupointeres_listarArbol:
+    path:     /list
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:listGrupos" }
+    methods:  [GET, POST]
+
+grupointeres_entidad:
+    path:     /entidad
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:listarEnt" }
+    methods:  [GET, POST]
+
+grupointeres_show:
+    path:     /{id}/show
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:show" }
+    methods:  GET
+
+grupointeres_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:new" }
+    methods:  [GET, POST]
+
+grupointeres_guardar:
+    path:     /guardar/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:guardar" }
+    methods:  [GET, POST]
+
+grupointeres_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:edit" }
+    methods:  [GET, POST]
+
+
+grupointeres_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:eliminar" }
+    methods:  [GET, POST]
+
+grupointeres_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:delete" }
+    methods:  DELETE
+
+grupointeres_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:SetActivo" }
+    methods:  [GET, POST]
+
+grupointeres_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:exportar" }
+    methods:  [GET, POST]
+grupointeres_tree:
+    path:      /tree/
+    defaults: { _controller: "NomencladorBundle:NomGrupointeres:getTree" }
+    methods:  [GET, POST]

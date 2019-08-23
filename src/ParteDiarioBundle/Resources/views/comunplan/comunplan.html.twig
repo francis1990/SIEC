@@ -1,0 +1,56 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+ {% block css %}
+     {{ parent() }}
+     <link href="{{ asset('bundles/tercero/js/plugins/chosen/chosen.css') }}" rel="stylesheet" type="text/css"/>
+     <link rel="stylesheet" href="{{ asset('bundles/tercero/css/auxiliar.css') }}"/>
+ {% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    {% block titulo_plan %}
+        <li><a href="#">Plan Ventas</a></li>
+    {% endblock %}
+{% endblock %}
+
+{% block listtitle %} Listado plan de ventas {% endblock %}
+{% block menu_lateral %}
+    <aside class="left-side">
+        {{ include('ParteDiarioBundle:comunplan:menu_plan.html.twig') }}
+    </aside>
+{% endblock %}
+{#{% block asiderigth %}"right-side strech"{% endblock %}#}
+{% block menu_bot %}
+    {% block filtros_menu %}
+        <form id="form-filtro" {% block actionFiltro %}{% endblock %}>
+            {{ render(controller('NomencladorBundle:NomEjercicio:listadoEjer')) }}
+            {{ render(controller('NomencladorBundle:NomTipoPlan:listado')) }}
+            {{ render(controller('NomencladorBundle:NomUeb:listado')) }}
+            <input type="hidden" id="idpadrePlan" name="padre-plan">
+            {% if fisicoval is defined %}
+                <select id="filtro-valor" name="filtro-valor" data-placeholder="Fisico/Valor" title="Fisico/Valor" class="chosen-select"
+                        style="width: 120px;">
+                    <option value="-1">Fisico/Valor</option>
+                    <option value="0" data-url="{{ path('planproduccion_index', { 'select': 0 }) }}">Físico</option>
+                    <option value="1" data-url="{{ path('planventa_index', { 'select': 0 }) }}">Valor</option>
+                </select>
+            {% endif %}
+        </form>
+    {% endblock %}
+
+{% endblock %}
+{% block botones %}
+
+    {% block btn_addicionar %}
+        <a href="{{ path('planventa_new') }}" id="btn_adicionar_plan" title="Adicionar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-green">
+            <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+    {% endblock %}
+    {% block eliminar %}
+        <a data-ajax-url="#" id="eliminar"
+           class="btn btn-xs m-r-5 m-b-10 btn-default text-red " title="Eliminar"
+           href="#modal_eliminar" data-toggle="modal">
+            <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+    {% endblock %}
+{% endblock %}
+{% block tabletab %}
+
+{% endblock %}

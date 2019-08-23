@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomAseguramiento</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idaseguramiento</th>
+                <td>{{ nomAseguramiento.idaseguramiento }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomAseguramiento.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomAseguramiento.nombre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('aseguramiento_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('aseguramiento_edit', { 'id': nomAseguramiento.idaseguramiento }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

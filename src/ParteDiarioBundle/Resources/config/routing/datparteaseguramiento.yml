@@ -1,0 +1,38 @@
+parteaseguramiento_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+parteaseguramiento_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:new" }
+    methods:  [GET, POST]
+
+parteaseguramiento_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:guardar",fecha:0,ueb:0}
+
+parteaseguramiento_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+parteaseguramiento_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:delete" }
+    methods:  DELETE
+
+parteaseguramiento_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:eliminar" }
+    methods:  [GET, POST]
+
+parteaseguramiento_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:listar" }
+    methods:  [GET, POST]
+
+parteaseguramiento_detalle:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAseguramiento:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]

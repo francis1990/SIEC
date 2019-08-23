@@ -1,0 +1,76 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+{% block bread %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a>Nomencladores</a></li>
+    <li><a href="{{ path('precio_index') }}">Precios</a></li>
+    <li><a href="#">Relación con Grupos de interés</a></li>
+{% endblock %}
+{% block tabletab %}
+    <div class="box-body table-responsive">
+        <table id="gruposByPrecios" class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Código</th>
+                <th>Grupo interés</th>
+                {% if is_granted('ROLE_ELIMINAR_PRECIO') %}
+                    <th>Acción</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody>
+            {% for gruposByPrecio in gruposByPrecios %}
+                <tr id="rowFilaEliminar_{{ gruposByPrecio[4] }}">
+                    <td>{{ gruposByPrecio[0] }}</td>
+                    <td>{{ gruposByPrecio[1] }}</td>
+                    <td>{{ gruposByPrecio[2] }}</td>
+                    {% if is_granted('ROLE_ELIMINAR_PRECIO') %}
+                        <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a title="Eliminar"
+                               class="fila_mostrar btn_desociar" data-ajax-url="{{ path('precio_desasociar') }}"
+                               href="#"
+                               data-idprecio="{{ gruposByPrecio[3] }}" data-idgrupo="{{ gruposByPrecio[4] }}"><span
+                                        class="glyphicon glyphicon-trash text-red"></span></a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div><!-- /.box-body -->
+    <a title="Regresar" id="regresar_detalle" data-url="{{ path('precio_index') }}"
+       class="btn btn-primary   col-xs-offset-10"><i
+                class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+    </a>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <!-- DATA TABES SCRIPT -->
+        {#<script type="text/javascript"
+                src="{{ asset('bundles/tercero/js/plugins/datatables/jquery.dataTables.js') }}"></script>
+        <script type="text/javascript"
+                src="{{ asset('bundles/tercero/js/plugins/datatables/dataTables.bootstrap.js') }}"></script>#}
+
+        <!-- page script -->
+        <script type="text/javascript">
+            $(function () {
+                $('#gruposByPrecios').dataTable({
+                    "bPaginate": true,
+                    "bLengthChange": false,
+                    "bFilter": true,
+                    "bSort": true,
+                    "bInfo": true,
+                    "bAutoWidth": false
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
+
+

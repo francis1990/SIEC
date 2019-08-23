@@ -1,0 +1,88 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+{% block css %}
+    {{ parent() }}
+    <style>
+        .tbmia {
+            vertical-align: middle;
+            font-size: 12px;
+            border-color: #E5E5E5;
+        }
+
+        td, th {
+            text-align: center;
+            padding: 0;
+            border-color: #E5E5E5;
+        }
+    </style>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+{% block content_header %}{% endblock %}
+
+{% block breadcrumb %}
+    <li><a class="bc active">Menú principal</a></li>
+{% endblock %}
+
+{% block content_body %}
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-cogs"></i>
+            </div>
+            <div class="details">
+                <div class="number">Producción</div>
+            </div>
+            <a class="more" href="#">&nbsp;<i class="icon-arrow-right"></i></a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="icon-bubbles"></i>
+            </div>
+            <div class="details">
+                <div class="number">Comercial</div>
+            </div>
+            <a class="more" href="#">&nbsp;<i class="icon-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="fa fa-dollar"></i>
+            </div>
+            <div class="details">
+                <div class="number">Economía</div>
+            </div>
+            <a class="more" href="#">&nbsp;<i class="icon-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+        <div class="dashboard-stat green-haze">
+            <div class="visual">
+                <i class="icon-users"></i>
+            </div>
+            <div class="details">
+                <div class="number">Recursos <br>Humanos</div>
+            </div>
+            <a class="more" href="#">&nbsp;<i class="icon-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+{% endblock %}
+{% block js %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        $("#ft6").DataTable({
+            "language": dataTable.language.es,
+            "aaSorting": [[1, "asc"]]
+        });
+    </script>
+{% endblock %}

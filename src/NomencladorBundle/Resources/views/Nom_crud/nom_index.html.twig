@@ -1,0 +1,116 @@
+{% extends 'NomencladorBundle:Default:nom_base.html.twig' %}
+
+{% block bread %}
+    {#<li><a href="{{ path('portada') }}">Inicio</a></li>#}
+{% endblock %}
+{% block titulo_cont %}
+{% endblock %}
+{% block listtitle %}
+    <h5> Listado de Aseguramiento </h5>
+{% endblock %}
+
+
+<a href="{{ path('aseguramiento_exportar') }}" id="btn_export"
+   class="btn btn-xs m-r-5 m-b-10 btn-default btn_exportar" {#data-toggle="tooltip"#} title="Exportar">
+    <span class="glyphicon glyphicon-print "></span> Exportar</a>
+{% block tabletab %}
+    {% if nomResults is not empty %}
+
+        <table aria-describedby="example1_info" id="entidades-table"
+               class="table table-bordered table-striped table-hover table-heading" {% block listar %} {% endblock %}>
+            <thead>
+            <tr role="row">
+                <th {% block check_gen %} class="check-all-rows name" {% endblock %}style="width: 10px;"><input
+                            type="checkbox"/></th>
+                {% block col_codigo %}
+                    <th style="width: 60px" aria-label="Código: activate to sort column descending"
+                        aria-sort="ascending"
+                            {% block style_with_col1 %}
+                                style="width: 60px;"
+                            {% endblock %} colspan="1" rowspan="1" aria-controls="DataTables_Table_0"
+                        tabindex="0" role="columnheader" class="sorting_asc">Código
+
+                    </th>
+                {% endblock %}
+                {% block col_nom %}
+                    <th aria-label="Nombre"
+                            {% block style_with_col2 %}
+                                style="width: 410px;"
+                            {% endblock %} colspan="1" rowspan="1"
+                        aria-controls="DataTables_Table_0" tabindex="0" role="columnheader" class="sorting">
+                        Nombre
+                    </th>
+
+                {% endblock %}
+                {% block more_col %}
+                    <!--  <th aria-label="Descripción"
+                {% block style_with_col3 %}
+                    style="width: 410px;"
+                {% endblock %} colspan="1" rowspan="1"
+            aria-controls="DataTables_Table_0" tabindex="0" role="columnheader" class="sorting">
+            Descripción
+        </th> -->
+                {% endblock %}
+                <th aria-label="Acciones"
+                        {% block style_with_col4 %}
+                            style="width: 40px;"
+                        {% endblock %} colspan="1" rowspan="1" aria-controls="DataTables_Table_0" tabindex="0"
+                    role="columnheader" class="sorting">
+                    Acciones
+                </th>
+            </tr>
+            </thead>
+            <tbody aria-relevant="all" aria-live="polite" role="alert">
+            {% for nom_var in nomResults %}
+
+                <tr
+                        {% block valcol_1 %}
+                            id="tipoaseguramiento-id-{{ nom_var.idtipoaseguramiento }}"
+                        {% endblock %}
+                        class="{{ cycle(['par', 'impar'], loop.index) }}">
+                    <td class="center actions">
+                        <input class="check_nom"
+                                {% block id_check %}
+                               id="{{ nom_var.idtipoaseguramiento }}"
+                               {% endblock %}type="checkbox">
+                    </td>
+                    {% block valcol_codigo %}
+                        <td class="center">{{ nom_var.codigo }}</td>
+                    {% endblock %}
+                    {% block valcol_nombre %}
+                        <td class="center">{{ nom_var.nombre }}</td>
+                    {% endblock %}
+                    {% block more_col_val %}
+
+                    {% endblock %}
+                    <td class="center actions">
+                        {% block link_acc %}
+                            <a href="{{ path('aseguramiento_edit', { 'id': nom_var.idtipoaseguramiento }) }}"> <i
+                                        class="fa fa-pencil-square-o text-green"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="btn_deltipoaseguramiento" href="#"
+                               data-ajax-url="{{ path('aseguramiento_eliminar') }}"
+                               data-id="{{ nom_var.idtipoaseguramiento }}">
+                                <i class="fa fa-trash-o text-red"></i></a>
+                        {% endblock %}
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info alert-dismissable">
+            <i class="fa fa-info"></i>
+            <b>Información!</b> No existen {% block exist_nula %}aseguramientos registrados{% endblock %}.
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            setCheckEvents();
+        </script>
+    {% endblock %}
+{% endblock %}

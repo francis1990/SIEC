@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomRuta</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idruta</th>
+                <td>{{ nomRutum.idruta }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomRutum.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomRutum.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Tipo de leche</th>
+                <td>{{ nomRutum.tipoleche }}</td>
+            </tr>
+            <tr>
+                <th>Caracterización</th>
+                <td>{{ nomRutum.caracterizacion }}</td>
+            </tr>
+            <tr>
+                <th>Descripción</th>
+                <td>{{ nomRutum.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a title="Back to the list" href="{{ path('ruta_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a title="Edit" href="{{ path('ruta_edit', { 'id': nomRutum.idruta }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

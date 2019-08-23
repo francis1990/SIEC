@@ -1,0 +1,38 @@
+sabor_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomSabor:index",remember:null }
+    methods:  GET
+sabor_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomSabor:listar" }
+    methods:  [GET, POST]
+
+sabor_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomSabor:new" }
+    methods:  [GET, POST]
+
+sabor_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomSabor:edit" }
+    methods:  [GET, POST]
+
+sabor_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomSabor:delete" }
+    methods:  DELETE
+
+sabor_eliminar:
+    path:      /sabor_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomSabor:saborEliminar" }
+    methods:  [GET, POST]
+
+sabor_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomSabor:SetActivo" }
+    methods:  [GET, POST]
+
+sabor_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomSabor:exportar" }
+    methods:  [GET, POST]

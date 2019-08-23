@@ -1,0 +1,207 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+ {% block menu_lateral %}{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+ {% block titulo_cont %}
+     <li><a href="{{ path('portada') }}">Inicio</a></li>
+     <li><a href="{{ path('parte_consaseg_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de consumo de materias
+             primas</a></li>
+     <li><a class="active">{{ action }}</a></li>
+ {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+    {% block contenido %}
+        <section class="content" id="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-primary ">
+                        <div class="box-header">
+                            <h3 class="box-title">{{ action }}</h3>
+                        </div>
+                        <div class="box-body ">
+                            {{ form_start(form,{'attr':{ 'id':'form-pconsaseg','class':'form-edit' } }) }}
+                            <div class="form-horizontal bootstrap-validator-form">
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a href="#tab_1" data-toggle="tab">Datos generales</a></li>
+                                        {#<li><a href="#tab_2" data-toggle="tab">Aseguramiento</a></li>#}
+                                        <li><a href="#tab_3" data-toggle="tab">Incidencias</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab_1">
+                                            <fieldset>
+                                                <div class="form-group col-xs-6">
+                                                    <label for="fecha"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.fecha) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.fecha) }}
+                                                        {{ form_errors(form.fecha) }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-xs-6">
+                                                    <label for="nivelact"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.tiponorma) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.tiponorma) }}
+                                                        {{ form_errors(form.tiponorma) }}
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix"></div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="ueb"
+                                                           class="control-label col-xs-4"> {{ form_label(form.ueb) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.ueb) }}
+                                                        {{ form_errors(form.ueb) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="nivelact"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.cantidadxnc) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.cantidadxnc) }}
+                                                        {{ form_errors(form.cantidadxnc) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="producto"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.producto) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.producto) }}
+                                                        {{ form_errors(form.producto) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="grasa"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.grasa) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.grasa) }}
+                                                        {{ form_errors(form.grasa) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="nivelact"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.nivelact) }}</label>
+                                                    <div class="col-xs-8"
+                                                         data-url="{{ path('parte_consaseg_nivelact') }}">
+                                                        {{ form_widget(form.nivelact) }}
+                                                        {{ form_errors(form.nivelact) }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-xs-6">
+                                                    <label for="grasa"
+                                                           class="col-xs-4 control-label"> {{ form_label(form.sng) }}</label>
+                                                    <div class="col-xs-8">
+                                                        {{ form_widget(form.sng) }}
+                                                        {{ form_errors(form.sng) }}
+                                                    </div>
+                                                </div>
+
+                                            </fieldset>
+
+                                            <fieldset>
+                                                <div class="col-sm-12 col-xs-12 cont-table-blanco">
+                                                    {% include 'ParteDiarioBundle:datparteconsaseg:consumoaseg.html.twig' %}
+                                                </div>
+                                            </fieldset>
+                                        </div>
+
+
+                                        <div class="tab-pane" id="tab_3">
+                                            {% include 'ParteDiarioBundle:Default:add_incidencias.html.twig' %}
+                                        </div><!-- /.tab-pane -->
+                                    </div><!-- /.tab-content -->
+                                </div>
+                                <fieldset>
+                                    <div class="form-group">
+                                        <div class="col-sm-6 col-xs-12  col-sm-offset-6">
+                                            {% if action == 'Adicionar' %}
+                                                {{ form_widget(form.guardar) }}
+                                            {% endif %}
+                                            {{ form_widget(form.aceptar) }}
+                                            <a title="Cancelar" id="btn_cerrar"
+                                               href="{{ path('parte_consaseg_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                               data-url="{{ path('parte_consaseg_index',{'fecha':fecha, 'ueb':ueb}) }}"
+                                               class="btn btn-default  btn-cancel {% if action != 'Adicionar' %} editcerrar {% endif %}">
+                                                <i class="glyphicon glyphicon-remove icon-white"></i>
+                                                Cancelar
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
+
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteconsaseg.js') }}"></script>
+    <script type="application/javascript">
+        $('#dat_parte_diario_cons_aseg_fecha,#dat_parte_diario_cons_aseg_ueb').on('change keyup', null, function () {
+            var ueb = $('#dat_parte_diario_cons_aseg_ueb');
+            var fecha = $('#dat_parte_diario_cons_aseg_fecha');
+            var tiponorma = $('#dat_parte_diario_cons_aseg_tiponorma');
+            var producto = $('#dat_parte_diario_cons_aseg_producto');
+            var $form = $(this).closest('form');
+            var data = {};
+            data[fecha.attr('name')] = fecha.val();
+            data[ueb.attr('name')] = ueb.val();
+            data[tiponorma.attr('name')] = tiponorma.val();
+            if (fecha.val() != '' && ueb.val() != '') {
+                lock_screen();
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    success: function (html) {
+                        unlock_screen();
+                        producto.replaceWith(
+                            $(html).find('#dat_parte_diario_cons_aseg_producto')
+                        );
+                        $('#dat_parte_diario_cons_aseg_producto_chosen').remove();
+                        var cargoAseg = false;
+                        $('#dat_parte_diario_cons_aseg_producto,#dat_parte_diario_cons_aseg_tiponorma').change(function () {
+                            if ($('#dat_parte_diario_cons_aseg_producto').val() !== "" && $('#dat_parte_diario_cons_aseg_ueb').val() !== "" && $('#dat_parte_diario_cons_aseg_fecha').val() !== "") {
+                                if ($('#dat_parte_diario_cons_aseg_tiponorma').val() !== "") {
+                                    window.cargarAseguramientos();
+                                }
+                                window.cargarNivelActv();
+                            } else if (!cargoAseg && $('#dat_parte_diario_cons_aseg_tiponorma').val() !== "") {
+                                cargoAseg = true;
+                                window.cargarAseguramientos();
+                            }
+
+                            if ($(this).val() == "") {
+                                $('table tbody tr').remove();
+                                $('#dat_parte_diario_cons_aseg_nivelact').val(0);
+                            }
+                        });
+
+
+                        $('#dat_parte_diario_cons_aseg_producto').chosen();
+                        {% if action != 'Adicionar' %}
+                        $('#dat_parte_diario_cons_aseg_producto').val({{ parteConsAseg.producto }});
+                        {% endif %}
+                    }
+                });
+            }
+        });
+    </script>
+{% endblock %}

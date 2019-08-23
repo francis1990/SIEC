@@ -1,0 +1,38 @@
+tipoentidad_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:index",remember:null }
+    methods:  GET
+tipoentidad_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:listar" }
+    methods:  [GET, POST]
+
+tipoentidad_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:new" }
+    methods:  [GET, POST]
+
+tipoentidad_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:edit" }
+    methods:  [GET, POST]
+
+tipoentidad_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:delete" }
+    methods:  DELETE
+
+tipoentidad_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:eliminar" }
+    methods:  [GET, POST]
+
+tipoentidad_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:SetActivo" }
+    methods:  [GET, POST]
+
+tipoentidad_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomTipoEntidad:exportar" }
+    methods:  [GET, POST]

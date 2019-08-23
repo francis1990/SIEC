@@ -1,0 +1,103 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('partecuentascobrar_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de cuenta por
+            cobrar</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+ {% block tabletab %}
+     <div class="row">
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Valor: </label>
+             <div class="col-sm-8">
+                 {{ parte.valor }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Monto vencido: </label>
+             <div class="col-sm-8">
+                 {{ parte.montovencido }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Cuenta contable: </label>
+             <div class="col-sm-8">
+                 {{ parte.idcuentacontable }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Factura: </label>
+             <div class="col-sm-8">
+                 {{ parte.factura }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Cliente: </label>
+             <div class="col-sm-8">
+                 {{ parte.cliente }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Días vencidos: </label>
+             <div class="col-sm-8">
+                 {{ parte.diasvencido }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Moneda/Destino: </label>
+             <div class="col-sm-8">
+                 {{ parte.moneda }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha reclamación: </label>
+             <div class="col-sm-8">
+                 {{ parte.fechaReclama | date('d/m/Y') }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha documento: </label>
+             <div class="col-sm-8">
+                 {% if parte.fechadocumento is not null %}
+                     {{ parte.fechadocumento | date('d/m/Y') }}
+                 {% endif %}
+             </div>
+         </div>
+
+     </div>
+
+     <button title="Regresar" id="regresar_detalle"
+             data-url="{{ path('partecuentascobrar_index',{'fecha':fecha, 'ueb':ueb}) }}"
+             class="btn btn-primary col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+

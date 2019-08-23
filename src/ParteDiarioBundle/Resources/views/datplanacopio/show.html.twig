@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>DatPlanAcopio</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Idplanacopio</th>
+                <td>{{ datPlanAcopio.idplanacopio }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ datPlanAcopio.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Enero</th>
+                <td>{{ datPlanAcopio.enero }}</td>
+            </tr>
+            <tr>
+                <th>Febrero</th>
+                <td>{{ datPlanAcopio.febrero }}</td>
+            </tr>
+            <tr>
+                <th>Marzo</th>
+                <td>{{ datPlanAcopio.marzo }}</td>
+            </tr>
+            <tr>
+                <th>Abril</th>
+                <td>{{ datPlanAcopio.abril }}</td>
+            </tr>
+            <tr>
+                <th>Mayo</th>
+                <td>{{ datPlanAcopio.mayo }}</td>
+            </tr>
+            <tr>
+                <th>Junio</th>
+                <td>{{ datPlanAcopio.junio }}</td>
+            </tr>
+            <tr>
+                <th>Julio</th>
+                <td>{{ datPlanAcopio.julio }}</td>
+            </tr>
+            <tr>
+                <th>Agosto</th>
+                <td>{{ datPlanAcopio.agosto }}</td>
+            </tr>
+            <tr>
+                <th>Septiembre</th>
+                <td>{{ datPlanAcopio.septiembre }}</td>
+            </tr>
+            <tr>
+                <th>Octubre</th>
+                <td>{{ datPlanAcopio.octubre }}</td>
+            </tr>
+            <tr>
+                <th>Noviembre</th>
+                <td>{{ datPlanAcopio.noviembre }}</td>
+            </tr>
+            <tr>
+                <th>Diciembre</th>
+                <td>{{ datPlanAcopio.diciembre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('planacopio_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('planacopio_edit', { 'id': datPlanAcopio.idplanacopio }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

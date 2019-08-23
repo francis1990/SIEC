@@ -1,0 +1,81 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+  {% block titulo_cont %}
+      <li><a href="{{ path('portada') }}">Inicio</a></li>
+      <li><a href="#">Parte Diario</a></li>
+      <li><a href="{{ path('parteeconomia_index') }}">Economía</a></li>
+      <li><a class="active">Editar</a></li>
+  {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block contenido %}
+    <section class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary ">
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        {{ form_start(edit_form,{'attr':{ 'id':'form-pecon','class':'form-edit'} }) }}
+                        <div class="form-horizontal  bootstrap-validator-form">
+                            <fieldset>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3  control-label"> {{ form_label(edit_form.ueb) }}</label>
+                                    <div class="col-sm-5 ">
+                                        {{ form_widget(edit_form.ueb) }}
+                                        {{ form_errors(edit_form.ueb) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3  control-label"> {{ form_label(edit_form.fecha) }}</label>
+                                    <div class="col-sm-5 ">
+                                        {{ form_widget(edit_form.fecha) }}
+                                        {{ form_errors(edit_form.fecha) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3  control-label"> {{ form_label(edit_form.idcuentacontable) }}</label>
+                                    <div class="col-sm-5 ">
+                                        {{ form_widget(edit_form.idcuentacontable) }}
+                                        {{ form_errors(edit_form.idcuentacontable) }}
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <label for="codigo"
+                                           class="col-sm-3  control-label"> {{ form_label(edit_form.saldo) }}</label>
+                                    <div class="col-sm-5 ">
+                                        {{ form_widget(edit_form.saldo) }}
+                                        {{ form_errors(edit_form.saldo) }}
+                                    </div>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-sm-4 col-xs-12  col-sm-offset-8">
+                                        <button class="btn btn-primary disabled " title="Aceptar" id="btn_econ_edit" data-accion="aceptar">
+                                            <i class="glyphicon glyphicon-ok icon-white"></i>
+                                            Aceptar
+                                        </button>
+                                        <a href="{{ path('parteeconomia_index') }}"  title="Cancelar"
+                                           class="btn btn-default  editcerrar" id="btn-cancel"  data-url="{{ path('parteeconomia_index')}}">
+                                            <i class="glyphicon glyphicon-remove icon-white"></i>
+                                            Cancelar
+                                        </a>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        {{ form_rest(edit_form) }}
+                        {{ form_end(edit_form) }}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_plan/fn_parteecon.js') }}"></script>
+{% endblock %}

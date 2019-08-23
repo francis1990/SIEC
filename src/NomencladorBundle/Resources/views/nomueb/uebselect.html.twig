@@ -1,0 +1,12 @@
+<select id="filtro-ueb" data-placeholder="UEB"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for ueb in uebs %}
+        <option value="{{ ueb.idueb  }}"
+                {% if app.session.get('ueb') is not empty  %}
+            {% if app.session.get('ueb').idueb == ueb.idueb %}
+                selected="selected"
+            {% endif %}
+                {% endif %}>
+            {{ ueb.nombre }}</option>
+    {% endfor %}
+</select>

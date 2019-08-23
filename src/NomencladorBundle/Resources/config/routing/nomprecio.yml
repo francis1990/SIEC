@@ -1,0 +1,46 @@
+precio_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomPrecio:index",remember:null }
+    methods:  GET
+
+precio_show:
+    path:     /{id}/show
+    defaults: { _controller: "NomencladorBundle:NomPrecio:show" }
+    methods:  GET
+
+precio_new:
+    path:     /new
+    defaults: { _controller: "NomencladorBundle:NomPrecio:new" }
+    methods:  [GET, POST]
+
+precio_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "NomencladorBundle:NomPrecio:edit" }
+    methods:  [GET, POST]
+
+precio_delete:
+    path:     /delete
+    defaults: { _controller: "NomencladorBundle:NomPrecio:delete" }
+    methods:  [ POST]
+
+precio_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomPrecio:listar" }
+    methods:  [GET, POST]
+
+precio_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomPrecio:exportar" }
+    methods:  [GET, POST]
+
+mostrar_grupos:
+    path:      /mostrar/
+    defaults: { _controller: "NomencladorBundle:NomPrecio:mostrarGrupos" }
+    methods:  [GET, POST]
+
+precio_desasociar:
+    path:      /desasociar
+    defaults: { _controller: "NomencladorBundle:NomPrecio:desociarProdGrupo" }
+    methods:  [GET, POST]
+
+

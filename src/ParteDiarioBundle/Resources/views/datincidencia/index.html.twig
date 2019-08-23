@@ -1,0 +1,184 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block asiderigth %}"right-side strech"{% endblock %}
+{% block bread %}
+{% endblock %}
+{% block hide_menu %}
+{% endblock %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    {# <li><a href="{{ path('parteproduccion_index') }}">Partes Diarios</a></li>#}
+    <li><a href="{{ path('incidencia_index') }}">Incidencias</a></li>
+{% endblock %}
+{% block menu_lateral %}
+{% endblock %}
+ {% block titleboxe %}
+ {% endblock %}
+{% block menu_bot %}
+{% endblock %}
+{% block tabletab %}
+    <table aria-describedby="example1_info" id="alerta-table"
+           class="table table-bordered table-striped table-condensed dataTable ">
+        <thead>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="alert">
+        </tbody>
+    </table>
+{% endblock %}
+{% block btn_estado %}
+    {% if is_granted('ROLE_ADICIONAR_INCIDENCIA') %}
+        <a href="{{ path('incidencia_new') }}" id="btn_adicionar" class="btn btn-xs m-r-5 m-b-10 btn-default text-green"
+           title="Adicionar"> <span class="glyphicon glyphicon-plus "></span> Adicionar</a>
+    {% endif %}
+    {% if datIncidencias is not empty %}
+        {% if is_granted('ROLE_ELIMINAR_INCIDENCIA') %}
+            <a href="#modal_eliminar" data-toggle="modal" id="eliminar" title="Eliminar"
+               class=" btn btn-xs m-r-5 m-b-10 btn-default text-red disabled "
+               data-ajax-url="{{ path('incidencia_eliminar') }}">
+                <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% block otherscript %}
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    window.start = 0;
+                    window.limit = 10;
+                    //rememberStatus: true,
+                    window.cargardatos = function (start, limit) {
+
+                        window.plugin = $('#alerta-table').ajaxTable({
+                            ajaxurl: "{{ path('incidencia_listar') }}",
+                            start: 0,
+                            {% if remember == "1" %}
+                            rememberStatus: true,
+                            {% endif %}
+                            onComplete: function () {
+                                function checkEv() {
+                                    var el = $('.check_nom:checked');
+                                    var check = $('.check-all-rows:checked');
+                                    if (el.length == 0) {
+                                        $('#eliminar').removeClass('disabled');
+                                    } else {
+                                        $('#eliminar').removeClass('disabled');
+                                    }
+                                }
+
+                                $('.check_nom').change(checkEv);
+                                $('tr').click(checkEv);
+                                setTimeout(function () {
+                                    $('.check-all-rows').find('input').change(checkEv);
+                                }, 3000);
+                                window.setCheckEvents();
+                            },
+                            limit: 10,
+                            columns: [0, 1, 2, 3, 4, 5, 6],
+                            columnsDef: [
+                                {
+                                    noFilter: true,
+                                    style: 'width: 30px',
+                                    field: 'idincidencia',
+                                    header: '<span class="check-all-rows name"></span>',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                    }
+                                },
+                                {
+                                    field: 'entidad',
+                                    header: 'UEB',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    field: 'fecha',
+                                    header: 'Fecha',
+                                    type: '',
+                                    noFilter: true,
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    field: 'clasificacion',
+                                    header: 'Clasificación',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+
+                                {
+                                    style: 'width: 80px',
+                                    field: 'tipo',
+                                    header: 'Tipo',
+                                    class: 'text',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    field: 'descripcion',
+                                    header: 'Descripción',
+                                    type: '',
+                                    callback: function () {
+                                    }
+                                },
+                                {
+                                    style: 'width: 80px; text-align: center',
+                                    field: 'parte',
+                                    noFilter: true,
+                                    header: 'Parte',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (value) {
+                                        if (value) {
+                                            return '<span class="fa fa-check text-green"></span>';
+                                        } else {
+                                            return '<span class="glyphicon glyphicon-remove text-red"></span>';
+                                        }
+                                    }
+                                }
+                                {% if is_granted('ROLE_MODIFICAR_INCIDENCIA') or is_granted('ROLE_ELIMINAR_INCIDENCIA') %}
+                                , {
+                                    noFilter: true,
+                                    style: 'text-align: center; width: 50px',
+                                    header: 'Acciones',
+                                    type: '',
+                                    callback: function () {
+                                    },
+                                    render: function (row) {
+                                        var accionModif = "", accionElimi = "";
+                                        {% if is_granted('ROLE_MODIFICAR_INCIDENCIA') %}
+                                        var ajaxurlmod = '{{ path('incidencia_edit', { 'id': 0 }) }}';
+                                        accionModif = '<a title="Editar"  href="' + ajaxurlmod.replace('/editar/0', '/editar' + '/' + row[0]) + '" class="btn_edit"  data-ajax-url="' + ajaxurlmod + '"' +
+                                            'data-id="' + row[0] + '"><span class="glyphicon glyphicon-pencil text-blue"></span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp';
+                                        {% endif %}
+
+                                        {% if is_granted('ROLE_ELIMINAR_INCIDENCIA') %}
+                                        var clase = row[6] ? "disabled" : "";
+
+                                        var ajaxuredel = '{{ path('incidencia_eliminar') }}';
+                                        accionElimi = '<a title="Eliminar" id="del-item-' + row[0] + '" class="link_del ' + clase + '" href="#modal_eliminar" onclick="window.cp_temp_stored_id=' + row[0] + ';" data-toggle="modal" data-ajax-url="' + ajaxuredel + '"' +
+                                            'data-id="' + row[0] + '">' +
+                                            '<span class="glyphicon glyphicon-trash text-red"></span></a>';
+                                        {% endif %}
+
+                                        return accionModif + accionElimi;
+                                    }
+                                }
+                                {% endif %}
+                            ]
+
+                        });
+                    }
+                    cargardatos();
+                });
+            })(jQuery);
+        </script>
+    {% endblock %}
+{% endblock %}

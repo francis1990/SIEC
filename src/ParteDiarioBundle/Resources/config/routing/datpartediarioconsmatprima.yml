@@ -1,0 +1,4 @@
+parte_consmatprima_index:
+    path:     /
+    defaults: { _controller: "ParteDiarioBundle:ParteDiarioConsMatPrima:index" }
+    methods:  GET

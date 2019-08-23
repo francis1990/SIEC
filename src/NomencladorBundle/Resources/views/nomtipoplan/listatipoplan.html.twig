@@ -1,0 +1,9 @@
+<select id="filtro-tipoplans" name="filtro-tipoplans" data-placeholder="Tipo plan" class="form-control chosen-select" style="width: 100px;">
+    <option value="0">Tipo plan</option>
+    {% for tipoplan in tipoplans %}
+
+    <option value="{{ tipoplan.idtipoplan  }}">
+        {{ tipoplan.nombre }}
+    </option>
+    {% endfor %}
+</select>

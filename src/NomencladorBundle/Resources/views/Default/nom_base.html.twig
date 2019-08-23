@@ -1,0 +1,77 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+    {% block menu_lateral %}
+        <aside class="left-side">
+            {{ include('NomencladorBundle:Default:menu_lateral.html.twig') }}
+        </aside>
+    {% endblock %}
+{% block hide_menu %}
+    <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+{% endblock %}
+{% block contenido %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inner">
+                <div class="box" style="min-height:450px ">
+                    <div class="box-body">
+                        <div class="row"> <div class="pull-right">{% block botones %}
+                            {% endblock %}
+                            </div>
+                            </div>
+
+                        <br>
+                        <div class="row"><div id="DataTables_Table_0_wrapper" class="col-xs-12 " role="grid">
+                            {% block tabletab %}
+                            {% endblock %}
+
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p id="esconder" class="hidden">mascara del exportar</p>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        window.redirect_url_producto = "{{ path('producto_index') }}";
+        window.redirect_url_unidadmedida = "{{ path('unidadmedida_index') }}";
+        window.redirect_url_aseguramiento = "{{ path('aseguramiento_index') }}";
+        window.redirect_url_ruta = "{{ path('ruta_index') }}";
+        window.redirect_url_entidad = "{{ path('entidad_index') }}";
+        window.redirect_url_transporte = "{{ path('tipotransporte_index') }}";
+        window.redirect_url_incidencia = "{{ path('tipoincidencia_index') }}";
+        window.redirect_url_clasificacionincidencia = "{{ path('clasificacionincidencia_index') }}";
+        window.redirect_url_portador = "{{ path('portador_index') }}";
+        window.redirect_url_conversion = "{{ path('conversion_index') }}";
+        window.redirect_url_tipoplan = "{{ path('tipoplan_index') }}";
+        window.redirect_url_cuentacontable = "{{ path('cuentacontable_index') }}";
+        window.redirect_url_detalle = "{{ path('detalle_index') }}";
+        window.redirect_url_grupointeres = "{{ path('grupointeres_index') }}";
+        window.redirect_url_ueb = "{{ path('ueb_index') }}";
+        window.redirect_url_almacen = "{{ path('almacen_index') }}";
+        window.redirect_url_conversion_listarum = "{{ path('conversion_listarum') }}";
+        window.redirect_url_ejercicio = "{{ path('ejercicio_index') }}";
+        window.redirect_url_moneda = "{{ path('monedadestino_index') }}";
+        window.redirect_url_dpa = "{{ path('dpa_index') }}";
+        window.redirect_url_plan = "{{ path('tipoplan_index') }}";
+        window.redirect_url_norma_new = "{{ path('norma_new') }}";
+
+    </script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_prod.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_producto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_tipoentidad.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_concepto.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_conversion.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_precio.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_exportar_nomencladores.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/tercero/js/js_crud/fn_nom_tiponorma.js') }}"></script>
+{% endblock %}

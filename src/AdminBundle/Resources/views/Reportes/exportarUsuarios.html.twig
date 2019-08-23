@@ -1,0 +1,30 @@
+{% extends 'AdminBundle:Default:baseExportar.html.twig' %}
+
+{% block colspan 5 %}
+
+{% block title %}LISTADO DE USUARIOS{% endblock %}
+
+{% block content %}
+    <table border="1" width="100%">
+    <thead>
+    <tr>
+        <th>Nombre</th>
+        <th>Usuario</th>
+        <th>Correo</th>
+        <th>Rol</th>
+        <th>Departamento</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for usuario in elementos %}
+        <tr>
+
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.correo }}</td>
+            <td>{{ usuario.rol }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

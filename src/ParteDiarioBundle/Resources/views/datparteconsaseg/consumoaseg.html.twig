@@ -1,0 +1,45 @@
+<table id="aseguramientos_mp"
+       class="table table-bordered table-striped table-condensed"
+       data-url="{{ path('parte_consaseg_mostraraseg') }}">
+    <thead>
+
+    <tr role="row">
+        <th>Aseguramiento</th>
+        <th>UM</th>
+        <th style="width: 100px;">Norma</th>
+        <th style="width: 80px;">Moneda</th>
+        <th style="width: 120px;">Real Bruto</th>
+        <th style="width: 120px;">Grasa</th>
+        <th style="width: 120px;">SNG</th>
+    </tr>
+    </thead>
+    <tbody id="consumoaseg-tbody" data-prototype="{{ form_widget(form.consumos.vars.prototype)|e }}"
+           data-index="{{ form.consumos|length }}">
+
+    {% for consumo in form.consumos %}
+        <tr>
+            {{ form_row(consumo.aseguramiento) }}
+            <td>{{ consumo.vars.data.aseguramiento.aseguramiento.nombre }}</td>
+            <td>{{ consumo.vars.data.aseguramiento.umaseg.abreviatura }}</td>
+            <td>{{ consumo.vars.data.aseguramiento.cantaseg }}</td>
+            <td>{{ consumo.vars.data.aseguramiento.moneda }}</td>
+            <td class="form-group">
+                {{ form_widget(consumo.realbruto) }}
+                {{ form_errors(consumo.realbruto) }}
+            </td>
+
+            <td class="form-group">
+                {{ form_widget(consumo.grasa) }}
+                {{ form_errors(consumo.grasa) }}
+            </td>
+
+            <td class="form-group">
+                {{ form_widget(consumo.sng) }}
+                {{ form_errors(consumo.sng) }}
+            </td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{{ form_widget(form.consumos) }}{# Para que no se muestre nuevamente el texto consumos #}

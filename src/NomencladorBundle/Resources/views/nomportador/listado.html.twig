@@ -1,0 +1,6 @@
+<select id="filtro-portador" data-placeholder="Portador"  class="form-control" >
+    <option value="">Seleccione</option>
+    {% for p in portador %}
+        <option value="{{ p.idportador  }}">{{ p.nombre }}</option>
+    {% endfor %}
+</select>

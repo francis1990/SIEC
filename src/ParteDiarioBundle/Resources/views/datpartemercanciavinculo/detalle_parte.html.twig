@@ -1,0 +1,107 @@
+{% extends 'ParteDiarioBundle:Default:partediario_base.html.twig' %}
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('partemercanciavinculo_index',{'fecha':fecha, 'ueb':ueb}) }}">Parte diario de mercancía por vínculo</a></li>
+    <li><a href="#">Detalle</a></li>
+{% endblock %}
+{% block listtitle %}
+    Detalle
+{% endblock %}
+{% block menu_bot %}
+{% endblock %}
+ {% block tabletab %}
+     <div class="row">
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4">Fecha: </label>
+             <div class="col-sm-8">
+                 {{ parte.fecha | date('d/m/Y') }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Entidad:</label>
+             <div class="col-sm-8">
+                 {{ parte.entidad }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> UEB:</label>
+             <div class="col-sm-8">
+                 {{ parte.ueb }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Factura:</label>
+             <div class="col-sm-8">
+                 {{ parte.factura }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Producto:</label>
+             <div class="col-sm-8">
+                 {{ parte.producto }}
+             </div>
+         </div>
+
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Precio CUP:</label>
+             <div class="col-sm-8">
+                 {{ parte.preciomn }}
+             </div>
+         </div>
+
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Unidad de medida:</label>
+             <div class="col-sm-8">
+                 {{ parte.um }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Precio CUC:</label>
+             <div class="col-sm-8">
+                 {{ parte.preciocuc }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Cantidad:</label>
+             <div class="col-sm-8">
+                 {{ parte.cantidad }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Importe CUP:</label>
+             <div class="col-sm-8">
+                 {{ parte.importemn }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Almacén:</label>
+             <div class="col-sm-8">
+                 {{ parte.almacen.codigo }} {{ parte.almacen }}
+             </div>
+         </div>
+
+         <div class="form-group col-sm-6 ">
+             <label for="codigo" class="control-label col-sm-4"> Importe CUC:</label>
+             <div class="col-sm-8">
+                 {{ parte.importecuc }}
+             </div>
+         </div>
+     </div>
+
+     <button title="Regresar" id="regresar_detalle" data-url="{{ path('partemercanciavinculo_index',{'fecha':fecha, 'ueb':ueb}) }}"
+             class="btn btn-primary col-xs-offset-10"><i
+                 class="glyphicon glyphicon-arrow-left icon-white"></i> Regresar
+     </button>
+ {% endblock %}
+
+

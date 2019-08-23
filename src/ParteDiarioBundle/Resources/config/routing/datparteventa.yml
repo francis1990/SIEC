@@ -1,0 +1,48 @@
+parteventa_index:
+    path:     /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+parteventa_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:new" }
+    methods:  [GET, POST]
+
+parteventa_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:guardar",fecha:0,ueb:0}
+
+parteventa_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:edit",fecha:0,ueb:0 }
+    methods:  [GET, POST]
+
+parteventa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:delete" }
+    methods:  DELETE
+
+parteventa_eliminar:
+    path:     /eliminar
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:eliminar" }
+    methods:  [GET, POST]
+
+parteventa_cancelar:
+    path:     /cancelar
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:cancelar" }
+    methods:  [GET, POST]
+
+parteventa_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:listar" }
+    methods:  [GET, POST]
+
+detalleParte:
+    path:      /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:detalleParte" ,fecha:0,ueb:0}
+    methods:  [GET, POST]
+
+parteventa_precio:
+    path:      /precio/
+    defaults: { _controller: "ParteDiarioBundle:DatParteVenta:findPreciosProducto" }
+    methods:  [GET, POST]

@@ -1,0 +1,129 @@
+{% extends '::frontend.html.twig' %}
+{% block contExcepciones %}
+{% endblock %}
+ {% block menu_lateral %}
+     <aside class="left-side">
+         {{ include('ParteDiarioBundle:Default:menu_lateral.html.twig') }}
+     </aside>
+ {% endblock %}
+{% block hide_menu %}
+    <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </a>
+{% endblock %}
+{% block contenido %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box-inner">
+                <div class="box" style="min-height:450px ">
+                    {% block titleboxe %}
+                        <div class="box-header">
+                            <div class="box-title">
+                                <h3 class="box-title">
+                                    {% block listtitle %}
+                                    {% endblock %}
+                                </h3>
+                            </div>
+                        </div>
+                    {% endblock %}
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="pull-right">
+
+                                {% block btn_estado %}
+
+                                {% endblock %}
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="row">
+                            <div id="DataTables_Table_0_wrapper" class=" dataTables_wrapper" role="grid">
+                                {% block tabletab %}
+                                {% endblock %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="overlay hidden"></div>
+                    <div class="loading-img hidden"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block menu_bot %}
+
+    <form id="form-filtro" {% block actionFiltro %}{% endblock %}>
+        <input id="filtro-dia" name="filtro-dia" style="width: 100px; margin-right: 5px; float: left "
+               class="js-datepicker form-control read" placeholder="Fecha"
+               type="text">
+        {% block filtro_ueb %}
+            {{ render(controller('NomencladorBundle:NomUeb:listado')) }}
+        {% endblock %}
+    </form>
+
+
+{% endblock %}
+ {% block css %}
+     {{ parent() }}
+     <link href="{{ asset('bundles/tercero/css/partediario.css') }}" rel="stylesheet" type="text/css"/>
+ {% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('bundles/tercero/js/js_plan/fn_parte.js') }}"></script>
+    <script type="text/javascript">
+
+        jQuery(document).ready(function () {
+
+            jQuery('table').addClass('table-hover');
+            jQuery('table').addClass('table-condensed');
+            jQuery(".chosen-select").chosen();
+            {% block fecha %}
+            $.fn.datepicker.defaults.format = "dd/mm/yyyy";
+
+            $('.js-datepicker').datepicker({
+                endDate: '{{ 'tomorrow' |date('d/m/Y') }}',
+                onSelect: function (date) {
+                    alert(date)
+                },
+                todayHighlight: true,
+                pickTime: false,
+                autoclose: true,
+                language: 'es'
+            });
+            {% endblock %}
+            $('#filtro-dia').change(function () {
+                var fecha = $(this).val();
+                var url = $('#tipo_parte').attr('data-fecha');
+                if (fecha != "") {
+                    cargardatos()
+
+                }
+            });
+
+            $('#filtro-parte').change(function () {
+                lock_screen();
+                var url = $(this)[0].options[$(this)[0].selectedIndex].getAttribute('data-url');
+                window.location = url;
+            });
+            $('#filtro-ueb').change(function () {
+                var ueb = $(this).val();
+                var url = $('#tipo_parte').attr('data-entidad');
+                if (ueb != "") {
+                    cargardatos();
+
+                }
+            })
+
+        });
+    </script>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,43 @@
+parteacopio_index:
+    path:      /list/{fecha}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:index",fecha:0,ueb:0,remember:null }
+    methods:  GET
+
+parteacopio_edit:
+    path:     /editar/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:edit" ,fecha:0,ueb:0}
+    methods:  [GET, POST]
+
+parteacopio_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:delete" }
+    methods:  DELETE
+
+parteacopio_eliminar:
+    path:     /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:eliminar" }
+    methods:  [GET, POST]
+
+parteacopio_listar:
+    path:      /listar/
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:listar" }
+    methods:  [GET, POST]
+
+parteacopio_new:
+    path:     /nuevo
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:new" }
+    methods:  [GET, POST]
+
+parteacopio_guardar:
+    path:     /nuevo/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:guardar",fecha:0,ueb:0}
+
+parteacopio_sumin:
+    path:     /suministrador/
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:findSuminByRuta" }
+    methods:   POST
+
+parteacopio_detalle:
+    path:     /detalle/{id}/{fecha}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatParteAcopio:detalleParte",fecha:0,ueb:0 }
+    methods:  [GET, POST]

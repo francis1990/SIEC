@@ -1,0 +1,46 @@
+dpa_index:
+    path:     /list/{remember}
+    defaults: { _controller: "NomencladorBundle:NomDpa:index",remember:null }
+    methods:  GET
+dpa_listar:
+    path:      /listar/
+    defaults: { _controller: "NomencladorBundle:NomDpa:listar" }
+    methods:  [GET, POST]
+dpa_show:
+    path:     /{id}/show/
+    defaults: { _controller: "NomencladorBundle:NomDpa:show" }
+    methods:  GET
+
+dpa_new:
+    path:     /new/
+    defaults: { _controller: "NomencladorBundle:NomDpa:new" }
+    methods:  [GET, POST]
+
+dpa_edit:
+    path:     /{id}/edit/
+    defaults: { _controller: "NomencladorBundle:NomDpa:edit" }
+    methods:  [GET, POST]
+dpa_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "NomencladorBundle:NomDpa:delete" }
+    methods:  DELETE
+
+dpa_eliminar:
+    path:      /dpa_eliminar/
+    defaults: { _controller: "NomencladorBundle:NomDpa:eliminar" }
+    methods:  [GET, POST]
+
+dpa_deleteAll:
+    path:      /dpa_deleteAll/
+    defaults: { _controller: "NomencladorBundle:NomDpa:deleteSelect" }
+    methods:  [GET, POST]
+
+dpa_activar:
+    path:      /activar/
+    defaults: { _controller: "NomencladorBundle:NomDpa:SetActivo" }
+    methods:  [GET, POST]
+
+dpa_exportar:
+    path:      /exportar/
+    defaults: { _controller: "NomencladorBundle:NomDpa:exportar" }
+    methods:  [GET, POST]

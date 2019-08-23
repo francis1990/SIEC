@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>NomClasificacionIncidencia</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ nomClasificacionIncidencium.id }}</td>
+            </tr>
+            <tr>
+                <th>Código</th>
+                <td>{{ nomClasificacionIncidencium.codigo }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ nomClasificacionIncidencium.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Descripcion</th>
+                <td>{{ nomClasificacionIncidencium.descripcion }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('clasificacionincidencia_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('clasificacionincidencia_edit', { 'id': nomClasificacionIncidencium.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

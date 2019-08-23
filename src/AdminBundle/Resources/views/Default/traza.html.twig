@@ -1,0 +1,203 @@
+{% extends 'AdminBundle:Default:admin.html.twig' %}
+
+{% block titulo_cont %}
+    <li><a href="{{ path('portada') }}">Inicio</a></li>
+    <li><a href="{{ path('config_general') }}">Administración</a></li>
+    <li><a class="bc active">Historial</a></li>
+{% endblock %}
+
+{% block tabletab %}
+
+    {% if trazas|length > 0 %}
+        {% if is_granted('ROLE_ELIMINAR_HISTORIAL') %}
+            <a data-url="{{ path('admin_traza_eliminar') }}" id="eliminarTraSel" title="Eliminar"
+               class="btn btn-xs m-r-5 m-b-10 btn-default text-red disabled pull-right">
+                <span class="glyphicon glyphicon-trash "></span> Eliminar</a>
+        {% endif %}
+
+        {% if is_granted('ROLE_ELIMINAR_HISTORIAL') %}
+            <a title="Eliminar" data-url={{ path('admin_traza_limpiar') }} data-toggle="modal" id="eliminarTraza"
+               class=" btn btn-xs m-r-5 m-b-10 btn-default text-red pull-right">
+                <span class="glyphicon glyphicon-trash "></span> Eliminar Todo</a>
+        {% endif %}
+    {% endif %}
+    <br>
+    <br>
+    <table aria-describedby="example1_info" id="table-trazas"
+           class="table table-bordered table-striped table-condensed dataTable ">
+        <thead>
+        </thead>
+        <tbody aria-relevant="all" aria-live="polite" role="trazas">
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block menu_bot %}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+
+        (function ($) {
+            $(document).ready(function () {
+                cargardatos = function () {
+                    $('#table-trazas').ajaxTable({
+                        ajaxurl: "{{ path('admin_traza') }}",
+                        start: 0,
+                        onComplete: function () {
+                            function checkEv() {
+                                var el = $('.check_nom:checked');
+                                if (el.length == 0) {
+                                    $('#eliminarTraSel').addClass('disabled');
+                                } else {
+                                    $('#eliminarTraSel').removeClass('disabled');
+                                }
+                            }
+
+                            $('.check_nom').change(checkEv);
+                            $('tr').click(checkEv);
+
+                            setTimeout(function () {
+                                $('.check-all-rows').find('input').change(checkEv);
+                            }, 3000);
+
+
+                            window.setCheckEvents();
+                        },
+                        limit: 10,
+                        columns: [0, 1, 2, 3, 4],
+                        columnsDef: [
+                            {
+                                noFilter: true,
+                                style: 'width: 20px',
+                                field: 'idtraza',
+                                header: '<span class="check-all-rows name"></span>',
+                                type: '',
+                                callback: function () {
+                                },
+                                render: function (value) {
+                                    return '<input type="checkbox" id="' + value + '" class="check_nom"/>';
+                                }
+                            },
+                            {
+                                style: 'width: 350px',
+                                field: 'descripcion',
+                                header: 'Descripción',
+                                type: '',
+                                callback: function () {
+                                }
+                            },
+                            {
+                                style: 'width: 50px; text-align: center',
+                                field: 'usuario',
+                                header: 'Usuario',
+                                type: '',
+                                callback: function () {
+                                }
+                            },
+                            {
+                                style: 'width: 80px; text-align: center',
+                                field: 'ueb',
+                                header: 'UEB',
+                                type: '',
+                                callback: function () {
+                                }
+                            }, {
+                                noFilter: true,
+                                style: 'width: 60px;',
+                                field: 'fechahora',
+                                header: 'Fecha y Hora',
+                                type: '',
+                                callback: function () {
+                                }
+                            }
+                        ]
+                    });
+                };
+                cargardatos();
+                $('#eliminarTraza').click(function () {
+                    bootbox.confirm({
+                        message: "¿Está seguro que desea eliminar todas las trazas?",
+                        buttons: {
+                            confirm: {
+                                label: 'Aceptar',
+                                className: 'btn btn-primary'
+                            },
+                            cancel: {
+                                label: 'Cancelar',
+                                className: 'btn btn-defaul'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                lock_screen();
+                                window.location = $('#eliminarTraza').data('url');
+                            }
+                        }
+                    });
+                });
+
+                $('#eliminarTraSel').click(function () {
+                    var cant = 0;
+                    var ids = [];
+                    var seleccionadas = [];
+                    var filas = $('.check_nom:checked');
+                    filas.each(function (i) {
+                        if (filas[i].checked && filas[i].id !== "") {
+                            ids[cant] = filas[i].id;
+                            seleccionadas[cant] = filas[i];
+                            cant++;
+                        }
+                    });
+                    var mensaje = "";
+                    if (ids.length > 1) {
+                        mensaje = " eliminar los elementos seleccionados?";
+                    } else {
+                        mensaje = " eliminar el elemento seleccionado?";
+                    }
+
+                    bootbox.confirm({
+                        message: "¿Está seguro que desea " + mensaje,
+                        buttons: {
+                            confirm: {
+                                label: 'Aceptar',
+                                className: 'btn btn-primary'
+                            },
+                            cancel: {
+                                label: 'Cancelar',
+                                className: 'btn btn-defaul'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                lock_screen();
+                                $.ajax({
+                                    type: "POST",
+                                    url: $('#eliminarTraSel').attr('data-url'),
+                                    data: {'id': ids},
+                                    success: function (response) {
+                                        unlock_screen();
+                                        cargardatos();
+                                        if(response.respuesta == "exito") {
+                                            mostrarMSG(response.mensaje, 'success');
+                                        }
+                                        $('#eliminarTraSel').addClass('disabled');
+
+                                    }, error: function () {
+                                        unlock_screen();
+                                        cargardatos();
+                                        $('#eliminarTraSel').addClass('disabled');
+                                    }
+                                });
+
+                            }
+                        }
+                    });
+                });
+            });
+
+        })(jQuery);
+    </script>
+{% endblock %}

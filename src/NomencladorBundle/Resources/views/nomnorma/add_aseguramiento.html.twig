@@ -1,0 +1,59 @@
+<fieldset>
+    <div class="">
+        <div class="{%- if not form.aseguramientos.vars.valid %} has-error{% endif %}">
+            <div class="pull-right">
+                <button type="button" class="btn btn-default text-green btn-xs add-form-embedded"
+                        data-container="#aseguramiento-tbody">
+                    <i class="fa fa-plus"></i>
+                    Adicionar
+                </button>
+            </div>
+        </div>
+        <div class="cont-table-blanco col-xs-12">
+            {{ form_errors(form.aseguramientos) }}
+
+            <table class="table table-striped table-hover table-condensed col-xs-12" id="asegnorma"
+                   data-url="{{ path('norma_aseg_bytiponc') }}">
+                <thead>
+                <tr>
+                    <th width="250" colspan="2"><p align="center">Aseguramiento</p></th>
+                    <th width="100" colspan="2"><p align="center">UM</p></th>
+                    <th width="100" colspan="2"><p align="center">Moneda</p></th>
+                    <th width="165" colspan="3"><p align="center">Cantidad</p></th>
+                    <th width="165" colspan="3"><p align="center">Grasa</p></th>
+                    <th width="165" colspan="3"><p align="center">SNG</p></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <th width="125"></th>
+                    <th width="125"></th>
+                    <th width="50"></th>
+                    <th width="50"></th>
+                    <th width="50"></th>
+                    <th width="50"></th>
+
+                    <th width="55"><p align="center">Norma Neta</p></th>
+                    <th width="55"><p align="center">% P&eacute;rdida</p></th>
+                    <th width="55"><p align="center">Norma Bruta</p></th>
+                    <th width="55"><p align="center">Norma Neta</p></th>
+                    <th width="55"><p align="center">% P&eacute;rdida</p></th>
+                    <th width="55"><p align="center">Norma Bruta</p></th>
+                    <th width="55"><p align="center">Norma Neta</p></th>
+                    <th width="55"><p align="center">% P&eacute;rdida</p></th>
+                    <th width="55"><p align="center">Norma Bruta</p></th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody id="aseguramiento-tbody"
+                       data-prototype="{{ form_widget(form.aseguramientos.vars.prototype)|e }}"
+                       data-index="{{ form.aseguramientos|length * 2 }}">
+                {% for aseguramiento in form.aseguramientos %}
+                    {{ form_widget(aseguramiento) }}
+                {% endfor %}
+                </tbody>
+            </table>
+
+            {{ form_widget(form.aseguramientos) }}{# Para que no se muestre nuevamente el texto components #}
+        </div>
+    </div>
+</fieldset>

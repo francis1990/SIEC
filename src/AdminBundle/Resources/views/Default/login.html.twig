@@ -1,0 +1,57 @@
+{% extends 'AdminBundle:Default:base.html.twig' %}
+
+{% block title %}Autenticarse{% endblock %}
+
+{% block body %}
+    <body class="bg-navy">
+    <style>
+        html {
+            background-color: #222;
+        }
+    </style>
+    <div class="form-box" id="login-box">
+        <div class="header bg-gray">
+            <img src="{{ asset('bundles/tercero/img-siep/logo_coppelia.png') }}" style="width: 130px" alt="ECLH"/>
+        </div>
+        <form action="{{ path('check_path') }}" role="form" method="post">
+            <div class="body bg-gray">
+                <div class="form-group" style="position: relative">
+                    <i class="fa fa-user fa-lg" style="position: absolute; top: 25%; left: 7px"></i>
+                    <input style="padding-left: 30px" type="text" id="username" name="_username" class="form-control"
+                           placeholder="Usuario"/>
+                </div>
+                <div class="form-group" style="position: relative">
+                    <i class="fa fa-key fa-lg" style="position: absolute; top: 25%; left: 7px"></i>
+                    <input style="padding-left: 30px" id="password" type="password" name="_password"
+                           class="form-control"
+                           placeholder="Contraseña"/>
+                </div>
+                <input type="hidden" name="_target_path" value="/account"/>
+                <div class="form-group">
+                    <input type="checkbox" name="remember_me"/> Recordar
+                </div>
+
+                {% if error %}
+                    {% if error.message is defined %}
+                        {% if (error.message == "Bad credentials.") %}
+                            {% set error = "Usuario y/o contraseña incorrecto(s)" %}
+                            <h5 class="text-danger error" style="margin-left: 10px"><b>{{ error }}</b></h5><br/>
+                        {% elseif (error.message == "User account is locked.") %}
+                            <h5 class="text-danger error" style="margin-left: 10px"><b>Usuario bloqueado. Contacte con
+                                    el administrador.</b></h5><br/>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+
+            </div>
+            <div class="footer">
+                <button title="Entrar" type="submit" class="btn btn-primary btn-block"><i class="fa fa-sign-in"></i>
+                    Entrar
+                </button>
+                {#  <p><a title="Olvidé mi contraseña" href="#">Olvidé mi contraseña</a></p>#}
+            </div>
+        </form>
+    </div>
+    </body>
+{% endblock %}
+

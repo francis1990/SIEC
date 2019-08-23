@@ -1,0 +1,43 @@
+planaseguramiento_index:
+    path:     /list/{ejercicio}/{tipoPlan}/{ueb}/{remember}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:index",ejercicio:0,tipoPlan:0,ueb:0,remember:null}
+    methods:  GET
+
+planaseguramiento_listarplan:
+    path:     /listarplan
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:listarPlanP" }
+    methods:  GET
+
+planaseguramiento_generar:
+    path:      /{data}/generar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:generar" }
+    methods:  [GET, POST]
+
+planaseguramiento_validar:
+    path:     /validar
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:validar" }
+    methods:  GET
+
+planaseguramiento_new:
+    path:     /new/{ejercicio}/{tipoPlan}/{ueb}/{padre}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:new",ejercicio:0,tipoPlan:0,ueb:0,padre:""}
+
+planaseguramiento_edit:
+    path:     /editar/{id}/{ejercicio}/{tipoPlan}/{ueb}
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:edit" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
+
+planaseguramiento_delete:
+    path:     /{id}/delete/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:delete" }
+    methods:  DELETE
+
+planaseguramiento_eliminar:
+    path:      /eliminar/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:eliminar" }
+    methods:  [GET, POST]
+
+detalle_planaseg:
+    path:      /detalle/{id}/{ejercicio}/{tipoPlan}/{ueb}/
+    defaults: { _controller: "ParteDiarioBundle:DatPlanAseguramiento:detallePlan" ,ejercicio:0,tipoPlan:0,ueb:0}
+    methods:  [GET, POST]
